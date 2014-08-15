@@ -1,0 +1,53 @@
+preload_zvuk Zvukovi/Nivo1/Dijalog1.wav
+preload_zvuk Zvukovi/blip.wav
+//muzika Zvukovi/Nivo1/Muzika1.ogg
+
+igrac 4096 4096
+
+//oruzje 3512 3376 2
+oruzje 4096 4096 0
+oruzje 2837 1618 0
+
+porukatrigger 4031 3839 4225 3970 Baza;Kod Q, primili smo obavijest o tvojem spustanju.;3 Zvukovi/blip.wav
+porukatrigger 4031 3739 4225 3870 Baza;Imas dopustenje da nastavis s misijom.;4 Zvukovi/blip.wav
+porukatrigger 4031 3639 4225 3770 Baza;Primarne mete su generatori koje neprijatelj koristi;3 Zvukovi/blip.wav
+porukatrigger 4031 3539 4225 3670 Baza;za napajanje anti-zracnih postrojenja.;3 Zvukovi/blip.wav
+porukatrigger 4031 3439 4225 3570 Baza;Nalaze se oko 2km od tvoje pozicije.;4 Zvukovi/blip.wav
+
+porukatrigger 1728 1317 1913 1481 Baza;Kod Q, izgleda da u podrucju ispred tebe nema struje. Nastavi s oprezom.;4 Zvukovi/blip.wav
+
+//PRVI MOB
+mobtrigger 3200 3328 3265 3463 2344 3343 lasermob1
+
+//GENERATORI
+mobtrigger 2302 2879 2429 2942 2124 2570 lasermob1
+mobtrigger 2302 2879 2429 2942 2594 2464 plazmamob1
+mobtrigger 2302 2879 2429 2942 2247 2277 lasermob1
+
+//GORE KOD ORUZJA
+mobtrigger 2943 1727 3079 1791 2809 1589 lasermob1
+
+krajtrigger 2060 4723 2255 4876
+
+//MRACNA SOBA
+mobtrigger 1384 1847 1623 1976 1394 2203 lasermob1
+mobtrigger 1384 1847 1623 1976 1550 2203 plazmamob1
+
+//CRVENI KLJUC
+mobtrigger 447 1535 576 1590 427 1219 lasermob1
+mobtrigger 447 1535 576 1590 527 1219 lasermob1
+
+//CRVENA VRATA
+mobtrigger 508 3201 648 3263 328 3606 plazmamob1
+mobtrigger 508 3201 648 3263 628 3606 plazmamob1
+
+porukatrigger 568 4479 714 4537 Baza;Kod Q, generatori su na razini ispod tvoje. Lociraj dizalo blizu tvoje pozicije i iskoristi ga.;5 Zvukovi/blip.wav
+
+mobtrigger 1404 4723 1604 4900 1817 4651 plazmamob1
+mobtrigger 1404 4723 1604 4900 1817 4751 lasermob1
+mobtrigger 1404 4723 1604 4900 1817 4851 plazmamob1
+
+kljuc 495 1199 0
+
+
+

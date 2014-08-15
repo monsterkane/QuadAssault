@@ -1,0 +1,38 @@
+uniform vec2 pozSvjetla;
+uniform vec3 bojaSvjetla;
+uniform float visinaZaslona;
+uniform float radius;
+uniform float intenzitet;
+uniform float kut;
+uniform vec2 smjer;
+uniform sampler2D nMapa;
+
+void main()
+{		
+	vec2 pixel=gl_FragCoord.xy;		
+	pixel.y=visinaZaslona-pixel.y;	
+	vec2 aux=pozSvjetla-pixel;
+	float d=length(aux);
+	vec4 color=vec4(0.0, 0.0, 0.0, 1.0);
+	
+	vec3 normala=texture2D(nMapa, gl_TexCoord[0].st).rgb;
+	normala=normala*2.0-1.0;
+	normala=normalize(normala);
+	
+	vec3 dd=vec3(aux.x, aux.y, 0.0);
+	
+	if(d<=radius)
+	{			
+                float opad=1.0/d*intenzitet*10.0;
+		float sjene=max(dot(normalize(dd), normala), 0.0);				
+		float granicaOpada = clamp((1.0f - d / radius), 0.0, 1.0);
+		vec3 uvjet=vec3(1.0, 1.0, 1.0);
+		if(texture2D(nMapa, gl_TexCoord[0].st).rgb==uvjet)
+			sjene=0.05;
+		if(dot(normalize(aux), smjer)<kut*d/radius)
+                        sjene=0.0;
+		color=vec4(opad*sjene,opad*sjene,opad*sjene,1.0)*vec4(bojaSvjetla*granicaOpada,1.0);		
+	}		
+	
+	gl_FragColor = color;
+}
