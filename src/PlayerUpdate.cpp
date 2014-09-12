@@ -90,7 +90,7 @@ void Igrac::Update(float deltaT, Vec2 mis)
             z->play();
 
 			gameOverPoruka=new Poruka();
-			gameOverPoruka->Init("Baza", "Svim jedinicama, izgubili smo kod Q.", 4, "../data/Zvukovi/blip.wav", stanje);
+			gameOverPoruka->Init("Base", "All units lost, mission Failed.", 4, "../data/Zvukovi/blip.wav", stanje);
 			stanje->DodajPoruku(gameOverPoruka);	
 
 			farovi->Postavke(Vec3(0,0,0), 0);

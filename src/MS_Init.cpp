@@ -41,10 +41,10 @@ bool MenuStanje::Init(Game* igra)
     poz.x=window_size.x/2 - 224;
     poz.y=window_size.y/2 + window_size.y/8;
 	startGumb.Init(Vec2(poz.x, poz.y), Vec2(128, 64), "Start", fontovi[0], true, this);
-	oigriGumb.Init(Vec2(poz.x+128+32, poz.y), Vec2(128, 64), "O igri", fontovi[0], true, this);
-	izlazGumb.Init(Vec2(poz.x+256+64, poz.y), Vec2(128, 64), "Izlaz", fontovi[0], true, this);
+	oigriGumb.Init(Vec2(poz.x+128+32, poz.y), Vec2(128, 64), "About", fontovi[0], true, this);
+	izlazGumb.Init(Vec2(poz.x+256+64, poz.y), Vec2(128, 64), "Exit", fontovi[0], true, this);
 
-    natragGumb.Init(Vec2(32, window_size.y-96), Vec2(128, 64), "Natrag", fontovi[0], true, this);
+    natragGumb.Init(Vec2(32, window_size.y-96), Vec2(128, 64), "Back", fontovi[0], true, this);
 
 	mapa_offs=Vec2(0,0);
 
@@ -64,24 +64,24 @@ bool MenuStanje::Init(Game* igra)
 		string text="";
 		text+="QuadAssault v1.0\n";
 		text+="----------------\n";
-		text+="Upravljate tenkom koji na sebi moze nositi razno naoruzanje.\n";		
-		text+="Kretanje : W ili strelica gore, S ili strelica dolje\n";		
-		text+="Okretanje : A ili strelica lijevo, D ili strelica desno\n";		
-		text+="Pucanje: Lijeva tipka misa\n";		
+		text+="You control a tank which in itself can handle various weapons.\n";		
+		text+="Movement: W or up arrow, down arrow or S\n";		
+		text+="Revolution: A or left arrow, right arrow or D\n";		
+		text+="Shooting: Left mouse button\n";		
 		text+="---------------------\n";
-		text+="Izradio : Marko Stanic, 4.A-2\n";
-		text+="Mentor : Dario Jembrek, prof.\n";
-		text+="Obrtnicka Skola Koprivnica\n";
+		text+="Made by Marko Stanic, 4.A-2\n";
+		text+="Supervisor: Dario Jembrek, prof.\n";
+		text+="Trade schools Koprivnica\n";
 		text+="---------------------\n";
-		text+="Kontakt :\n";
+		text+="Contact :\n";
 		text+="Mail/MSN : mstani19@gmail.com\n";
 		text+="Blog : staniks.blogspot.com\n";
 		text+="Youtube : www.youtube.com/geomancer120\n";
 		text+="\n";
-		text+="Igra je pisana u C++ jeziku, koristenjem Microsoft Visual Studio IDE-a.\n";
-		text+="Igra koristi biblioteke funkcija i klasa OpenGL i SFML, a za shadere je\n";
-		text+="koristen scripting jezik GLSL. Nije koristen vanjski engine, nego je napisan\n";
-		text+="vlastiti, poseban za igru.\n";
+		text+="The game is written in C++, using Microsoft Visual Studio IDE-a.\n";
+		text+="The game uses a library of functions and classes OpenGL and SFML, and shaders is\n";
+		text+="koristen scripting language GLSL. Not used outside engine, but it was written\n";
+		text+="own, special to the game.\n";
         oigriText.setString(text);
         oigriText.setPosition(32, 32);
 	igra->GetRW()->popGLStates();
@@ -124,7 +124,7 @@ bool MenuStanje::Init(Game* igra)
 	in.close();
 	for(int i=0; i<nivoi.size(); i++)
 	{		
-        string text="Misija ";
+        string text="Mission ";
         std::stringstream parser;
         parser << i+1;
         text += parser.str();
