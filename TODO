@@ -1,15 +1,14 @@
 TODO:
 
-17% completed (34/193)
+18% completed (35/193)
 Translation:
 
 
-        19% completed (20/103)
+	20% completed (21/103)
 	Source files waiting for translation: 
 
 	Grid.cpp
 	Grid.h
-	GS_UpdateDev.cpp
 	GUI_Functions.cpp
 	GUI_Functions.h
 	KeyPickup.cpp

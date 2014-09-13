@@ -89,7 +89,7 @@ void GameState::UpdateDev(float deltaT)
             if(event.key.code==sf::Keyboard::F6)
 			{
                 SaveBlocks();
-				cout << "MAPA SPREMLJENA." << endl;
+                cout << "MAP SAVED." << endl;
 			}
             if(event.key.code==sf::Keyboard::G)
 			{				
