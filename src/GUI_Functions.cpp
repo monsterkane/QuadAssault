@@ -22,15 +22,16 @@
 
 GameState* gameState;
 
-///POSTAVLJANJE SVJETLA - GUMB FUNKCIJA
 void SetupLightGUI()
 {
     gameState->SetupLight();
 }
+
 void SetupTriggerGUI()
 {
     gameState->SetupMobTrigger();
 }
+
 void GameState::SetupLight()
 {
     if(lightSet==false)
@@ -41,6 +42,7 @@ void GameState::SetupLight()
         light->Postavke(Vec3(1.0, 1.0, 1.0), 8);
 	}
 }
+
 void GameState::SetupMobTrigger()
 {
     if(mobTriggerSet==0)
@@ -50,7 +52,6 @@ void GameState::SetupMobTrigger()
 	}
 }
 
-///GENERIRANJE PRAzNOG LEVELA FUNKCIJA
 void GenerateEmptyLevelGUI()
 {
     gameState->GenerateEmptyLevel();
