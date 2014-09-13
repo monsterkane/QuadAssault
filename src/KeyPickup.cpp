@@ -76,21 +76,21 @@ void KeyPickup::Unisti()
 }
 void KeyPickup::Pokupi(Igrac* player)
 {
-	sf::Sound* z = stanje->GetSound(new sf::Sound(),
+    sf::Sound* s = stanje->GetSound(new sf::Sound(),
         stanje->GetSM()->DajZvuk("../data/Zvukovi/pickup.wav"));
-    z->play();
-	int vrata;
+    s->play();
+    int door;
     if(id==RED)
-		vrata=RED_DOOR;
+        door=RED_DOOR;
     if(id==BLUE)
-		vrata=BLUE_DOOR;
+        door=BLUE_DOOR;
     if(id==GREEN)
-		vrata=GREEN_DOOR;
+        door=GREEN_DOOR;
 
 	for(int x=0; x<MX; x++)
 	for(int y=0; y<MY; y++)
 	{
-		if(stanje->GetMap()[x][y]==vrata)
+        if(stanje->GetMap()[x][y]==door)
 		{
 			stanje->GetMap()[x][y]=FLOOR;
 			stanje->GetBlock(x,y)->Init(Vec2(x*BLOCK_SIZE, y*BLOCK_SIZE), FLOOR, stanje);
