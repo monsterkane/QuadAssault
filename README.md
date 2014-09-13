@@ -1,5 +1,5 @@
 ![Imgur](http://i.imgur.com/vDTZ6FK.png)
-### Translation status: 17% completed (33/193) - [help](https://github.com/monsterkane/QuadAssault/blob/master/TODO)###
+### Translation status: 17% completed (34/193) - [help](https://github.com/monsterkane/QuadAssault/blob/master/TODO)###
 
 ### About ###
 A 2D C++ OpenGL game featuring normal mapping, deferred rendering and lots of lights. 
