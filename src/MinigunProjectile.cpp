@@ -21,7 +21,7 @@
 #include "MinigunProjectile.h"
 #include "GameState.h"
 
-void MinigunProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** mapa, bool vlasnik)
+void MinigunProjektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik)
 {
 	Projektil::Init(poz,smjer,stanje,mapa,vlasnik);
 	brzina=1000;
@@ -31,10 +31,10 @@ void MinigunProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned
 	svjetlo->Init(poz,128,stanje);
 	svjetlo->Postavke(Vec3(1.0, 1.0, 0.1),12);
 
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/minigun1.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/minigun1.wav"));
     z->play();
 
-    texG=stanje->DajMT()->DajTexturu("../data/minigun1Glow.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/minigun1Glow.tga")->id;
 }
 void MinigunProjektil::Update(float deltaT)
 {
@@ -53,7 +53,7 @@ void MinigunProjektil::Unisti()
 {
 	unisten=true;
 	svjetlo->Unisti();
-	Explosion* e=stanje->DodajExploziju();
+	Explosion* e=stanje->GetExplosion();
 	e->Init(poz,64,stanje);
 	e->Setup(4,100,80);
 	e->SetColor(Vec3(1.0, 0.75, 0.5));	

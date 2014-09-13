@@ -20,43 +20,43 @@
 
 #include "GUI_Functions.h"
 
-GlavnoStanje* extStanje;
+GameState* extStanje;
 
 ///POSTAVLJANJE SVJETLA - GUMB FUNKCIJA
 void PosSvjetGUI()
 {
-	extStanje->PostaviSvjetlo();
+    extStanje->SetupLight();
 }
 void PosTrigGUI()
 {
-	extStanje->PostaviMobTrigger();
+    extStanje->SetupMobTrigger();
 }
-void GlavnoStanje::PostaviSvjetlo()
+void GameState::SetupLight()
 {
-	if(postavljaSvjetlo==false)
+    if(lightSet==false)
 	{
-		postavljaSvjetlo=true;
-		postavljenoSvjetlo=DodajSvjetlo(true);
-		postavljenoSvjetlo->Init(mis, 128, this);
-		postavljenoSvjetlo->Postavke(Vec3(1.0, 1.0, 1.0), 8);
+        lightSet=true;
+        light=GetLight(true);
+        light->Init(mousePos, 128, this);
+        light->Postavke(Vec3(1.0, 1.0, 1.0), 8);
 	}
 }
-void GlavnoStanje::PostaviMobTrigger()
+void GameState::SetupMobTrigger()
 {
-	if(postavljaMobTrigger==0)
+    if(mobTriggerSet==0)
 	{		
-		postavljaMobTrigger=1;		
-		triggeri.push_back(new Trigger());	
+        mobTriggerSet=1;
+        triggers.push_back(new Trigger());
 	}
 }
 
 ///GENERIRANJE PRAzNOG LEVELA FUNKCIJA
 void GenPrazniLevelGUI()
 {
-	extStanje->GenerirajPrazanLevel();
+    extStanje->GenerateEmptyLevel();
 }
 
 void SpremiLevelGUI()
 {
-	extStanje->SpremiBlokove();
+    extStanje->SaveBlocks();
 }

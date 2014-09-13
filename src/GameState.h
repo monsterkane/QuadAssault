@@ -39,118 +39,118 @@
 #include "Message.h"
 #include "MenuState.h"
 
-class GlavnoStanje : public Stanje
+class GameState : public Stanje
 {
 private:
 
 	bool DEVMODE;
 	
-	Svjetlo* postavljenoSvjetlo;
-	float sr,sg,sb, si, srad; //boja postavljenog svjetla
+    Svjetlo* light;
+    float light_red, light_green, light_blue, light_intensity, light_radius; // light color
 
-	int PostavljanjeBloka; //vrsta bloka koji se postavlja
-	bool postavljaSvjetlo;
+    BlockType blockType; // type of block which is set
+    bool lightSet;
 
-	unsigned char postavljaMobTrigger;	
-	Trigger* postavljeniTrigger;
-	Vec2 t1, t2, t3; //pocetak, kraj i spawnpoint triggera
+    unsigned char mobTriggerSet;
+    Trigger* trigger;
+    Vec2 trigger_begin, trigger_end, trigger_spawn;
 
-	unsigned char** mapa;
-	Block** blokovi;
+    unsigned char** map;
+    Block** blocks;
 
-	float gameOverTimer; //dok dosegne nulu, igra odlazi na glavni menu
-	bool nivoZavrsen;
+    float gameOverTimer; // when reaches zero, the game goes to the main menu
+    bool levelCompleted;
 
-	Igrac* igrac;
+    Igrac* player;
 
-	vector<Projektil*> projektili;
-	vector<Explosion*> explozije;	
-	vector<Svjetlo*> svjetla;
-	vector<Shader*> shaderi;
-	vector<Mob*> mobovi;	
+    vector<Projektil*> missiles;
+    vector<Explosion*> explosions;
+    vector<Svjetlo*> lights;
+    vector<Shader*> shaders;
+    vector<Mob*> mobs;
 
-	UI_Menager* uim;
+    UI_Menager* uiManager;
 
-	ManagerTextura* mt;
-	ManagerZvuka* mz;
+    ManagerTextura* textureManager;
+    ManagerZvuka* soundManager;
 
-	Objekt* kamera;
-	Vec2 mis;
+    Objekt* camera;
+    Vec2 mousePos;
 
-	GLuint fbo, fbo_rb;	
+    GLuint fbo;
 	
-	GLuint lightmapa;
-	GLuint normalmapa;
-	GLuint geometrija;
-	Vec3 ambijentnoSvjetlo;
+    GLuint lightmap;
+    GLuint normalmap;
+    GLuint geometry;
+    Vec3 ambientLight;
 	
-	sf::Music muzika;
+    sf::Music music;
 
-	vector<Cestica*> cestice;
-	vector<Trigger*> triggeri;
-	vector<Stvar*> stvari;
-	vector<sf::Sound*> zvukovi;
-	vector<sf::Font> fontovi;
-	vector<Poruka*> poruke;
+    vector<Cestica*> particles;
+    vector<Trigger*> triggers;
+    vector<Stvar*> things;
+    vector<sf::Sound*> sounds;
+    vector<sf::Font> fonts;
+    vector<Poruka*> messages;
 
-	unsigned char tranzicija; //prelazak na tamno (fade to black, ne znak kak se to zove na hrvatskom)
-	float tBoja; //boja tranzicije
-	float brzinaFadeanja;
+    unsigned char transition; // fade to black
+    float transition_color;
+    float transition_speed;
 
 public:
-	bool Init(Game* igra);
+    bool Init(Game* game);
 	void Input();
 	void Update(float deltaT);	
 	void UpdateDev(float deltaT);
 	void Render();
 	void Izlaz();	
 
-	bool PostaviFBO();
-	void IzbrisiFBO();
+    bool SetupFBO();
+    void DeleteFBO();
 
-	void UcitajMapu();
-	void InitBlokove();
-	void SpremiBlokove();
-	Mob* SpawnajMobPremaImenu(string ime);
+    void LoadMap();
+    void InitBlocks();
+    void SaveBlocks();
+    Mob* SpawnMobByName(string name);
 
-	void UpdateajNizove(float deltaT);
+    void UpdateSequences(float deltaT);
 
-	unsigned char** DajMapu();
-	Block* DajBlok(short x, short y);	
-	Igrac* DajIgraca();
-	vector<Mob*>* DajMobove();
-	vector<Projektil*>* DajProjektile();
-	vector<sf::Font>* DajFontove();
+    unsigned char** GetMap();
+    Block* GetBlock(short x, short y);
+    Igrac* GetPlayer();
+    vector<Mob*>* GetMobs();
+    vector<Projektil*>* GetProjectiles();
+    vector<sf::Font>* GetFonts();
 
-	Svjetlo* DodajSvjetlo(bool staticno);
-	Explosion* DodajExploziju();
-	Projektil* DodajProjektil(Projektil* p);
-	Cestica* DodajCesticu(Cestica* c);
-	sf::Sound* DodajZvuk(sf::Sound* z, Zvuk* zvuk);
-	Mob* DodajMoba(Mob* m);
-	Poruka* DodajPoruku(Poruka* p);
-	Stvar* DodajStvar(Stvar* s);	
+    Svjetlo* GetLight(bool stationary);
+    Explosion* GetExplosion();
+    Projektil* GetProjectile(Projektil* p);
+    Cestica* GetParticle(Cestica* c);
+    sf::Sound* GetSound(sf::Sound* s, Zvuk* sound);
+    Mob* GetMob(Mob* m);
+    Poruka* GetMessage(Poruka* m);
+    Stvar* GetThing(Stvar* t);
 	
-	void RenderObjekte(unsigned char stil);
+    void RenderObjects(unsigned char stationary);
 
-	void RenderGeometriju();
-	void RenderGeometrijuNormal();
-	void RenderGeometrijuGlow();
+    void RenderGeometry();
+    void RenderGeometryNormal();
+    void RenderGeometryGlow();
 
-	void RenderNormalNaFBO();
-	void RenderGeometrijuNaFBO();
-	void RenderSvjetlostNaFBO();	
-	void RenderScenu();	
+    void RenderNormalOnFBO();
+    void RenderGeometryOnFBO();
+    void RenderLightOnFBO();
+    void RenderScene();
 
-	void ZavrsiNivo();
-	void ObrisiMapu();
+    void CompleteLevel();
+    void DeleteMap();
 
-	ManagerTextura* DajMT();
-	ManagerZvuka* DajMZ();
+    ManagerTextura* GetTM();
+    ManagerZvuka* GetSM();
 
-	///GUI - FUNKCIJE
-	void PostaviSvjetlo();
-	void PostaviMobTrigger();
-	void GenerirajPrazanLevel();
+    /* GUI functions */
+    void SetupLight();
+    void SetupMobTrigger();
+    void GenerateEmptyLevel();
 };
 #endif

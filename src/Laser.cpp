@@ -22,12 +22,12 @@
 #include "GameState.h"
 #include "LaserProjectile.h"
 
-void Laser::Init(GlavnoStanje* stanje)
+void Laser::Init(GameState* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/oruzje1Glow.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/oruzje1.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/oruzje1Normal.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/oruzje1Glow.tga")->id;
 	brzinaPunjenja=600;
 	potrebnaEnergija=2;
 }

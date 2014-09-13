@@ -22,33 +22,33 @@
 #include "KeyPickup.h"
 #include "SharedVariables.h"
 
-void GlavnoStanje::UcitajMapu()
+void GameState::LoadMap()
 {
-	mapa=new unsigned char*[MX];
+	map=new unsigned char*[MX];
 	for(int i=0; i<MX; i++)
 	{
-		mapa[i]=new unsigned char[MY];
+		map[i]=new unsigned char[MY];
 	}
-	blokovi=new Block*[MX];
+	blocks=new Block*[MX];
 	for(int i=0; i<MX; i++)
 	{
-		blokovi[i]=new Block[MY];
+		blocks[i]=new Block[MY];
 	}
 
 	for(int i=0; i<MX; i++)
 	for(int j=0; j<MY; j++)
 	{		
-			mapa[i][j]=0;
+			map[i][j]=0;
 			if(i==0 || j==0 || i==MX-1 || j==MY-1)
-				mapa[i][j]=1;
+				map[i][j]=1;
 	}	
 
-	kamera=new Objekt();
-	kamera->PromijeniPoz(Vec2(0,0));	
+	camera=new Objekt();
+	camera->PromijeniPoz(Vec2(0,0));	
 
-	igrac=new Igrac();	
+	player=new Igrac();	
 
-	ambijentnoSvjetlo=Vec3(0.1f, 0.1f, 0.1f);
+	ambientLight=Vec3(0.1f, 0.1f, 0.1f);
 
 	Vec2 igracPoz=Vec2(0,0);
 
@@ -69,11 +69,11 @@ void GlavnoStanje::UcitajMapu()
 				getline(lstring,vrijednost,' ');
 				int tip=atoi(vrijednost.c_str());
 				if(x/BLOCK_SIZE<MX && y/BLOCK_SIZE<MY)
-					mapa[x/BLOCK_SIZE][y/BLOCK_SIZE]=tip;
+					map[x/BLOCK_SIZE][y/BLOCK_SIZE]=tip;
 			}
 			if(vrijednost=="svjetlo")
 			{
-				svjetla.push_back(new Svjetlo());
+				lights.push_back(new Svjetlo());
 				getline(lstring,vrijednost,' ');
 				float x=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
@@ -88,9 +88,9 @@ void GlavnoStanje::UcitajMapu()
 				float g=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
 				float b=atof(vrijednost.c_str());
-				svjetla.back()->Init(Vec2(x,y),radius,this);
-				svjetla.back()->Postavke(Vec3(r,g,b),intenzitet);
-				svjetla.back()->staticno=true;
+				lights.back()->Init(Vec2(x,y),radius,this);
+				lights.back()->Postavke(Vec3(r,g,b),intenzitet);
+				lights.back()->staticno=true;
 			}
 		}
 	}
@@ -120,8 +120,8 @@ void GlavnoStanje::UcitajMapu()
 				float y=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
 				int id=atoi(vrijednost.c_str());
-				stvari.push_back(new OruzjePickup());
-				OruzjePickup* o=(OruzjePickup*)stvari.back();
+				things.push_back(new OruzjePickup());
+				OruzjePickup* o=(OruzjePickup*)things.back();
 				o->Init(Vec2(x,y),this,id);
 			}
 			if(vrijednost=="kljuc")
@@ -132,22 +132,22 @@ void GlavnoStanje::UcitajMapu()
 				float y=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
 				int id=atoi(vrijednost.c_str());
-				stvari.push_back(new KljucPickup());
-				KljucPickup* k=(KljucPickup*)stvari.back();
+				things.push_back(new KljucPickup());
+				KljucPickup* k=(KljucPickup*)things.back();
 				k->Init(Vec2(x,y),this,id);
 			}
 			if(vrijednost=="preload_zvuk")
 			{
 				getline(lstring,vrijednost,' ');
-                mz->UcitajZvuk((char*)("../data/"+vrijednost).c_str());
+                soundManager->UcitajZvuk((char*)("../data/"+vrijednost).c_str());
 			}
 			if(vrijednost=="muzika")
 			{
 				getline(lstring,vrijednost,' ');				
-                muzika.openFromFile((char*)("../data/"+vrijednost).c_str());
-                muzika.setVolume(25);
-                muzika.setLoop(true);
-                muzika.play();
+                music.openFromFile((char*)("../data/"+vrijednost).c_str());
+                music.setVolume(25);
+                music.setLoop(true);
+                music.play();
 			}
 			if(vrijednost=="mob")
 			{
@@ -156,13 +156,13 @@ void GlavnoStanje::UcitajMapu()
 				getline(lstring,vrijednost,' ');
 				float y=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
-				Mob* m=SpawnajMobPremaImenu(vrijednost);
-				mobovi.push_back(m);
-				mobovi.back()->Init(Vec2(x,y),this,mapa);
+				Mob* m=SpawnMobByName(vrijednost);
+				mobs.push_back(m);
+				mobs.back()->Init(Vec2(x,y),this,map);
 			}
 			if(vrijednost=="mobtrigger")
 			{
-				triggeri.push_back(new Trigger());
+				triggers.push_back(new Trigger());
 				getline(lstring,vrijednost,' ');
 				float x=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
@@ -176,12 +176,12 @@ void GlavnoStanje::UcitajMapu()
 				getline(lstring,vrijednost,' ');
 				float my=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
-				Mob* m=SpawnajMobPremaImenu(vrijednost);								
-				triggeri.back()->InitMob(Vec2(x,y),Vec2(x2,y2),Vec2(mx,my),m,this);
+				Mob* m=SpawnMobByName(vrijednost);								
+				triggers.back()->InitMob(Vec2(x,y),Vec2(x2,y2),Vec2(mx,my),m,this);
 			}
 			if(vrijednost=="krajtrigger")
 			{
-				triggeri.push_back(new Trigger());
+				triggers.push_back(new Trigger());
 				getline(lstring,vrijednost,' ');
 				float x=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
@@ -190,7 +190,7 @@ void GlavnoStanje::UcitajMapu()
 				float x2=atof(vrijednost.c_str());
 				getline(lstring,vrijednost,' ');
 				float y2=atof(vrijednost.c_str());											
-				triggeri.back()->InitKraj(Vec2(x,y),Vec2(x2,y2),this);
+				triggers.back()->InitKraj(Vec2(x,y),Vec2(x2,y2),this);
 			}
 			if(vrijednost=="porukatrigger")
 			{				
@@ -210,27 +210,27 @@ void GlavnoStanje::UcitajMapu()
 				float trajanje=atof(vrijednost.c_str());	
 				getline(lstring,vrijednost,' ');
                 string zvuk_file="../data/"+vrijednost;
-				triggeri.push_back(new Trigger());
+				triggers.push_back(new Trigger());
 				Poruka* p=new Poruka();
 				p->Init(posiljatelj,text,trajanje,zvuk_file,this);
-				triggeri.back()->InitPoruka(Vec2(x,y), Vec2(x2,y2), p, this);
+				triggers.back()->InitPoruka(Vec2(x,y), Vec2(x2,y2), p, this);
 			}
 		}
 	}
 	file.close();
-	igrac->Init(igracPoz,this,mapa);
-	InitBlokove();
+	player->Init(igracPoz,this,map);
+	InitBlocks();
 }
-Mob* GlavnoStanje::SpawnajMobPremaImenu(string ime)
+Mob* GameState::SpawnMobByName(string name)
 {
-	if(ime=="lasermob1")				
+	if(name=="lasermob1")				
 		return new LaserMob1();	
-	if(ime=="plazmamob1")				
+	if(name=="plazmamob1")				
 		return new PlazmaMob1();	
-	if(ime=="minigunmob1")		
+	if(name=="minigunmob1")		
 		return new MinigunMob1();
 }
-void GlavnoStanje::InitBlokove()
+void GameState::InitBlocks()
 {
 	for(int i=0; i<MX; i++)
 	for(int j=0; j<MY; j++)
@@ -240,34 +240,34 @@ void GlavnoStanje::InitBlokove()
 		if(mapa[i][j]==1)
             blokovi[i][j].Init(Vec2(i*BLOCK_SIZE, j*BLOCK_SIZE),mapa[i][j],mt->DajTexturu("../data/Block.tga")->id, this);
 		if(mapa[i][j]==2)*/
-			blokovi[i][j].Init(Vec2(i*BLOCK_SIZE, j*BLOCK_SIZE),mapa[i][j], this);			
+			blocks[i][j].Init(Vec2(i*BLOCK_SIZE, j*BLOCK_SIZE),map[i][j], this);			
 	}	
 }
-void GlavnoStanje::ObrisiMapu()
+void GameState::DeleteMap()
 {
 	for(int i=0; i<MX; i++)
-		delete[] mapa[i];
-	delete[] mapa;
+		delete[] map[i];
+	delete[] map;
 	for(int i=0; i<MX; i++)
-		delete[] blokovi[i];
-	delete[] blokovi;
+		delete[] blocks[i];
+	delete[] blocks;
 }
-void GlavnoStanje::GenerirajPrazanLevel()
+void GameState::GenerateEmptyLevel()
 {
 	for(int i=0; i<MX; i++)
 	for(int j=0; j<MY; j++)
 	{		
-			mapa[i][j]=0;
+			map[i][j]=0;
 			if(i==0 || j==0 || i==MX-1 || j==MY-1)
-				mapa[i][j]=1;
+				map[i][j]=1;
 	}	
-	InitBlokove();
-	for(int i=0; i<svjetla.size(); i++)
+	InitBlocks();
+	for(int i=0; i<lights.size(); i++)
 	{
-		if(svjetla[i]->staticno==true)
+		if(lights[i]->staticno==true)
 		{
-			delete svjetla[i];
-			svjetla.erase(svjetla.begin()+i);
+			delete lights[i];
+			lights.erase(lights.begin()+i);
 		}
 	}
 }

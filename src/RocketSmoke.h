@@ -25,7 +25,7 @@
 class DimRakete : public Cestica
 {
 public:
-	virtual void Init(Vec2 poz, GlavnoStanje* stanje);
+	virtual void Init(Vec2 poz, GameState* stanje);
 	virtual void Update(float deltaT);
 	virtual void Render(unsigned char stil);
 };

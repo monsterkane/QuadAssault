@@ -30,7 +30,7 @@ Explosion::~Explosion()
     light = NULL;
     state = NULL;
 }
-void Explosion::Init(Vec2 pos, float radius, GlavnoStanje* state)
+void Explosion::Init(Vec2 pos, float radius, GameState* state)
 {
     this->poz=pos;
 	this->radius=radius;
@@ -45,7 +45,7 @@ void Explosion::Init(Vec2 pos, float radius, GlavnoStanje* state)
 
     color=Vec3(1.0, 0.75, 0.5);
 
-    light=state->DodajSvjetlo(false);
+    light=state->GetLight(false);
     light->Init(pos,radius,state);
     light->Postavke(color, 0);
     light->PostaviExplozija(true);

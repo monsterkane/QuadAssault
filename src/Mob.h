@@ -23,7 +23,7 @@
 #include "Object.h"
 #include "Block.h"
 
-class GlavnoStanje;
+class GameState;
 class Projektil;
 
 class Mob : public Objekt
@@ -31,7 +31,7 @@ class Mob : public Objekt
 protected:			
 	float akceleracija;	
 	float rotacija;	
-	GlavnoStanje* stanje;
+	GameState* stanje;
 	unsigned char** mapa;
 	float punjenje;
 
@@ -45,7 +45,7 @@ protected:
 
 public:
 	
-	virtual void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa);
+	virtual void Init(Vec2 poz, GameState* stanje, unsigned char** mapa);
 	virtual void SpawnEfekt();
 	virtual void Update(float deltaT);
 	virtual void Pucanje(Projektil* p, float deltaT);

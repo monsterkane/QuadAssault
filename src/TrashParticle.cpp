@@ -21,13 +21,13 @@
 #include "TrashParticle.h"
 #include "GameState.h"
 
-void SmeceCestica::Init(Vec2 poz, GlavnoStanje* stanje)
+void SmeceCestica::Init(Vec2 poz, GameState* stanje)
 {
 	Cestica::Init(poz,stanje);
 	maxZivot=45;
 	zivot=maxZivot;	
-    tex=stanje->DajMT()->DajTexturu("../data/Dim1Diffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/Dim1Normal.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/Dim1Diffuse.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/Dim1Normal.tga")->id;
 }
 void SmeceCestica::Update(float deltaT)
 {

@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "SharedVariables.h"
 
-void Trigger::InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GlavnoStanje* stanje)
+void Trigger::InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GameState* stanje)
 {
 	this->poz=v1;
 	this->dim=v2-v1;
@@ -32,7 +32,7 @@ void Trigger::InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GlavnoStanje* stanj
 	status=AKTIVIRAN;
 	tip=MOB;
 }
-void Trigger::InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GlavnoStanje* stanje)
+void Trigger::InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GameState* stanje)
 {
 	this->poz=v1;
 	this->dim=v2-v1;
@@ -41,7 +41,7 @@ void Trigger::InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GlavnoStanje* stanje)
 	tip=PORUKA;
 	this->poruka=poruka;	
 }
-void Trigger::InitKraj(Vec2 v1, Vec2 v2, GlavnoStanje* stanje)
+void Trigger::InitKraj(Vec2 v1, Vec2 v2, GameState* stanje)
 {
 	this->poz=v1;
 	this->dim=v2-v1;
@@ -57,24 +57,24 @@ void Trigger::Update(float deltaT)
 		k1.v1=poz;
 		k1.v2=poz+dim;
 		Box k2;
-		k2.v1=stanje->DajIgraca()->DajPoz();
-		k2.v2=stanje->DajIgraca()->DajPoz()+
-			stanje->DajIgraca()->DajDim();
+		k2.v1=stanje->GetPlayer()->DajPoz();
+		k2.v2=stanje->GetPlayer()->DajPoz()+
+			stanje->GetPlayer()->DajDim();
 		if(k1.Collision(&k2))
 		{
 			if(tip==MOB)
 			{
-				stanje->DodajMoba(mob);
-				mob->Init(meta,stanje,stanje->DajMapu());
+				stanje->GetMob(mob);
+				mob->Init(meta,stanje,stanje->GetMap());
 				mob->SpawnEfekt();
 			}
 			if(tip==PORUKA)
 			{
-				stanje->DodajPoruku(poruka);						
+				stanje->GetMessage(poruka);						
 			}
 			if(tip==KRAJ)
 			{
-				stanje->ZavrsiNivo();
+				stanje->CompleteLevel();
 				//SPREMANJE INFORMACIJA O OTKLJUCAVANJU				
 				if(nivo_trenutni<BROJ_NIVOA-1)
 					nivo_omogucen[nivo_trenutni+1]=true;

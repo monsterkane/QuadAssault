@@ -22,12 +22,12 @@
 #include "GameState.h"
 #include "PlasmaProjectile.h"
 
-void Plazma::Init(GlavnoStanje* stanje)
+void Plazma::Init(GameState* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/oruzje2Glow.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/oruzje1.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/oruzje1Normal.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/oruzje2Glow.tga")->id;
 	brzinaPunjenja=100;
 	potrebnaEnergija=6;
 }

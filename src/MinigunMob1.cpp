@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "MinigunProjectile.h"
 
-void MinigunMob1::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
+void MinigunMob1::Init(Vec2 poz, GameState* stanje, unsigned char** mapa)
 {
 	Mob::Init(poz,stanje,mapa);
 
@@ -34,16 +34,16 @@ void MinigunMob1::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
 	domet=512;
 
 	hp=35;
-    textura=stanje->DajMT()->DajTexturu("../data/mob1Diffuse.tga")->id;
-    texturaN=stanje->DajMT()->DajTexturu("../data/mob1Normal.tga")->id;
-    texturaG=stanje->DajMT()->DajTexturu("../data/mob3Glow.tga")->id;
+    textura=stanje->GetTM()->DajTexturu("../data/mob1Diffuse.tga")->id;
+    texturaN=stanje->GetTM()->DajTexturu("../data/mob1Normal.tga")->id;
+    texturaG=stanje->GetTM()->DajTexturu("../data/mob3Glow.tga")->id;
 }
 void MinigunMob1::Update(float deltaT)
 {
 	Mob::Update(deltaT);
 	Pucanje(new MinigunProjektil(),deltaT);	
 	Vec2 smjer;
-	smjer=stanje->DajIgraca()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
+	smjer=stanje->GetPlayer()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
 	if(smjer.Duljina()<300)
 	{
 		brzina-=100*deltaT;
@@ -67,7 +67,7 @@ void MinigunMob1::Pucanje(Projektil* p, float deltaT)
 }
 void MinigunMob1::Unisti()
 {
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/explozija1.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/explozija1.wav"));
     z->play();
 	Mob::Unisti();
 }

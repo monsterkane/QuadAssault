@@ -20,88 +20,88 @@
 
 #include "GameState.h"
 
-Svjetlo* GlavnoStanje::DodajSvjetlo(bool staticno)
+Svjetlo* GameState::GetLight(bool stationary)
 {
-	svjetla.push_back(new Svjetlo());
-	svjetla.back()->staticno=staticno;
-	return svjetla.back();
+	lights.push_back(new Svjetlo());
+	lights.back()->staticno=stationary;
+	return lights.back();
 }
-Projektil* GlavnoStanje::DodajProjektil(Projektil* p)
+Projektil* GameState::GetProjectile(Projektil* p)
 {
-	projektili.push_back(p);
-	return projektili.back();
+	missiles.push_back(p);
+	return missiles.back();
 }
-Explosion* GlavnoStanje::DodajExploziju()
+Explosion* GameState::GetExplosion()
 {
-	explozije.push_back(new Explosion());
-	return explozije.back();
+	explosions.push_back(new Explosion());
+	return explosions.back();
 }
-Cestica* GlavnoStanje::DodajCesticu(Cestica* c)
+Cestica* GameState::GetParticle(Cestica* c)
 {
-	cestice.push_back(c);
-	return cestice.back();
+	particles.push_back(c);
+	return particles.back();
 }
-Mob* GlavnoStanje::DodajMoba(Mob* m)
+Mob* GameState::GetMob(Mob* m)
 {
-	mobovi.push_back(m);
-	return mobovi.back();
+	mobs.push_back(m);
+	return mobs.back();
 }
-Poruka* GlavnoStanje::DodajPoruku(Poruka* p)
+Poruka* GameState::GetMessage(Poruka* m)
 {
-	poruke.push_back(p);
-	return poruke.back();
+    messages.push_back(m);
+	return messages.back();
 }
-Stvar* GlavnoStanje::DodajStvar(Stvar* s)
+Stvar* GameState::GetThing(Stvar* t)
 {
-	stvari.push_back(s);
-	return stvari.back();
+    things.push_back(t);
+	return things.back();
 }
-sf::Sound* GlavnoStanje::DodajZvuk(sf::Sound* z, Zvuk* zvuk)
+sf::Sound* GameState::GetSound(sf::Sound* s, Zvuk* sound)
 {
 	bool sadrzi=false;
-	for(int i=0; i<zvukovi.size(); i++)
-        if(zvukovi[i]->getBuffer()==&zvuk->buffer)
+	for(int i=0; i<sounds.size(); i++)
+        if(sounds[i]->getBuffer()==&sound->buffer)
 		{
 			sadrzi=true;
-			delete z;
-			z=zvukovi[i];
-            z->stop();
+            delete s;
+            s=sounds[i];
+            s->stop();
 			break;
 		}
 	if(sadrzi==false)
 	{		
-		zvukovi.push_back(z);		
-        zvukovi.back()->setBuffer(zvuk->buffer);
-		return zvukovi.back();
+        sounds.push_back(s);
+        sounds.back()->setBuffer(sound->buffer);
+		return sounds.back();
 	}
 	if(sadrzi==true)
-		return z;
+        return s;
 }
-Igrac* GlavnoStanje::DajIgraca()
+Igrac* GameState::GetPlayer()
 {
-	return igrac;
+	return player;
 }
-vector<Mob*>* GlavnoStanje::DajMobove()
+vector<Mob*>* GameState::GetMobs()
 {
-	return &mobovi;
+	return &mobs;
 }
-vector<Projektil*>* GlavnoStanje::DajProjektile()
+vector<Projektil*>* GameState::GetProjectiles()
 {
-	return &projektili;
+	return &missiles;
 }
-unsigned char** GlavnoStanje::DajMapu()
+unsigned char** GameState::GetMap()
 {
-	return mapa;
+	return map;
 }
-ManagerZvuka* GlavnoStanje::DajMZ()
+ManagerZvuka* GameState::GetSM()
 {
-	return mz;
+	return soundManager;
 }
-vector<sf::Font>* GlavnoStanje::DajFontove()
+vector<sf::Font>* GameState::GetFonts()
 {
-	return &fontovi;
+	return &fonts;
 }
-void GlavnoStanje::ZavrsiNivo()
+void GameState::CompleteLevel()
 {
-	nivoZavrsen=true;
+    levelCompleted=true;
 }

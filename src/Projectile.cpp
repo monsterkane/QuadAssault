@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "Explosion.h"
 
-void Projektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** mapa, bool vlasnik)
+void Projektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik)
 {
 	this->poz=poz;
 	this->smjer=smjer;
@@ -30,7 +30,7 @@ void Projektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char**
 	this->mapa=mapa;
 	this->vlasnik=vlasnik;	
 
-	svjetlo=stanje->DodajSvjetlo(false);	
+	svjetlo=stanje->GetLight(false);	
 
 	domet_timer=0;
 
@@ -90,7 +90,7 @@ void Projektil::Unisti()
 	unisten=true;
 	svjetlo->Unisti();
 	svjetlo=NULL;
-	Explosion* e=stanje->DodajExploziju();
+	Explosion* e=stanje->GetExplosion();
 	e->Init(poz,128,stanje);
 	e->Setup(4,100,20);
 	e->SetColor(Vec3(0.25, 0.5, 1.0));	

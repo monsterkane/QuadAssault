@@ -34,7 +34,7 @@ protected:
 	Svjetlo* s;
 	int id;
 public:
-	void Init(Vec2 poz, GlavnoStanje* stanje, int id);
+	void Init(Vec2 poz, GameState* stanje, int id);
 	void Update(float deltaT);
 	void Render(unsigned char stil);
 	void Unisti();

@@ -23,7 +23,7 @@
 #include "Dependencies.h"
 #include "Object.h"
 
-class GlavnoStanje;
+class GameState;
 
 class Poruka : public Objekt
 {
@@ -41,9 +41,9 @@ private:
 
 	sf::Sound* z;
 
-	GlavnoStanje* stanje;
+	GameState* stanje;
 public:
-	void Init(string posiljatelj, string sadrzaj, float trajanje, string zvuk, GlavnoStanje* stanje);
+	void Init(string posiljatelj, string sadrzaj, float trajanje, string zvuk, GameState* stanje);
 	void Update(float deltaT);
 	void RenderOkvir();
 	void Render();

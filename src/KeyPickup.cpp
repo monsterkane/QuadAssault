@@ -21,7 +21,7 @@
 #include "KeyPickup.h"
 #include "GameState.h"
 
-void KljucPickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
+void KljucPickup::Init(Vec2 poz, GameState* stanje, int id)
 {
 	Stvar::Init(poz,stanje);
 
@@ -30,11 +30,11 @@ void KljucPickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
 	this->id=id;
 	
 	rotacija=0;
-    tex=stanje->DajMT()->DajTexturu("../data/KljucDiffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/KljucNormal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/KljucGlow.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/KljucDiffuse.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/KljucNormal.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/KljucGlow.tga")->id;
 
-	s=stanje->DodajSvjetlo(false);
+	s=stanje->GetLight(false);
 	s->Init(poz+Vec2(dim.x/2,dim.y/2),128,stanje);
 	if(id==CRVENI)
 		s->Postavke(Vec3(1.0,0.1,0.1),4);	
@@ -76,8 +76,8 @@ void KljucPickup::Unisti()
 }
 void KljucPickup::Pokupi(Igrac* igrac)
 {
-	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Zvukovi/pickup.wav"));
+	sf::Sound* z = stanje->GetSound(new sf::Sound(),
+        stanje->GetSM()->DajZvuk("../data/Zvukovi/pickup.wav"));
     z->play();
 	int vrata;
 	if(id==CRVENI)	
@@ -90,11 +90,11 @@ void KljucPickup::Pokupi(Igrac* igrac)
 	for(int x=0; x<MX; x++)
 	for(int y=0; y<MY; y++)
 	{
-		if(stanje->DajMapu()[x][y]==vrata)
+		if(stanje->GetMap()[x][y]==vrata)
 		{
-			stanje->DajMapu()[x][y]=FLOOR;
-			stanje->DajBlok(x,y)->Init(Vec2(x*BLOCK_SIZE, y*BLOCK_SIZE), FLOOR, stanje);
-			Explosion* e=stanje->DodajExploziju();
+			stanje->GetMap()[x][y]=FLOOR;
+			stanje->GetBlock(x,y)->Init(Vec2(x*BLOCK_SIZE, y*BLOCK_SIZE), FLOOR, stanje);
+			Explosion* e=stanje->GetExplosion();
 			e->Init(Vec2(x*BLOCK_SIZE+BLOCK_SIZE/2, y*BLOCK_SIZE+BLOCK_SIZE/2), 128, stanje);
 			e->Setup(20,1000,50);
 			if(id==CRVENI)

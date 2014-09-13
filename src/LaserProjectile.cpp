@@ -21,7 +21,7 @@
 #include "LaserProjectile.h"
 #include "GameState.h"
 
-void LaserProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** mapa, bool vlasnik)
+void LaserProjektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik)
 {
 	Projektil::Init(poz,smjer,stanje,mapa,vlasnik);
 	brzina=910;
@@ -31,10 +31,10 @@ void LaserProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned c
 	svjetlo->Init(poz,128,stanje);
 	svjetlo->Postavke(Vec3(0.5, 1.0, 0.2),12);
 
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/laser1.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/laser1.wav"));
     z->play();
 
-    texG=stanje->DajMT()->DajTexturu("../data/laser1Glow.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/laser1Glow.tga")->id;
 }
 void LaserProjektil::Update(float deltaT)
 {
@@ -53,7 +53,7 @@ void LaserProjektil::Unisti()
 {
 	unisten=true;
 	svjetlo->Unisti();
-	Explosion* e=stanje->DodajExploziju();
+	Explosion* e=stanje->GetExplosion();
 	e->Init(poz,128,stanje);
 	e->Setup(8,100,80);
 	e->SetColor(Vec3(1.0, 0.75, 0.5));	

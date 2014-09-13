@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "Game.h"
 
-void Cestica::Init(Vec2 poz, GlavnoStanje* stanje)
+void Cestica::Init(Vec2 poz, GameState* stanje)
 {
 	this->poz=poz;
 	this->stanje=stanje;

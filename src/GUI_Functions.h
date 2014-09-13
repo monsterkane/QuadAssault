@@ -20,7 +20,7 @@
 
 #include "GameState.h"
 
-extern GlavnoStanje* extStanje;
+extern GameState* extStanje;
 
 ///POSTAVLJANJE SVJETLA - GUMB FUNKCIJA
 void PosSvjetGUI();

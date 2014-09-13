@@ -21,52 +21,52 @@
 #include "GameState.h"
 #include "SharedVariables.h"
 
-void GlavnoStanje::Render()
+void GameState::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glLoadIdentity();
 
-	RenderSvjetlostNaFBO();	
-	RenderGeometrijuNaFBO();	
+	RenderLightOnFBO();	
+	RenderGeometryOnFBO();	
 
-	RenderScenu();	
+	RenderScene();	
 	
-	if(poruke.size()!=0)
-		poruke[0]->RenderOkvir();
-	if(poruke.size()!=0)
-		poruke[0]->Render();	
+	if(messages.size()!=0)
+		messages[0]->RenderOkvir();
+	if(messages.size()!=0)
+		messages[0]->Render();	
 
 	glLoadIdentity();
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE);
-	Sprite(mis-Vec2(16,16),Vec2(32,32),mt->DajTexturu(0)->id);
+	Sprite(mousePos-Vec2(16,16),Vec2(32,32),textureManager->DajTexturu(0)->id);
 	glDisable(GL_BLEND);
 
 	glPushMatrix();
     glTranslatef(32, igra->GetRW()->getSize().y-32, 0);
-	igrac->RenderHP_Bar();
+	player->RenderHP_Bar();
 	glPopMatrix();	
 
 	glPushMatrix();
     glTranslatef(igra->GetRW()->getSize().x-232, igra->GetRW()->getSize().y-32, 0);
-	igrac->RenderEnergija_Bar();
+	player->RenderEnergija_Bar();
 	glPopMatrix();
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_DST_COLOR, GL_ZERO);
-	glColor3f(tBoja, tBoja, tBoja);
+	glColor3f(transition_color, transition_color, transition_color);
     Sprite(Vec2(0.0, 0.0), Vec2(igra->GetRW()->getSize().x, igra->GetRW()->getSize().y), NULL);
 	glDisable(GL_BLEND);	
 
 	if(DEVMODE==true)
-		uim->Render();
+		uiManager->Render();
 
-	if(tranzicija==T_FADEOUT && tBoja==0.0 && gotovo==false)
+	if(transition==T_FADEOUT && transition_color==0.0 && gotovo==false)
 	{
 		gotovo=true;	
-		if(nivoZavrsen==true || igrac->JeUnisten()==true)
+		if(levelCompleted==true || player->JeUnisten()==true)
 			odabir_levela_odmah=true;
 		else
 			odabir_levela_odmah=false;		
@@ -75,55 +75,55 @@ void GlavnoStanje::Render()
 }
 
 
-void GlavnoStanje::RenderObjekte(unsigned char stil) 
+void GameState::RenderObjects(unsigned char stationary) 
 {	
-	for(int i=0; i<stvari.size(); i++)
-		stvari[i]->Render(stil);
-	for(int i=0; i<mobovi.size(); i++)
-		mobovi[i]->Render(stil);
-	igrac->Render(stil);
-	for(int i=0; i<projektili.size(); i++)
-		projektili[i]->Render(stil);
-	for(int i=0; i<cestice.size(); i++)	
-		cestice[i]->Render(stil);		
+	for(int i=0; i<things.size(); i++)
+		things[i]->Render(stationary);
+	for(int i=0; i<mobs.size(); i++)
+		mobs[i]->Render(stationary);
+	player->Render(stationary);
+	for(int i=0; i<missiles.size(); i++)
+		missiles[i]->Render(stationary);
+	for(int i=0; i<particles.size(); i++)	
+		particles[i]->Render(stationary);		
 }
-void GlavnoStanje::RenderGeometriju()
+void GameState::RenderGeometry()
 {		
-    int kx1=kamera->DajPoz().x/BLOCK_SIZE-1;
-    int ky1=kamera->DajPoz().y/BLOCK_SIZE-1;
+    int kx1=camera->DajPoz().x/BLOCK_SIZE-1;
+    int ky1=camera->DajPoz().y/BLOCK_SIZE-1;
     int kx2=igra->GetRW()->getSize().x/BLOCK_SIZE+2;
     int ky2=igra->GetRW()->getSize().y/BLOCK_SIZE+2;
 	for(int i=kx1; i<kx1+kx2+1; i++)
 	for(int j=ky1; j<ky1+ky2+1; j++)
 	{		
 		if(i>=0 && i<MX && j>=0 && j<MY)
-		blokovi[i][j].Render();
+		blocks[i][j].Render();
 	}
 }
-void GlavnoStanje::RenderGeometrijuNormal()
+void GameState::RenderGeometryNormal()
 {		
-    int kx1=kamera->DajPoz().x/BLOCK_SIZE-1;
-    int ky1=kamera->DajPoz().y/BLOCK_SIZE-1;
+    int kx1=camera->DajPoz().x/BLOCK_SIZE-1;
+    int ky1=camera->DajPoz().y/BLOCK_SIZE-1;
     int kx2=igra->GetRW()->getSize().x/BLOCK_SIZE+2;
     int ky2=igra->GetRW()->getSize().y/BLOCK_SIZE+2;
 	for(int i=kx1; i<kx1+kx2+1; i++)
 	for(int j=ky1; j<ky1+ky2+1; j++)
 	{		
 		if(i>=0 && i<MX && j>=0 && j<MY)
-		blokovi[i][j].RenderNormal();
+		blocks[i][j].RenderNormal();
 	}	
 }
-void GlavnoStanje::RenderGeometrijuGlow()
+void GameState::RenderGeometryGlow()
 {		
-    int kx1=kamera->DajPoz().x/BLOCK_SIZE-1;
-    int ky1=kamera->DajPoz().y/BLOCK_SIZE-1;
+    int kx1=camera->DajPoz().x/BLOCK_SIZE-1;
+    int ky1=camera->DajPoz().y/BLOCK_SIZE-1;
     int kx2=igra->GetRW()->getSize().x/BLOCK_SIZE+2;
     int ky2=igra->GetRW()->getSize().y/BLOCK_SIZE+2;
 	for(int i=kx1; i<kx1+kx2+1; i++)
 	for(int j=ky1; j<ky1+ky2+1; j++)
 	{		
 		if(i>=0 && i<MX && j>=0 && j<MY)
-		blokovi[i][j].RenderGlow();
+		blocks[i][j].RenderGlow();
 	}	
 }
 

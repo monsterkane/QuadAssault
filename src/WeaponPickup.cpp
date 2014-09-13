@@ -24,7 +24,7 @@
 #include "Plasma.h"
 #include "Minigun.h"
 
-void OruzjePickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
+void OruzjePickup::Init(Vec2 poz, GameState* stanje, int id)
 {
 	Stvar::Init(poz,stanje);
 
@@ -35,24 +35,24 @@ void OruzjePickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
 	rotacija=0;
 	if(id==LASER1)
 	{
-        tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-        texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-        texG=stanje->DajMT()->DajTexturu("../data/oruzje1Glow.tga")->id;
+        tex=stanje->GetTM()->DajTexturu("../data/oruzje1.tga")->id;
+        texN=stanje->GetTM()->DajTexturu("../data/oruzje1Normal.tga")->id;
+        texG=stanje->GetTM()->DajTexturu("../data/oruzje1Glow.tga")->id;
 	}
 	if(id==PLAZMA1)
 	{
-        tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-        texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-        texG=stanje->DajMT()->DajTexturu("../data/oruzje2Glow.tga")->id;
+        tex=stanje->GetTM()->DajTexturu("../data/oruzje1.tga")->id;
+        texN=stanje->GetTM()->DajTexturu("../data/oruzje1Normal.tga")->id;
+        texG=stanje->GetTM()->DajTexturu("../data/oruzje2Glow.tga")->id;
 	}
 	if(id==MINIGUN1)
 	{
-        tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-        texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-        texG=stanje->DajMT()->DajTexturu("../data/oruzje3Glow.tga")->id;
+        tex=stanje->GetTM()->DajTexturu("../data/oruzje1.tga")->id;
+        texN=stanje->GetTM()->DajTexturu("../data/oruzje1Normal.tga")->id;
+        texG=stanje->GetTM()->DajTexturu("../data/oruzje3Glow.tga")->id;
 	}
 
-	s=stanje->DodajSvjetlo(false);
+	s=stanje->GetLight(false);
 	s->Init(poz+Vec2(dim.x/2,dim.y/2),256,stanje);
 	if(id==LASER1)
 		s->Postavke(Vec3(0.2,1.0,0.2),6);
@@ -83,7 +83,7 @@ void OruzjePickup::Unisti()
 }
 void OruzjePickup::Pokupi(Igrac* igrac)
 {
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/pickup.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/pickup.wav"));
     z->play();
 	if(id==LASER1)
 		igrac->DodajOruzje(new Laser());

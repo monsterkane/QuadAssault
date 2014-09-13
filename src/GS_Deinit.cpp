@@ -20,62 +20,62 @@
 
 #include "GameState.h"
 
-void GlavnoStanje::Izlaz()
+void GameState::Izlaz()
 {
-	IzbrisiFBO();	
+    DeleteFBO();
 
-	ObrisiMapu();
+    DeleteMap();
 
-	for(int i=0; i<shaderi.size(); i++)
-		delete shaderi[i];
-	shaderi.clear();	
-	for(int i=0; i<projektili.size(); i++)
-		delete projektili[i];
-	projektili.clear();
-	for(int i=0; i<mobovi.size(); i++)	
-		delete mobovi[i];	
-	mobovi.clear();	
-	for(int i=0; i<explozije.size(); i++)
-		delete explozije[i];
-	explozije.clear();
-	for(int i=0; i<stvari.size(); i++)
-		delete stvari[i];
-	stvari.clear();
-	for(int i=0; i<triggeri.size(); i++)
-		delete triggeri[i];
-	triggeri.clear();
-	for(int i=0; i<cestice.size(); i++)
-		delete cestice[i];
-	cestice.clear();
-	for(int i=0; i<zvukovi.size(); i++)	
+    for(int i=0; i<shaders.size(); i++)
+        delete shaders[i];
+    shaders.clear();
+    for(int i=0; i<missiles.size(); i++)
+        delete missiles[i];
+    missiles.clear();
+    for(int i=0; i<mobs.size(); i++)
+        delete mobs[i];
+    mobs.clear();
+    for(int i=0; i<explosions.size(); i++)
+        delete explosions[i];
+    explosions.clear();
+    for(int i=0; i<things.size(); i++)
+        delete things[i];
+    things.clear();
+    for(int i=0; i<triggers.size(); i++)
+        delete triggers[i];
+    triggers.clear();
+    for(int i=0; i<particles.size(); i++)
+        delete particles[i];
+    particles.clear();
+    for(int i=0; i<sounds.size(); i++)
 	{
-        zvukovi[i]->stop();
-		delete zvukovi[i];
+        sounds[i]->stop();
+        delete sounds[i];
 	}
-	zvukovi.clear();
-	for(int i=0; i<svjetla.size(); i++)
-		delete svjetla[i];
-	svjetla.clear();	
+    sounds.clear();
+    for(int i=0; i<lights.size(); i++)
+        delete lights[i];
+    lights.clear();
 
-	delete uim;
+    delete uiManager;
 
-	for(int i=0; i<poruke.size(); i++)
-		delete poruke[i];
-	poruke.clear();
-	fontovi.clear();	
+    for(int i=0; i<messages.size(); i++)
+        delete messages[i];
+    messages.clear();
+    fonts.clear();
 
-    muzika.stop();
+    music.stop();
 
-	delete kamera;
+    delete camera;
 	
-	mz->Brisi();
-	mt->Brisi();	
+    soundManager->Brisi();
+    textureManager->Brisi();
 	
-	delete mz;
-	delete mt;	
+    delete soundManager;
+    delete textureManager;
 }
 
-ManagerTextura* GlavnoStanje::DajMT()
+ManagerTextura* GameState::GetTM()
 {
-	return mt;
+    return textureManager;
 }

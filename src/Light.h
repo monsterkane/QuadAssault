@@ -23,12 +23,12 @@
 #include "Object.h"
 #include "Shader.h"
 
-class GlavnoStanje;
+class GameState;
 
 class Svjetlo : public Objekt
 {
 private:	
-	GlavnoStanje* stanje;
+	GameState* stanje;
 public:
 
 	float radius;
@@ -44,7 +44,7 @@ public:
 
 	Svjetlo();
 	~Svjetlo();
-	void Init(Vec2 poz, float radius, GlavnoStanje* stanje);
+	void Init(Vec2 poz, float radius, GameState* stanje);
 	void Postavke(Vec3 boja, float intenzitet);
 	void PostaviExplozija(bool explozija);
 	void PostavkeKuta(Vec2 smjer, float kut);

@@ -24,7 +24,7 @@
 #include "LaserProjectile.h"
 #include "TrashPickup.h"
 
-void Mob::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
+void Mob::Init(Vec2 poz, GameState* stanje, unsigned char** mapa)
 {
 	this->poz=poz;
 	this->stanje=stanje;
@@ -49,7 +49,7 @@ void Mob::Update(float deltaT)
 	akceleracija=1;
 
 	Vec2 smjer;
-	smjer=stanje->DajIgraca()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
+	smjer=stanje->GetPlayer()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
 	smjer.Normaliziraj();
 
 	rotacija=atan2(smjer.y,smjer.x)*180/3.14 + 90;
@@ -101,18 +101,18 @@ void Mob::Render(unsigned char stil)
 }
 void Mob::Unisti()
 {
-	Explosion* e=stanje->DodajExploziju();
+	Explosion* e=stanje->GetExplosion();
 	e->Init(DajSredinu(),128,stanje);
 	e->Setup(128,3000,200);
 	for(int i=0; i<4; i++)
 	{
-		SmecePickup* c=(SmecePickup*)stanje->DodajStvar(new SmecePickup());
+		SmecePickup* c=(SmecePickup*)stanje->GetThing(new SmecePickup());
 		c->Init(DajSredinu(),stanje);
 	}
 }
 void Mob::SpawnEfekt()
 {
-	Explosion* e=stanje->DodajExploziju();
+	Explosion* e=stanje->GetExplosion();
 	e->Init(DajSredinu(),512,stanje);
 	e->Setup(32,1000,100);
 	e->SetColor(Vec3(0.25,0.5,1.0));
@@ -149,22 +149,22 @@ bool Mob::ProvjeraSudara()
 				return true;
 		}
 	}
-	for(int i=0; i<stanje->DajMobove()->size(); i++)
+	for(int i=0; i<stanje->GetMobs()->size(); i++)
 	{
-		if(stanje->DajMobove()->at(i)!=this)
+		if(stanje->GetMobs()->at(i)!=this)
 		{
 			Box k2;
-			k2.v1=stanje->DajMobove()->at(i)->DajPoz();
-			k2.v2=stanje->DajMobove()->at(i)->DajPoz()+
-				stanje->DajMobove()->at(i)->DajDim();
+			k2.v1=stanje->GetMobs()->at(i)->DajPoz();
+			k2.v2=stanje->GetMobs()->at(i)->DajPoz()+
+				stanje->GetMobs()->at(i)->DajDim();
 			if(k1.Collision(&k2))
 				return true;
 		}
 	}
 	Box k2;
-	k2.v1=stanje->DajIgraca()->DajPoz();
-	k2.v2=stanje->DajIgraca()->DajPoz()+
-		stanje->DajIgraca()->DajDim();
+	k2.v1=stanje->GetPlayer()->DajPoz();
+	k2.v2=stanje->GetPlayer()->DajPoz()+
+		stanje->GetPlayer()->DajDim();
 	if(k1.Collision(&k2))
 		return true;
 
@@ -175,17 +175,17 @@ void Mob::SudarProjektila()
 	Box k1;
 	k1.v1=poz+Vec2(4,4);
 	k1.v2=poz+dim-Vec2(4,4);
-	for(int i=0; i<stanje->DajProjektile()->size(); i++)
+	for(int i=0; i<stanje->GetProjectiles()->size(); i++)
 	{
-		if(stanje->DajProjektile()->at(i)->vlasnik==IGRAC)
+		if(stanje->GetProjectiles()->at(i)->vlasnik==IGRAC)
 		{
 			Box k2;
-			k2.v1=stanje->DajProjektile()->at(i)->DajPoz();
-			k2.v2=stanje->DajProjektile()->at(i)->DajPoz()+
-				stanje->DajProjektile()->at(i)->DajDim();
+			k2.v1=stanje->GetProjectiles()->at(i)->DajPoz();
+			k2.v2=stanje->GetProjectiles()->at(i)->DajPoz()+
+				stanje->GetProjectiles()->at(i)->DajDim();
 			if(k1.Collision(&k2))
 			{
-				PrimiStetu(stanje->DajProjektile()->at(i));				
+				PrimiStetu(stanje->GetProjectiles()->at(i));				
 			}
 		}
 	}
@@ -198,18 +198,18 @@ void Mob::PrimiStetu(Projektil* projektil)
 }
 void Mob::Pucanje(Projektil* p, float deltaT)
 {
-	if(stanje->DajIgraca()->JeUnisten()==false)
+	if(stanje->GetPlayer()->JeUnisten()==false)
 	{
 		if(punjenje<100)
 			punjenje+=brzinaPunjenja*deltaT;
 		if(punjenje>=100)
 		{
-			Vec2 smjerPucanja=stanje->DajIgraca()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
+			Vec2 smjerPucanja=stanje->GetPlayer()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
 			float l=smjerPucanja.Duljina();
 			if(l<domet)
 			{
 				smjerPucanja.Normaliziraj();
-				Projektil* pr=stanje->DodajProjektil(p);
+				Projektil* pr=stanje->GetProjectile(p);
 				pr->Init(DajSredinu(),smjerPucanja,stanje,mapa,NEPRIJATELJ);				
 			}	
 			punjenje=0;

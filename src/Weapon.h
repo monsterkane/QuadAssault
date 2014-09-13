@@ -22,14 +22,14 @@
 #define ORUZJE_H
 #include "Object.h"
 
-class GlavnoStanje;
+class GameState;
 class Projektil;
 
 class Oruzje : public Objekt
 {
 protected:
 	GLuint tex, texN, texG;
-	GlavnoStanje* stanje;
+	GameState* stanje;
 
 	Vec2 absPoz, smjer;
 	unsigned char** mapa;
@@ -40,7 +40,7 @@ protected:
 	float potrebnaEnergija;
 	
 public:
-	virtual void Init(GlavnoStanje* stanje);
+	virtual void Init(GameState* stanje);
 	virtual void Update(float deltaT);	
 	virtual void Render();
 	virtual void RenderNormal();
