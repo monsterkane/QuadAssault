@@ -22,7 +22,7 @@
 
 void GameState::RenderLightOnFBO()
 {
-	//LIGHTMAPA	
+    /* lightmap */
     RenderNormalOnFBO();
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,fbo);		
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, 
@@ -35,14 +35,14 @@ void GameState::RenderLightOnFBO()
 	glEnable(GL_BLEND);	
 	glBlendFunc(GL_ONE,GL_ONE);
 
-	//RENDERIRA SE SVE GLOW
+    /* glow */
 	glPushMatrix();
 		glTranslatef(-camera->DajPoz().x, -camera->DajPoz().y, 0);
         RenderGeometryGlow();
         RenderObjects(GLOW);
 	glPopMatrix();
 
-	//RENDERIRAJU SE SVJETLA
+    /* light */
 	for(int i=0; i<lights.size(); i++)
 	{		
 		lights[i]->RenderNaFBO(shaders[0],camera, normalmap);	
@@ -100,21 +100,21 @@ void GameState::RenderScene()
 {		
 	shaders[1]->Bind();
 	
-	int geometrijaLoc, lightmapaLoc, ambijentLoc;
+    int geometryLoc, lightmapLoc, ambientLoc;
 		
 	glEnable(GL_TEXTURE_2D);
-    geometrijaLoc = glGetUniformLocation(shaders[1]->ID, "geometrija");
+    geometryLoc = glGetUniformLocation(shaders[1]->ID, "geometrija");
 	glActiveTextureARB(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, geometry);
-	glUniform1i(geometrijaLoc, 0);	
+    glUniform1i(geometryLoc, 0);
 
-	lightmapaLoc = glGetUniformLocation(shaders[1]->ID, "lightmapa");
+    lightmapLoc = glGetUniformLocation(shaders[1]->ID, "lightmapa");
 	glActiveTextureARB(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, lightmap);
-	glUniform1i(lightmapaLoc, 1);
+    glUniform1i(lightmapLoc, 1);
 
-	ambijentLoc = glGetUniformLocation(shaders[1]->ID, "ambijent");
-	glUniform3f(ambijentLoc, ambientLight.x, ambientLight.y, ambientLight.z);
+    ambientLoc = glGetUniformLocation(shaders[1]->ID, "ambijent");
+    glUniform3f(ambientLoc, ambientLight.x, ambientLight.y, ambientLight.z);
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0, 1.0); glVertex2f(0.0, 0.0);
