@@ -1,16 +1,14 @@
 TODO:
 
-15% completed (30/193)
+16% completed (31/193)
 Translation:
 
 
-        15% completed (16/103)
+        16% completed (17/103)
 	Source files waiting for translation: 
 
 	Grid.cpp
 	Grid.h
-	GS_ExternalAccess.cpp
-	GS_LoadMap.cpp
 	GS_Render.cpp
 	GS_RenderFBO.cpp
 	GS_Update.cpp

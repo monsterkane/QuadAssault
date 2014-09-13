@@ -50,46 +50,46 @@ void GameState::LoadMap()
 
 	ambientLight=Vec3(0.1f, 0.1f, 0.1f);
 
-	Vec2 igracPoz=Vec2(0,0);
+    Vec2 playerPos=Vec2(0,0);
 
     ifstream file_(nivo_datoteka_g.c_str(),ios::in);
-	string linija_;
-	while(getline(file_,linija_))
+    string line_;
+    while(getline(file_,line_))
 	{
-		istringstream lstring(linija_,ios::in);
-		string vrijednost;
-		while(getline(lstring,vrijednost,' '))
+        istringstream lstring(line_,ios::in);
+        string value;
+        while(getline(lstring,value,' '))
 		{
-			if(vrijednost=="blok")
+            if(value=="blok")
 			{
-				getline(lstring,vrijednost,' ');
-				int x=atoi(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				int y=atoi(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				int tip=atoi(vrijednost.c_str());
+                getline(lstring,value,' ');
+                int x=atoi(value.c_str());
+                getline(lstring,value,' ');
+                int y=atoi(value.c_str());
+                getline(lstring,value,' ');
+                int type=atoi(value.c_str());
 				if(x/BLOCK_SIZE<MX && y/BLOCK_SIZE<MY)
-					map[x/BLOCK_SIZE][y/BLOCK_SIZE]=tip;
+                    map[x/BLOCK_SIZE][y/BLOCK_SIZE]=type;
 			}
-			if(vrijednost=="svjetlo")
+            if(value=="svjetlo")
 			{
 				lights.push_back(new Svjetlo());
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float radius=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float intenzitet=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float r=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float g=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float b=atof(vrijednost.c_str());
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                float radius=atof(value.c_str());
+                getline(lstring,value,' ');
+                float intensity=atof(value.c_str());
+                getline(lstring,value,' ');
+                float r=atof(value.c_str());
+                getline(lstring,value,' ');
+                float g=atof(value.c_str());
+                getline(lstring,value,' ');
+                float b=atof(value.c_str());
 				lights.back()->Init(Vec2(x,y),radius,this);
-				lights.back()->Postavke(Vec3(r,g,b),intenzitet);
+                lights.back()->Postavke(Vec3(r,g,b),intensity);
 				lights.back()->staticno=true;
 			}
 		}
@@ -97,128 +97,128 @@ void GameState::LoadMap()
 	file_.close();
 
     ifstream file(nivo_datoteka.c_str(),ios::in);
-	string linija;
-	while(getline(file,linija))
+    string line;
+    while(getline(file,line))
 	{
-		istringstream lstring(linija,ios::in);
-		string vrijednost;
-		while(getline(lstring,vrijednost,' '))
+        istringstream lstring(line,ios::in);
+        string value;
+        while(getline(lstring,value,' '))
 		{			
-			if(vrijednost=="igrac")
+            if(value=="igrac")
 			{
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				igracPoz=Vec2(x,y);
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                playerPos=Vec2(x,y);
 			}	
-			if(vrijednost=="oruzje")
+            if(value=="oruzje")
 			{
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				int id=atoi(vrijednost.c_str());
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                int id=atoi(value.c_str());
 				things.push_back(new OruzjePickup());
 				OruzjePickup* o=(OruzjePickup*)things.back();
 				o->Init(Vec2(x,y),this,id);
 			}
-			if(vrijednost=="kljuc")
+            if(value=="kljuc")
 			{
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				int id=atoi(vrijednost.c_str());
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                int id=atoi(value.c_str());
 				things.push_back(new KljucPickup());
 				KljucPickup* k=(KljucPickup*)things.back();
 				k->Init(Vec2(x,y),this,id);
 			}
-			if(vrijednost=="preload_zvuk")
+            if(value=="preload_zvuk")
 			{
-				getline(lstring,vrijednost,' ');
-                soundManager->UcitajZvuk((char*)("../data/"+vrijednost).c_str());
+                getline(lstring,value,' ');
+                soundManager->UcitajZvuk((char*)("../data/"+value).c_str());
 			}
-			if(vrijednost=="muzika")
+            if(value=="muzika")
 			{
-				getline(lstring,vrijednost,' ');				
-                music.openFromFile((char*)("../data/"+vrijednost).c_str());
+                getline(lstring,value,' ');
+                music.openFromFile((char*)("../data/"+value).c_str());
                 music.setVolume(25);
                 music.setLoop(true);
                 music.play();
 			}
-			if(vrijednost=="mob")
+            if(value=="mob")
 			{
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				Mob* m=SpawnMobByName(vrijednost);
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                Mob* m=SpawnMobByName(value);
 				mobs.push_back(m);
 				mobs.back()->Init(Vec2(x,y),this,map);
 			}
-			if(vrijednost=="mobtrigger")
+            if(value=="mobtrigger")
 			{
 				triggers.push_back(new Trigger());
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float x2=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y2=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float mx=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float my=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				Mob* m=SpawnMobByName(vrijednost);								
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                float x2=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y2=atof(value.c_str());
+                getline(lstring,value,' ');
+                float mx=atof(value.c_str());
+                getline(lstring,value,' ');
+                float my=atof(value.c_str());
+                getline(lstring,value,' ');
+                Mob* m=SpawnMobByName(value);
 				triggers.back()->InitMob(Vec2(x,y),Vec2(x2,y2),Vec2(mx,my),m,this);
 			}
-			if(vrijednost=="krajtrigger")
+            if(value=="krajtrigger")
 			{
 				triggers.push_back(new Trigger());
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float x2=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y2=atof(vrijednost.c_str());											
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                float x2=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y2=atof(value.c_str());
 				triggers.back()->InitKraj(Vec2(x,y),Vec2(x2,y2),this);
 			}
-			if(vrijednost=="porukatrigger")
+            if(value=="porukatrigger")
 			{				
-				getline(lstring,vrijednost,' ');
-				float x=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float x2=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,' ');
-				float y2=atof(vrijednost.c_str());
-				getline(lstring,vrijednost,';');
-				string posiljatelj=vrijednost;
-				getline(lstring,vrijednost,';');
-				string text=vrijednost;
-				getline(lstring,vrijednost,' ');
-				float trajanje=atof(vrijednost.c_str());	
-				getline(lstring,vrijednost,' ');
-                string zvuk_file="../data/"+vrijednost;
+                getline(lstring,value,' ');
+                float x=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y=atof(value.c_str());
+                getline(lstring,value,' ');
+                float x2=atof(value.c_str());
+                getline(lstring,value,' ');
+                float y2=atof(value.c_str());
+                getline(lstring,value,';');
+                string sender=value;
+                getline(lstring,value,';');
+                string text=value;
+                getline(lstring,value,' ');
+                float duration=atof(value.c_str());
+                getline(lstring,value,' ');
+                string sound_file="../data/"+value;
 				triggers.push_back(new Trigger());
 				Poruka* p=new Poruka();
-				p->Init(posiljatelj,text,trajanje,zvuk_file,this);
+                p->Init(sender,text,duration,sound_file,this);
 				triggers.back()->InitPoruka(Vec2(x,y), Vec2(x2,y2), p, this);
 			}
 		}
 	}
 	file.close();
-	player->Init(igracPoz,this,map);
+    player->Init(playerPos,this,map);
 	InitBlocks();
 }
 Mob* GameState::SpawnMobByName(string name)
