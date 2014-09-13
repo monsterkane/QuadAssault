@@ -1,13 +1,12 @@
 TODO:
 
-12% completed (24/193)
+12% completed (25/193)
 Translation:
 
 
-	10% completed (10/103)
+	10% completed (11/103)
 	Source files waiting for translation: 
 
-	GameState.h
 	Grid.cpp
 	Grid.h
 	GS_ArrayUpdate.cpp
