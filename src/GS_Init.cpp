@@ -28,7 +28,7 @@ bool GameState::Init(Game* game)
     this->igra=game;
 	gotovo=false;
 
-	extStanje=this;
+    gameState=this;
 	lightSet=false;
 	mobTriggerSet=0;
 	light_red=1.0; light_green=10; light_blue=1.0; light_intensity=8.0; light_radius=128.0;
@@ -55,19 +55,19 @@ bool GameState::Init(Game* game)
 	
 	p->DodajElement(new UI_Gumb());	
 	UI_Gumb* g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(16,32),Vec2(32,32),PosSvjetGUI,textureManager->DajTexturu("../data/gumb_svjetlo.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(16,32),Vec2(32,32),SetupLightGUI,textureManager->DajTexturu("../data/gumb_svjetlo.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(64,32),Vec2(32,32),PosTrigGUI,textureManager->DajTexturu("../data/gumb_svjetlo.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(64,32),Vec2(32,32),SetupTriggerGUI,textureManager->DajTexturu("../data/gumb_svjetlo.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenPrazniLevelGUI,textureManager->DajTexturu("../data/gumb_gen.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenerateEmptyLevelGUI,textureManager->DajTexturu("../data/gumb_gen.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(64,72),Vec2(32,32),SpremiLevelGUI,textureManager->DajTexturu("../data/gumb_spremi.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(64,72),Vec2(32,32),SaveLevelGUI,textureManager->DajTexturu("../data/gumb_spremi.tga")->id);
 
 	DEVMODE=false;
 

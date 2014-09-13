@@ -20,16 +20,16 @@
 
 #include "GUI_Functions.h"
 
-GameState* extStanje;
+GameState* gameState;
 
 ///POSTAVLJANJE SVJETLA - GUMB FUNKCIJA
-void PosSvjetGUI()
+void SetupLightGUI()
 {
-    extStanje->SetupLight();
+    gameState->SetupLight();
 }
-void PosTrigGUI()
+void SetupTriggerGUI()
 {
-    extStanje->SetupMobTrigger();
+    gameState->SetupMobTrigger();
 }
 void GameState::SetupLight()
 {
@@ -51,12 +51,12 @@ void GameState::SetupMobTrigger()
 }
 
 ///GENERIRANJE PRAzNOG LEVELA FUNKCIJA
-void GenPrazniLevelGUI()
+void GenerateEmptyLevelGUI()
 {
-    extStanje->GenerateEmptyLevel();
+    gameState->GenerateEmptyLevel();
 }
 
-void SpremiLevelGUI()
+void SaveLevelGUI()
 {
-    extStanje->SaveBlocks();
+    gameState->SaveBlocks();
 }

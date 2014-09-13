@@ -20,14 +20,14 @@
 
 #include "GameState.h"
 
-extern GameState* extStanje;
+extern GameState* gameState;
 
-///POSTAVLJANJE SVJETLA - GUMB FUNKCIJA
-void PosSvjetGUI();
-void PosTrigGUI();
+/* setting up lights - button function */
+void SetupLightGUI();
+void SetupTriggerGUI();
 
-///GENERIRANJE PRAzNOG LEVELA FUNKCIJA
-void GenPrazniLevelGUI();
+/* generate empty level function */
+void GenerateEmptyLevelGUI();
 
-///SPREMANJE LEVELA FUNKCIJA
-void SpremiLevelGUI();
+/* saving level function */
+void SaveLevelGUI();
