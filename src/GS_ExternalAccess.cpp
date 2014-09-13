@@ -58,23 +58,23 @@ Stvar* GameState::GetThing(Stvar* t)
 }
 sf::Sound* GameState::GetSound(sf::Sound* s, Zvuk* sound)
 {
-	bool sadrzi=false;
+    bool contains=false;
 	for(int i=0; i<sounds.size(); i++)
         if(sounds[i]->getBuffer()==&sound->buffer)
 		{
-			sadrzi=true;
+            contains=true;
             delete s;
             s=sounds[i];
             s->stop();
 			break;
 		}
-	if(sadrzi==false)
+    if(contains==false)
 	{		
         sounds.push_back(s);
         sounds.back()->setBuffer(sound->buffer);
 		return sounds.back();
 	}
-	if(sadrzi==true)
+    if(contains==true)
         return s;
 }
 Igrac* GameState::GetPlayer()
