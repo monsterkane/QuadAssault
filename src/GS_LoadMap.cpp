@@ -132,8 +132,8 @@ void GameState::LoadMap()
                 float y=atof(value.c_str());
                 getline(lstring,value,' ');
                 int id=atoi(value.c_str());
-				things.push_back(new KljucPickup());
-				KljucPickup* k=(KljucPickup*)things.back();
+                things.push_back(new KeyPickup());
+                KeyPickup* k=(KeyPickup*)things.back();
 				k->Init(Vec2(x,y),this,id);
 			}
             if(value=="preload_zvuk")
