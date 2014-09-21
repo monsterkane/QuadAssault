@@ -22,17 +22,17 @@
 #define ORUZJE_H
 #include "Object.h"
 
-class GlavnoStanje;
+class GameState;
 class Projektil;
 
 class Oruzje : public Objekt
 {
 protected:
 	GLuint tex, texN, texG;
-	GlavnoStanje* stanje;
+	GameState* stanje;
 
 	Vec2 absPoz, smjer;
-	unsigned char** maps;
+	unsigned char** mapa;
 	bool vlasnik;
 	
 	float punjenje, trenutnoPunjenje;
@@ -40,12 +40,12 @@ protected:
 	float potrebnaEnergija;
 	
 public:
-	virtual void Init(GlavnoStanje* stanje);
+	virtual void Init(GameState* stanje);
 	virtual void Update(float deltaT);	
 	virtual void Render();
 	virtual void RenderNormal();
 	virtual void RenderGlow();
-	virtual void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik);
+	virtual void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik);
 	virtual void IspaliProjektil(Projektil* p);
 
 	float DajPotrebnuEnergiju();

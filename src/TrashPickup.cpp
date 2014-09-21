@@ -21,7 +21,7 @@
 #include "TrashPickup.h"
 #include "GameState.h"
 
-void SmecePickup::Init(Vec2 poz, GlavnoStanje* stanje)
+void SmecePickup::Init(Vec2 poz, GameState* stanje)
 {
 	Stvar::Init(poz,stanje);
 
@@ -38,13 +38,13 @@ void SmecePickup::Init(Vec2 poz, GlavnoStanje* stanje)
 
 	cesticaTimer=1.0;
 
-	s=stanje->DodajSvjetlo(false);
+	s=stanje->GetLight(false);
 	s->Init(poz,64,stanje);
 	s->Postavke(Vec3(1.0, 0.75, 0.5),4);	
 	s->PostaviExplozija(true);
 	
-    tex=stanje->DajMT()->DajTexturu("../data/TrashDiffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/TrashNormal.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/TrashDiffuse.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/TrashNormal.tga")->id;
 }
 void SmecePickup::Update(float deltaT)
 {
@@ -55,7 +55,7 @@ void SmecePickup::Update(float deltaT)
 		s->PromijeniPoz(DajSredinu());
 		if(cesticaTimer>=1.0)
 		{
-			SmeceCestica* c=(SmeceCestica*)stanje->DodajCesticu(new SmeceCestica());
+			SmeceCestica* c=(SmeceCestica*)stanje->GetParticle(new SmeceCestica());
 			c->Init(DajPoz(),stanje);		
 			cesticaTimer=0.0;
 		}
@@ -88,12 +88,12 @@ bool SmecePickup::ProvjeraSudara()
 	Box k1;
 	k1.v1=poz;
 	k1.v2=poz+dim;
-	unsigned char** maps=stanje->DajMapu();
+	unsigned char** mapa=stanje->GetMap();
 	for(int x=(poz.x/BLOCK_SIZE)-2; x<(poz.x/BLOCK_SIZE)+2; x++)
 	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
-		if(maps[x][y]!=FLOOR)
+		if(mapa[x][y]!=FLOOR)
 		{
 			Box k2;
 			k2.v1=Vec2(x*BLOCK_SIZE,y*BLOCK_SIZE);
@@ -124,13 +124,13 @@ void SmecePickup::Unisti()
 }
 void SmecePickup::Pokupi(Igrac* igrac)
 {
-	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Sounds/pickup.wav"));
+	sf::Sound* z = stanje->GetSound(new sf::Sound(),
+        stanje->GetSM()->DajZvuk("../data/Sounds/pickup.wav"));
     z->play();
 	unisten=true;
 
 	s->Unisti();
-	Explosion* e=stanje->DodajExploziju();
+	Explosion* e=stanje->GetExplosion();
 	e->Init(DajSredinu(),128,stanje);
 	e->Setup(12,100,50);
 	e->SetColor(Vec3(1.0, 0.75, 0.5));	

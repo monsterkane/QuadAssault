@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "Projectile.h"
 
-void Oruzje::Init(GlavnoStanje* stanje)
+void Oruzje::Init(GameState* stanje)
 {	
 	this->stanje=stanje;
 	poz.x=0;
@@ -47,18 +47,18 @@ void Oruzje::Update(float deltaT)
 		trenutnoPunjenje=punjenje;
 	}
 }
-void Oruzje::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik)
+void Oruzje::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
 {
 	this->absPoz=poz;
 	this->smjer=smjer;
-	this->maps=maps;
+	this->mapa=mapa;
 	this->vlasnik=vlasnik;	
 }
 void Oruzje::IspaliProjektil(Projektil* p)
 {
-	stanje->DodajProjektil(p);
-	p->Init(absPoz,smjer,stanje,maps,vlasnik);	
-	stanje->DajIgraca()->OduzmiEnergiju(potrebnaEnergija);
+	stanje->GetProjectile(p);
+	p->Init(absPoz,smjer,stanje,mapa,vlasnik);	
+	stanje->GetPlayer()->OduzmiEnergiju(potrebnaEnergija);
 }
 void Oruzje::Render()
 {

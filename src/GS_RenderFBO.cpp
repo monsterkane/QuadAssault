@@ -20,47 +20,47 @@
 
 #include "GameState.h"
 
-void GlavnoStanje::RenderSvjetlostNaFBO()
+void GameState::RenderLightOnFBO()
 {
-	//LIGHTMAPA	
-	RenderNormalNaFBO();
+    /* lightmap */
+    RenderNormalOnFBO();
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,fbo);		
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, 
-					GL_TEXTURE_2D, lightmapa, 0); 	
+					GL_TEXTURE_2D, lightmap, 0); 	
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
-	glClearColor(ambijentnoSvjetlo.x, ambijentnoSvjetlo.y, ambijentnoSvjetlo.z, 1.0f);
+	glClearColor(ambientLight.x, ambientLight.y, ambientLight.z, 1.0f);
 	glLoadIdentity();	
 		
 	glEnable(GL_BLEND);	
 	glBlendFunc(GL_ONE,GL_ONE);
 
-	//RENDERIRA SE SVE GLOW
+    /* glow */
 	glPushMatrix();
-		glTranslatef(-kamera->DajPoz().x, -kamera->DajPoz().y, 0);
-		RenderGeometrijuGlow();
-		RenderObjekte(GLOW);
+		glTranslatef(-camera->DajPoz().x, -camera->DajPoz().y, 0);
+        RenderGeometryGlow();
+        RenderObjects(GLOW);
 	glPopMatrix();
 
-	//RENDERIRAJU SE SVJETLA
-	for(int i=0; i<svjetla.size(); i++)
+    /* light */
+	for(int i=0; i<lights.size(); i++)
 	{		
-		svjetla[i]->RenderNaFBO(shaderi[0],kamera, normalmapa);	
-		if(svjetla[i]->unisteno==true)
+		lights[i]->RenderNaFBO(shaders[0],camera, normalmap);	
+		if(lights[i]->unisteno==true)
 		{
-			delete svjetla[i];
-			svjetla.erase(svjetla.begin()+i);
+			delete lights[i];
+			lights.erase(lights.begin()+i);
 		}				
 	}
 	glDisable(GL_BLEND);
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,0);		
 }
 
-void GlavnoStanje::RenderNormalNaFBO()
+void GameState::RenderNormalOnFBO()
 {
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,fbo);		
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, 
-					GL_TEXTURE_2D, normalmapa, 0); 	
+					GL_TEXTURE_2D, normalmap, 0); 	
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	glClearColor(0.0, 0.0, 0.0, 1.0f);
@@ -68,19 +68,19 @@ void GlavnoStanje::RenderNormalNaFBO()
 
 	glPushMatrix();	
     //Sprite(Vec2(0,0),Vec2(igra->DajRW()->getSize().x, igra->DajRW()->getSize().y),mt->DajTexturu(3)->id);
-	glTranslatef(-kamera->DajPoz().x, -kamera->DajPoz().y, 0);			
-		RenderGeometrijuNormal();		
-		RenderObjekte(NORMAL);
+	glTranslatef(-camera->DajPoz().x, -camera->DajPoz().y, 0);			
+        RenderGeometryNormal();
+        RenderObjects(NORMAL);
 	glPopMatrix();
 	
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,0);		
 }
 
-void GlavnoStanje::RenderGeometrijuNaFBO()
+void GameState::RenderGeometryOnFBO()
 {
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,fbo);		
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, 
-					GL_TEXTURE_2D, geometrija, 0); 	
+					GL_TEXTURE_2D, geometry, 0); 	
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	glClearColor(0.0, 0.0, 0.0, 1.0f);
@@ -88,33 +88,33 @@ void GlavnoStanje::RenderGeometrijuNaFBO()
 
 	glPushMatrix();
     //Sprite(Vec2(0,0),Vec2(igra->DajRW()->getSize().x, igra->DajRW()->getSize().y),mt->DajTexturu(1)->id);
-	glTranslatef(-kamera->DajPoz().x, -kamera->DajPoz().y, 0);	
-		RenderGeometriju();
-		RenderObjekte(DIFFUSE);			
+	glTranslatef(-camera->DajPoz().x, -camera->DajPoz().y, 0);	
+        RenderGeometry();
+        RenderObjects(DIFFUSE);
 	glPopMatrix();
 	
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT,0);	
 }
 
-void GlavnoStanje::RenderScenu()
+void GameState::RenderScene()
 {		
-	shaderi[1]->Bind();
+	shaders[1]->Bind();
 	
-	int geometrijaLoc, lightmapaLoc, ambijentLoc;
+    int geometryLoc, lightmapLoc, ambientLoc;
 		
 	glEnable(GL_TEXTURE_2D);
-    geometrijaLoc = glGetUniformLocation(shaderi[1]->ID, "geometry");
+    geometryLoc = glGetUniformLocation(shaders[1]->ID, "geometry");
 	glActiveTextureARB(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, geometrija);
-	glUniform1i(geometrijaLoc, 0);	
+	glBindTexture(GL_TEXTURE_2D, geometry);
+    glUniform1i(geometryLoc, 0);
 
-	lightmapaLoc = glGetUniformLocation(shaderi[1]->ID, "lightmaps");
+    lightmapLoc = glGetUniformLocation(shaders[1]->ID, "lightmaps");
 	glActiveTextureARB(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, lightmapa);
-	glUniform1i(lightmapaLoc, 1);
+	glBindTexture(GL_TEXTURE_2D, lightmap);
+    glUniform1i(lightmapLoc, 1);
 
-	ambijentLoc = glGetUniformLocation(shaderi[1]->ID, "environment");
-	glUniform3f(ambijentLoc, ambijentnoSvjetlo.x, ambijentnoSvjetlo.y, ambijentnoSvjetlo.z);
+    ambientLoc = glGetUniformLocation(shaders[1]->ID, "environment");
+    glUniform3f(ambientLoc, ambientLight.x, ambientLight.y, ambientLight.z);
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0, 1.0); glVertex2f(0.0, 0.0);
@@ -124,7 +124,7 @@ void GlavnoStanje::RenderScenu()
     glTexCoord2f(1.0, 0.0); glVertex2f(window_size.x, window_size.y);
     glTexCoord2f(0.0, 0.0); glVertex2f(0.0, window_size.y);
 	glEnd();
-	shaderi[1]->UnBind();
+	shaders[1]->UnBind();
 	glDisable(GL_TEXTURE_2D);
 
 	glActiveTextureARB(GL_TEXTURE0);	

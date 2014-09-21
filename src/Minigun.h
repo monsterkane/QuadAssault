@@ -26,10 +26,10 @@ class Minigun : public Oruzje
 {
 private:
 public:
-	void Init(GlavnoStanje* stanje);
+	void Init(GameState* stanje);
 	void Update(float deltaT);
 	void Render();
-	void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik);
+	void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik);
 };
 
 #endif

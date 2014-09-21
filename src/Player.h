@@ -25,7 +25,7 @@
 #include "Weapon.h"
 #include "Message.h"
 
-class GlavnoStanje;
+class GameState;
 class Svjetlo;
 
 class Igrac : public Objekt
@@ -54,16 +54,16 @@ private:
 	GLuint tracnica_tex, tracnica_normal;
 	GLuint podloga_tex, podloga_normal;
 
-	GlavnoStanje* stanje;
+	GameState* stanje;
 
 	float pomak_tracnica;
 
-	unsigned char** maps;
+	unsigned char** mapa;
 
 public:
 	Igrac();
 	~Igrac();
-	void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps);
+	void Init(Vec2 poz, GameState* stanje, unsigned char** mapa);
 	void Update(float deltaT, Vec2 mis);
 	void UpdateFarove();
 	void Render(unsigned char stil);	

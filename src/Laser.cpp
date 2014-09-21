@@ -22,12 +22,12 @@
 #include "GameState.h"
 #include "LaserProjectile.h"
 
-void Laser::Init(GlavnoStanje* stanje)
+void Laser::Init(GameState* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/weapon1Glow.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/weapon1.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/weapon1Normal.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/weapon1Glow.tga")->id;
 	brzinaPunjenja=600;
 	potrebnaEnergija=2;
 }
@@ -39,9 +39,9 @@ void Laser::Render()
 {
 	Oruzje::Render();
 }
-void Laser::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik)
+void Laser::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,maps,vlasnik);
+	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
 	if(trenutnoPunjenje==punjenje)
 	{
 		for(int i=0; i<1; i++)

@@ -39,7 +39,7 @@ bool ManagerZvuka::UcitajZvuk(char* ime)
 	sf::SoundBuffer Buffer;
     if (!Buffer.loadFromFile(ime))
 	{
-        cerr << "ERROR: Errors loading sounds.";
+        cerr << "ERROR: Errors loading sound files.";
 		return false;
 	}
 	Zvuk z;

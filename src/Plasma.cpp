@@ -22,12 +22,12 @@
 #include "GameState.h"
 #include "PlasmaProjectile.h"
 
-void Plazma::Init(GlavnoStanje* stanje)
+void Plazma::Init(GameState* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/weapon2Glow.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/weapon1.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/weapon1Normal.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/weapon2Glow.tga")->id;
 	brzinaPunjenja=100;
 	potrebnaEnergija=6;
 }
@@ -39,9 +39,9 @@ void Plazma::Render()
 {
 	Oruzje::Render();
 }
-void Plazma::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik)
+void Plazma::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,maps,vlasnik);
+	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
 	if(trenutnoPunjenje==punjenje)
 	{
 		IspaliProjektil(new PlazmaProjektil());

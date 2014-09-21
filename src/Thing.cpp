@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "Game.h"
 
-void Stvar::Init(Vec2 poz, GlavnoStanje* stanje)
+void Stvar::Init(Vec2 poz, GameState* stanje)
 {
 	this->poz=poz;
 	this->stanje=stanje;
@@ -36,11 +36,11 @@ void Stvar::Update(float deltaT)
 	k1.v1=poz;
 	k1.v2=poz+dim;
 	Box k2; 
-	k2.v1=stanje->DajIgraca()->DajPoz();
-	k2.v2=stanje->DajIgraca()->DajPoz()+stanje->DajIgraca()->DajDim();
+	k2.v1=stanje->GetPlayer()->DajPoz();
+	k2.v2=stanje->GetPlayer()->DajPoz()+stanje->GetPlayer()->DajDim();
 	if(k1.Collision(&k2))
 	{
-		Pokupi(stanje->DajIgraca());
+		Pokupi(stanje->GetPlayer());
 	}
 }
 void Stvar::Render(unsigned char stil)

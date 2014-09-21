@@ -84,7 +84,7 @@ void MenuStanje::RenderLoading()
     t.setFont(fontovi[0]);
     t.setColor(sf::Color(50,255,50));
     t.setCharacterSize(35);
-    t.setString("loading data...");
+    t.setString("Loading Data...");
     t.setPosition(windows_size.x/2-t.getLocalBounds().width/2,
                   windows_size.y/2-t.getLocalBounds().height/2);
     igra->GetRW()->draw(t);

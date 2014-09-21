@@ -21,7 +21,7 @@
 #include "GameState.h"
 #include "SharedVariables.h"
 
-void GlavnoStanje::UpdateDev(float deltaT)
+void GameState::UpdateDev(float deltaT)
 {	
     while(igra->GetRW()->pollEvent(event))
 	{
@@ -29,49 +29,49 @@ void GlavnoStanje::UpdateDev(float deltaT)
 			gotovo=true;
         if(event.type==sf::Event::MouseMoved)
 		{
-            mis.x=event.mouseMove.x;
-            mis.y=event.mouseMove.y;
+            mousePos.x=event.mouseMove.x;
+            mousePos.y=event.mouseMove.y;
 		}
 
         if(event.type==sf::Event::MouseButtonPressed)
 		{
             if(event.mouseButton.button==sf::Mouse::Left)
 			{
-				uim->LijeviKlik(mis);
-				if(postavljaSvjetlo==true)
+                uiManager->LijeviKlik(mousePos);
+                if(lightSet==true)
 				{
-					postavljaSvjetlo=false;
+                    lightSet=false;
 				}
-				if(postavljaMobTrigger==3)
+                if(mobTriggerSet==3)
 				{
-					t3=mis+kamera->DajPoz();
-					Mob* m=SpawnajMobPremaImenu("lasermob1");	
-					triggeri.back()->InitMob(t1,t2,t3,m,this);
-					postavljaMobTrigger=0;
+                    trigger_spawn=mousePos+camera->DajPoz();
+                    Mob* m=SpawnMobByName("lasermob1");
+                    triggers.back()->InitMob(trigger_begin,trigger_end,trigger_spawn,m,this);
+                    mobTriggerSet=0;
 				}
-				if(postavljaMobTrigger==2)
+                if(mobTriggerSet==2)
 				{
-					t2=mis+kamera->DajPoz();
-					postavljaMobTrigger=3;
+                    trigger_end=mousePos+camera->DajPoz();
+                    mobTriggerSet=3;
 				}
-				if(postavljaMobTrigger==1)
+                if(mobTriggerSet==1)
 				{
-					t1=mis+kamera->DajPoz();
-					postavljaMobTrigger=2;
+                    trigger_begin=mousePos+camera->DajPoz();
+                    mobTriggerSet=2;
 				}
 
 			}			
             if(event.mouseButton.button==sf::Mouse::Right)
 			{					
-				maps[(int)(kamera->DajPoz().x+mis.x)/BLOCK_SIZE][(int)(kamera->DajPoz().y+mis.y)/BLOCK_SIZE]=PostavljanjeBloka;
-				InitBlokove();
+                map[(int)(camera->DajPoz().x+mousePos.x)/BLOCK_SIZE][(int)(camera->DajPoz().y+mousePos.y)/BLOCK_SIZE]=blockType;
+                InitBlocks();
 			}
 		}
         if(event.type==sf::Event::MouseButtonReleased)
 		{
             if(event.mouseButton.button==sf::Mouse::Left)
 			{
-				uim->LijeviOtpust(mis);
+                uiManager->LijeviOtpust(mousePos);
 			}
 		}
         if(event.type==sf::Event::KeyPressed)
@@ -80,61 +80,61 @@ void GlavnoStanje::UpdateDev(float deltaT)
 				DEVMODE=false;
             if(event.key.code==sf::Keyboard::F4)
 			{
-				if(ambijentnoSvjetlo.x==0.1f)
-					ambijentnoSvjetlo=Vec3(0.8f, 0.8f, 0.8f);
+                if(ambientLight.x==0.1f)
+                    ambientLight=Vec3(0.8f, 0.8f, 0.8f);
 				else
-					ambijentnoSvjetlo=Vec3(0.1f, 0.1f, 0.1f);
+                    ambientLight=Vec3(0.1f, 0.1f, 0.1f);
 
 			}
             if(event.key.code==sf::Keyboard::F6)
 			{
-				SpremiBlokove();				
-				cout << "MAPS SAVED." << endl;
+                SaveBlocks();
+                cout << "MAP SAVED." << endl;
 			}
             if(event.key.code==sf::Keyboard::G)
 			{				
-				cout << "X: " << kamera->DajPoz().x+mis.x << endl;
-				cout << "Y: " << kamera->DajPoz().y+mis.y << endl;
+                cout << "X: " << camera->DajPoz().x+mousePos.x << endl;
+                cout << "Y: " << camera->DajPoz().y+mousePos.y << endl;
 			}
             if(event.key.code==sf::Keyboard::Num1)
-				PostavljanjeBloka=FLOOR;			
+                blockType=FLOOR;
             if(event.key.code==sf::Keyboard::Num2)
-				PostavljanjeBloka=WALL;			
+                blockType=WALL;
             if(event.key.code==sf::Keyboard::Num3)
-				PostavljanjeBloka=EMPTY;			
+                blockType=EMPTY;
             if(event.key.code==sf::Keyboard::Num4)
-				PostavljanjeBloka=RED_DOOR;
+                blockType=RED_DOOR;
             if(event.key.code==sf::Keyboard::Num5)
-				PostavljanjeBloka=GREEN_DOOR;
+                blockType=GREEN_DOOR;
             if(event.key.code==sf::Keyboard::Num6)
-				PostavljanjeBloka=BLUE_DOOR;
+                blockType=BLUE_DOOR;
 			
 		}
 	}	
-	if(postavljaSvjetlo==true)
+    if(lightSet==true)
 	{
-		postavljenoSvjetlo->radius=srad;
-		postavljenoSvjetlo->Postavke(Vec3(sr,sg,sb),si);
-		postavljenoSvjetlo->PromijeniPoz(mis+kamera->DajPoz());
+		light->radius=light_radius;
+        light->Postavke(Vec3(light_red,light_green,light_blue),light_intensity);
+        light->PromijeniPoz(mousePos+camera->DajPoz());
 	}
 
-	uim->Update(deltaT, mis);
+    uiManager->Update(deltaT, mousePos);
 }
-void GlavnoStanje::SpremiBlokove()
+void GameState::SaveBlocks()
 {
     ofstream of(nivo_datoteka_g.c_str());
 	for(int i=0; i<MX; i++)
 	for(int j=0; j<MY; j++)
 	{
-		of << "block " << i*BLOCK_SIZE << " " << j*BLOCK_SIZE << " " << (int)maps[i][j] << "\n";		
+        of << "block " << i*BLOCK_SIZE << " " << j*BLOCK_SIZE << " " << (int)map[i][j] << "\n";
 	}
-	for(int i=0; i<svjetla.size(); i++)
+    for(int i=0; i<lights.size(); i++)
 	{
-		if(svjetla[i]->staticno==true)
+        if(lights[i]->staticno==true)
 		{
-		of << "light " << svjetla[i]->DajPoz().x << " " << svjetla[i]->DajPoz().y 
-			<< " " << svjetla[i]->radius << " " << svjetla[i]->intenzitet << " " << svjetla[i]->boja.x << " " << svjetla[i]->boja.y << 
-			" " << svjetla[i]->boja.z << "\n";
+        of << "light " << lights[i]->DajPoz().x << " " << lights[i]->DajPoz().y
+            << " " << lights[i]->radius << " " << lights[i]->intenzitet << " " << lights[i]->boja.x << " " << lights[i]->boja.y <<
+            " " << lights[i]->boja.z << "\n";
 		}
 	}
 	of.close ();

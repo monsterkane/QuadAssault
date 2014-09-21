@@ -31,21 +31,21 @@
 #define PORUKA 1
 #define KRAJ 2
 
-class GlavnoStanje;
+class GameState;
 
 class Trigger : public Objekt
 {
 private:
-	GlavnoStanje* stanje;
+	GameState* stanje;
 	Mob* mob;
 	Vec2 meta;
 
 	Poruka* poruka;	
 	
 public:
-	void InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GlavnoStanje* stanje);
-	void InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GlavnoStanje* stanje);
-	void InitKraj(Vec2 v1, Vec2 v2, GlavnoStanje* stanje);
+	void InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GameState* stanje);
+	void InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GameState* stanje);
+	void InitKraj(Vec2 v1, Vec2 v2, GameState* stanje);
 	void Update(float deltaT);
 	void Render();
 

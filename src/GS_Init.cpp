@@ -23,75 +23,75 @@
 #include "UI_Window.h"
 #include "GUI_Functions.h"
 
-bool GlavnoStanje::Init(Game* igra)
+bool GameState::Init(Game* game)
 {
-	this->igra=igra;
+    this->igra=game;
 	gotovo=false;
 
-	extStanje=this;
-	postavljaSvjetlo=false;
-	postavljaMobTrigger=0;
-	sr=1.0; sg=10; sb=1.0; si=8.0; srad=128.0;
+    gameState=this;
+	lightSet=false;
+	mobTriggerSet=0;
+	light_red=1.0; light_green=10; light_blue=1.0; light_intensity=8.0; light_radius=128.0;
 
-	mt=new ManagerTextura();
-    mt->UcitajTexturu("../data/cursor.tga");
-    mt->UcitajTexturu("../data/backgroundUniverse.tga");
+	textureManager=new ManagerTextura();
+    textureManager->UcitajTexturu("../data/cursor.tga");
+    textureManager->UcitajTexturu("../data/backgroundUniverse.tga");
 
-	mz=new ManagerZvuka();		
+	soundManager=new ManagerZvuka();		
 
-    shaderi.push_back(new Shader("../data/LightVS.txt", "../data/LightFS.txt"));
-    shaderi.push_back(new Shader("../data/RenderSceneVS.txt", "../data/RenderSceneFS.txt"));
+    shaders.push_back(new Shader("../data/LightVS.txt", "../data/LightFS.txt"));
+    shaders.push_back(new Shader("../data/RenderSceneVS.txt", "../data/RenderSceneFS.txt"));
 
-	fontovi.push_back(sf::Font());
-    fontovi.back().loadFromFile("../data/DialogueFont.TTF");
+	fonts.push_back(sf::Font());
+    fonts.back().loadFromFile("../data/DialogueFont.TTF");
 
-	uim=new UI_Menager();
-	uim->Init(mt,igra);
+	uiManager=new UI_Menager();
+    uiManager->Init(textureManager,game);
 
-	uim->DodajProzor(new UI_Prozor());	
+	uiManager->DodajProzor(new UI_Prozor());	
 	
-	UI_Prozor* p=uim->DajProzore().back();
-	p->Init(uim,Vec2(32,32), Vec2(320, 240), "Alati");
+	UI_Prozor* p=uiManager->DajProzore().back();
+	p->Init(uiManager,Vec2(32,32), Vec2(320, 240), "Alati");
 	
 	p->DodajElement(new UI_Gumb());	
 	UI_Gumb* g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(16,32),Vec2(32,32),PosSvjetGUI,mt->DajTexturu("../data/button_light.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(16,32),Vec2(32,32),SetupLightGUI,textureManager->DajTexturu("../data/button_light.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(64,32),Vec2(32,32),PosTrigGUI,mt->DajTexturu("../data/button_light.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(64,32),Vec2(32,32),SetupTriggerGUI,textureManager->DajTexturu("../data/button_light.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenPrazniLevelGUI,mt->DajTexturu("../data/button_gen.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenerateEmptyLevelGUI,textureManager->DajTexturu("../data/button_gen.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(64,72),Vec2(32,32),SpremiLevelGUI,mt->DajTexturu("../data/button_save.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(64,72),Vec2(32,32),SaveLevelGUI,textureManager->DajTexturu("../data/button_save.tga")->id);
 
 	DEVMODE=false;
 
-	PostaviFBO();	
+    SetupFBO();
 
-	UcitajMapu();
+    LoadMap();
 
-	tranzicija=T_FADEIN;
-	tBoja=0.0f;
-	brzinaFadeanja=1;
-	nivoZavrsen=false;
+	transition=T_FADEIN;
+	transition_color=0.0f;
+	transition_speed=1;
+    levelCompleted=false;
 
 	gameOverTimer=3;
 
 	return true;
 }
 
-bool GlavnoStanje::PostaviFBO()
+bool GameState::SetupFBO()
 {
     sf::Vector2u window_size = igra->GetRW()->getSize();
 	glGenFramebuffers(1,&fbo);	
 
-	glGenTextures(1,&lightmapa);
-	glBindTexture(GL_TEXTURE_2D,lightmapa);
+	glGenTextures(1,&lightmap);
+	glBindTexture(GL_TEXTURE_2D,lightmap);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 
         window_size.x,
         window_size.y,
@@ -102,8 +102,8 @@ bool GlavnoStanje::PostaviFBO()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glGenTextures(1,&normalmapa);
-	glBindTexture(GL_TEXTURE_2D,normalmapa);
+	glGenTextures(1,&normalmap);
+	glBindTexture(GL_TEXTURE_2D,normalmap);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 
         window_size.x,
         window_size.y,
@@ -114,8 +114,8 @@ bool GlavnoStanje::PostaviFBO()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glGenTextures(1,&geometrija);
-	glBindTexture(GL_TEXTURE_2D,geometrija);
+	glGenTextures(1,&geometry);
+	glBindTexture(GL_TEXTURE_2D,geometry);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 
         window_size.x,
         window_size.y,
@@ -128,12 +128,12 @@ bool GlavnoStanje::PostaviFBO()
 		
 	return true;
 }
-void GlavnoStanje::IzbrisiFBO()
+void GameState::DeleteFBO()
 {
 	glDeleteFramebuffers(1,&fbo);
-	glDeleteTextures(1,&lightmapa);
-	glDeleteTextures(1,&normalmapa);
-	glDeleteTextures(1,&geometrija);
+	glDeleteTextures(1,&lightmap);
+	glDeleteTextures(1,&normalmap);
+	glDeleteTextures(1,&geometry);
 }
 
 

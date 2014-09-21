@@ -21,87 +21,87 @@
 #include "KeyPickup.h"
 #include "GameState.h"
 
-void KljucPickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
+void KeyPickup::Init(Vec2 pos, GameState* state, int id)
 {
-	Stvar::Init(poz,stanje);
+    Stvar::Init(pos,state);
 
 	dim.x=32;
 	dim.y=32;
 	this->id=id;
 	
-	rotacija=0;
-    tex=stanje->DajMT()->DajTexturu("../data/KeyDiffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/KeyNormal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/KeyGlow.tga")->id;
+    rotation=0;
+    tex=state->GetTM()->DajTexturu("../data/KeyDiffuse.tga")->id;
+    texN=state->GetTM()->DajTexturu("../data/KeyNormal.tga")->id;
+    texG=state->GetTM()->DajTexturu("../data/KeyGlow.tga")->id;
 
-	s=stanje->DodajSvjetlo(false);
-	s->Init(poz+Vec2(dim.x/2,dim.y/2),128,stanje);
-	if(id==CRVENI)
-		s->Postavke(Vec3(1.0,0.1,0.1),4);	
-	if(id==PLAVI)
-		s->Postavke(Vec3(0.1,0.25,1.0),4);	
-	if(id==ZELENI)
-		s->Postavke(Vec3(0.1,1.0,0.1),4);	
+    light=state->GetLight(false);
+    light->Init(pos+Vec2(dim.x/2,dim.y/2),128,state);
+    if(id==RED)
+        light->Postavke(Vec3(1.0,0.1,0.1),4);
+    if(id==BLUE)
+        light->Postavke(Vec3(0.1,0.25,1.0),4);
+    if(id==GREEN)
+        light->Postavke(Vec3(0.1,1.0,0.1),4);
 }
-void KljucPickup::Update(float deltaT)
+void KeyPickup::Update(float deltaT)
 {
 	Stvar::Update(deltaT);
-	rotacija+=100*deltaT;
-	if(rotacija>360)
-		rotacija=0;
+    rotation+=100*deltaT;
+    if(rotation>360)
+        rotation=0;
 }
-void KljucPickup::Render(unsigned char stil)
+void KeyPickup::Render(unsigned char type)
 {
 	GLuint t;
-	if(stil==DIFFUSE)
+    if(type==DIFFUSE)
 		t=tex;
-	if(stil==NORMAL)
+    if(type==NORMAL)
 		t=texN;
-	if(stil==GLOW)
+    if(type==GLOW)
 	{
 		t=texG;
-		if(id==CRVENI)
+        if(id==RED)
 			glColor3f(1.0, 0.1, 0.1);
-		if(id==PLAVI)
+        if(id==BLUE)
 			glColor3f(0.1, 0.1, 1.0);
-		if(id==ZELENI)
+        if(id==GREEN)
 			glColor3f(0.1, 1.0, 0.1);
 	}
-	SpriteT(DajPoz(),DajDim(),rotacija,t);
+    SpriteT(DajPoz(),DajDim(),rotation,t);
 	glColor3f(1.0, 1.0, 1.0);
 }
-void KljucPickup::Unisti()
+void KeyPickup::Unisti()
 {
-	s->Unisti();
+    light->Unisti();
 }
-void KljucPickup::Pokupi(Igrac* igrac)
+void KeyPickup::Pokupi(Igrac* player)
 {
-	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Sounds/pickup.wav"));
-    z->play();
-	int vrata;
-	if(id==CRVENI)	
-		vrata=RED_DOOR;
-	if(id==PLAVI)	
-		vrata=BLUE_DOOR;
-	if(id==ZELENI)
-		vrata=GREEN_DOOR;
+    sf::Sound* s = stanje->GetSound(new sf::Sound(),
+        stanje->GetSM()->DajZvuk("../data/Sounds/pickup.wav"));
+    s->play();
+    int door;
+    if(id==RED)
+        door=RED_DOOR;
+    if(id==BLUE)
+        door=BLUE_DOOR;
+    if(id==GREEN)
+        door=GREEN_DOOR;
 
 	for(int x=0; x<MX; x++)
 	for(int y=0; y<MY; y++)
 	{
-		if(stanje->DajMapu()[x][y]==vrata)
+        if(stanje->GetMap()[x][y]==door)
 		{
-			stanje->DajMapu()[x][y]=FLOOR;
-			stanje->DajBlok(x,y)->Init(Vec2(x*BLOCK_SIZE, y*BLOCK_SIZE), FLOOR, stanje);
-			Explosion* e=stanje->DodajExploziju();
+			stanje->GetMap()[x][y]=FLOOR;
+			stanje->GetBlock(x,y)->Init(Vec2(x*BLOCK_SIZE, y*BLOCK_SIZE), FLOOR, stanje);
+			Explosion* e=stanje->GetExplosion();
 			e->Init(Vec2(x*BLOCK_SIZE+BLOCK_SIZE/2, y*BLOCK_SIZE+BLOCK_SIZE/2), 128, stanje);
 			e->Setup(20,1000,50);
-			if(id==CRVENI)
+            if(id==RED)
 				e->SetColor(Vec3(1.0, 0.1, 0.1));
-			if(id==PLAVI)
+            if(id==BLUE)
 				e->SetColor(Vec3(0.1, 0.1, 1.0));
-			if(id==ZELENI)
+            if(id==GREEN)
 				e->SetColor(Vec3(0.1, 1.0, 0.1));
 		}
 	}

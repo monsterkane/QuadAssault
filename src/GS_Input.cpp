@@ -21,26 +21,26 @@
 #include "GameState.h"
 #include "MenuState.h"
 
-void GlavnoStanje::Input()
+void GameState::Input()
 {
     static sf::Clock clock;
     float deltaT=clock.restart().asSeconds();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		tranzicija=T_FADEOUT;
+        transition=T_FADEOUT;
 	
 	if(DEVMODE==false)
 	{
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			igrac->Rotiraj(-150*deltaT);
+            player->Rotiraj(-150*deltaT);
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			igrac->Rotiraj(150*deltaT);
+            player->Rotiraj(150*deltaT);
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			igrac->DodajMoment(1);
+            player->DodajMoment(1);
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			igrac->DodajMoment(-1);
+            player->DodajMoment(-1);
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			igrac->Pucaj(mis+kamera->DajPoz(),deltaT);
+            player->Pucaj(mousePos+camera->DajPoz(),deltaT);
 	}
 	if(DEVMODE==true)
 	{
@@ -48,47 +48,47 @@ void GlavnoStanje::Input()
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 			speed=750;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			kamera->PromijeniPoz(kamera->DajPoz()+Vec2(-speed*deltaT,0));
+            camera->PromijeniPoz(camera->DajPoz()+Vec2(-speed*deltaT,0));
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			kamera->PromijeniPoz(kamera->DajPoz()+Vec2(speed*deltaT,0));
+            camera->PromijeniPoz(camera->DajPoz()+Vec2(speed*deltaT,0));
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			kamera->PromijeniPoz(kamera->DajPoz()+Vec2(0, -speed*deltaT));
+            camera->PromijeniPoz(camera->DajPoz()+Vec2(0, -speed*deltaT));
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			kamera->PromijeniPoz(kamera->DajPoz()+Vec2(0, speed*deltaT));
+            camera->PromijeniPoz(camera->DajPoz()+Vec2(0, speed*deltaT));
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7))
-			sr+=0.5*deltaT;
+			light_red+=0.5*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
-			sr-=0.5*deltaT;
+			light_red-=0.5*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8))
-			sg+=0.5*deltaT;
+			light_green+=0.5*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5))
-			sg-=0.5*deltaT;
+			light_green-=0.5*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9))
-			sb+=0.5*deltaT;
+			light_blue+=0.5*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
-			sb-=0.5*deltaT;
+			light_blue-=0.5*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
-			si+=50*deltaT;
+            light_intensity+=50*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
-			si-=50*deltaT;
+            light_intensity-=50*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-			srad+=50*deltaT;
+			light_radius+=50*deltaT;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-			srad-=50*deltaT;
-		if(sr<0.0)
-			sr=0.0;
-		if(sr>1.0)
-			sr=1.0;
-		if(sg<0.0)
-			sg=0.0;
-		if(sg>1.0)
-			sg=1.0;
-		if(sb<0.0)
-			sb=0.0;
-		if(sb>1.0)
-			sb=1.0;
-		if(si<0.0)
-			si=0.0;
+			light_radius-=50*deltaT;
+		if(light_red<0.0)
+			light_red=0.0;
+		if(light_red>1.0)
+			light_red=1.0;
+		if(light_green<0.0)
+			light_green=0.0;
+		if(light_green>1.0)
+			light_green=1.0;
+		if(light_blue<0.0)
+			light_blue=0.0;
+		if(light_blue>1.0)
+			light_blue=1.0;
+        if(light_intensity<0.0)
+            light_intensity=0.0;
 	}
 }

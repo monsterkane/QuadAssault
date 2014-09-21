@@ -26,7 +26,7 @@
 #define IGRAC 0
 #define NEPRIJATELJ 1
 
-class GlavnoStanje;
+class GameState;
 
 class Projektil : public Objekt
 {
@@ -36,17 +36,17 @@ protected:
 
 	float domet, domet_timer;
 
-	GlavnoStanje* stanje;
+	GameState* stanje;
 	Svjetlo* svjetlo;
 
-	unsigned char** maps;
+	unsigned char** mapa;
 
 	float steta;
 
 public:
 	Projektil();
 	~Projektil();
-	virtual void Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** maps, bool vlasnik);
+	virtual void Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik);
 	virtual void Update(float deltaT);
 	virtual void Render(unsigned char stil);
 	virtual void Unisti();

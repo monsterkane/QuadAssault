@@ -62,7 +62,7 @@ void MenuStanje::Input()
 					nivo_datoteka=nivoi[i].datoteka;
 					nivo_datoteka_g=nivoi[i].datoteka_g;
 					nivo_trenutni=i;
-					igra->SetState(new GlavnoStanje(), true);
+					igra->SetState(new GameState(), true);
 					break;
 				}
 			}

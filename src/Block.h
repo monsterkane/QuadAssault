@@ -37,7 +37,7 @@ struct Side
     Vec2 normal;
 };
 
-class GlavnoStanje;
+class GameState;
 
 class Block
 {
@@ -45,14 +45,14 @@ private:
     Vec2 pos;
     Vec2 size;
     unsigned char type;
-    GlavnoStanje* state;
+    GameState* state;
 
     vector<Side> sides;
 	GLuint tex, texN, texG;
 
     static float water_flow;
 public:
-    void Init(Vec2 pos, unsigned char type, GlavnoStanje* state);
+    void Init(Vec2 pos, unsigned char type, GameState* state);
 
 	void Render();	
 	void RenderNormal();

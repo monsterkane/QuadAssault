@@ -22,7 +22,7 @@
 #include "GameState.h"
 #include "Game.h"
 
-void Poruka::Init(string posiljatelj, string sadrzaj, float trajanje, string zvuk, GlavnoStanje* stanje)
+void Poruka::Init(string posiljatelj, string sadrzaj, float trajanje, string zvuk, GameState* stanje)
 {	
 	this->trajanje=trajanje;
 	this->stanje=stanje;
@@ -35,13 +35,13 @@ void Poruka::Init(string posiljatelj, string sadrzaj, float trajanje, string zvu
     stanje->DajIgru()->GetRW()->pushGLStates();
     p_text.setString(posiljatelj);
     p_text.setPosition(poz.x+48, poz.y+4);
-    p_text.setFont(stanje->DajFontove()->at(0));
+    p_text.setFont(stanje->GetFonts()->at(0));
     p_text.setCharacterSize(24);
     p_text.setColor(sf::Color(25,255,25));
 
     text.setString(sadrzaj);
     text.setPosition(poz.x+48, poz.y+4+24);
-    text.setFont(stanje->DajFontove()->at(0));
+    text.setFont(stanje->GetFonts()->at(0));
     text.setCharacterSize(24);
     text.setColor(sf::Color(255,255,255));
     stanje->DajIgru()->GetRW()->popGLStates();
@@ -49,7 +49,7 @@ void Poruka::Init(string posiljatelj, string sadrzaj, float trajanje, string zvu
 	this->zvuk=zvuk;
 	SvirajZvuk=true;	
 
-    portret=stanje->DajMT()->DajTexturu("../data/portrait2.tga")->id;
+    portret=stanje->GetTM()->DajTexturu("../data/portrait2.tga")->id;
 }
 void Poruka::Update(float deltaT)
 {
@@ -64,8 +64,8 @@ void Poruka::Update(float deltaT)
 	}
 	if(SvirajZvuk==true)
 	{
-		z = stanje->DodajZvuk(new sf::Sound(),
-			stanje->DajMZ()->DajZvuk((char*)zvuk.c_str()));			
+		z = stanje->GetSound(new sf::Sound(),
+			stanje->GetSM()->DajZvuk((char*)zvuk.c_str()));			
         z->play();
 		
 		SvirajZvuk=false;

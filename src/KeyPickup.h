@@ -23,22 +23,22 @@
 #include "Thing.h"
 #include "Light.h"
 
-#define CRVENI 0
-#define PLAVI 1
-#define ZELENI 2
+#define RED 0
+#define BLUE 1
+#define GREEN 2
 
-class KljucPickup : public Stvar
+class KeyPickup : public Stvar
 {
 protected:
-	float rotacija;
-	Svjetlo* s;
+    float rotation;
+    Svjetlo* light;
 	int id;
 public:
-	void Init(Vec2 poz, GlavnoStanje* stanje, int id);
+    void Init(Vec2 pos, GameState* state, int id);
 	void Update(float deltaT);
-	void Render(unsigned char stil);
+    void Render(unsigned char type);
 	void Unisti();
-	void Pokupi(Igrac* igrac);
+    void Pokupi(Igrac* player);
 };
 
 #endif

@@ -30,7 +30,7 @@ Svjetlo::~Svjetlo()
 {	
 }
 
-void Svjetlo::Init(Vec2 poz, float radius, GlavnoStanje* stanje)
+void Svjetlo::Init(Vec2 poz, float radius, GameState* stanje)
 {
 	this->poz=poz;
 	this->radius=radius;

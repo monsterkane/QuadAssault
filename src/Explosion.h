@@ -23,7 +23,7 @@
 #include "Object.h"
 #include "Light.h"
 
-class GlavnoStanje;
+class GameState;
 
 class Explosion : public Objekt
 {
@@ -40,12 +40,12 @@ protected:
 
     Vec3 color; // light color
 
-    GlavnoStanje* state;
+    GameState* state;
 
 public:
     Explosion();
     ~Explosion();
-    void Init(Vec2 pos, float radius, GlavnoStanje* state);
+    void Init(Vec2 pos, float radius, GameState* state);
     void Setup(float intensity, float growthRate, float deathRate);
     void SetColor(Vec3 color);
 	void Update(float deltaT);

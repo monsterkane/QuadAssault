@@ -31,7 +31,7 @@ bool Game::Init(char* configFile)
     int style=sf::Style::Close;
     //stil=sf::Style::Fullscreen;
 	//***************************
-	cout << "----Quad Assault----" << endl;
+	cout << "----QuadAssault----" << endl;
 	cout << "*******************" << endl;		
 
     cout << "Setting up window..." << endl;

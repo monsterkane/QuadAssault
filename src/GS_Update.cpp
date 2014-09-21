@@ -20,7 +20,7 @@
 
 #include "GameState.h"
 
-void GlavnoStanje::Update(float deltaT)
+void GameState::Update(float deltaT)
 {	
     if(!DEVMODE)
 	{
@@ -30,8 +30,8 @@ void GlavnoStanje::Update(float deltaT)
 				gotovo=true;
             if(event.type==sf::Event::MouseMoved)
 			{
-                mis.x=event.mouseMove.x;
-                mis.y=event.mouseMove.y;
+                mousePos.x=event.mouseMove.x;
+                mousePos.y=event.mouseMove.y;
 			}
 
             if(event.type==sf::Event::MouseButtonPressed)
@@ -50,43 +50,43 @@ void GlavnoStanje::Update(float deltaT)
 				}				
 			}
 		}	
-		if(igrac->JeUnisten() || nivoZavrsen)
+		if(player->JeUnisten() || levelCompleted)
 			gameOverTimer-=deltaT;
 		if(gameOverTimer<=0.0)
-			tranzicija=T_FADEOUT;
+			transition=T_FADEOUT;
 
-		if(tranzicija==T_FADEIN)
+		if(transition==T_FADEIN)
 		{
-			tBoja+=brzinaFadeanja*deltaT;
-			if(tBoja>1.0f)
+			transition_color+=transition_speed*deltaT;
+			if(transition_color>1.0f)
 			{
-				tranzicija=T_NEMA;
-				tBoja=1.0f;
+				transition=T_NEMA;
+				transition_color=1.0f;
 			}
 		}
-		if(tranzicija==T_FADEOUT)
+		if(transition==T_FADEOUT)
 		{
-			tBoja-=brzinaFadeanja*deltaT;
-			if(tBoja<0.0f)
+			transition_color-=transition_speed*deltaT;
+			if(transition_color<0.0f)
 			{
-				tBoja=0.0f;
+				transition_color=0.0f;
 			}
 		}		
 	
-		igrac->Update(deltaT, mis+kamera->DajPoz());
+		player->Update(deltaT, mousePos+camera->DajPoz());
 
-		UpdateajNizove(deltaT);
+		UpdateSequences(deltaT);
 
-        kamera->PromijeniPoz(igrac->DajSredinu()-Vec2(igra->GetRW()->getSize().x/2, igra->GetRW()->getSize().y/2));
+        camera->PromijeniPoz(player->DajSredinu()-Vec2(igra->GetRW()->getSize().x/2, igra->GetRW()->getSize().y/2));
 		
 	}
 
 	if(DEVMODE==true)
 		UpdateDev(deltaT);
 }
-Block* GlavnoStanje::DajBlok(short x, short y)
+Block* GameState::GetBlock(short x, short y)
 {
-	return &blokovi[x][y];
+	return &blocks[x][y];
 }
 
 

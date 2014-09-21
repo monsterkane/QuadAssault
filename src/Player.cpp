@@ -26,27 +26,27 @@
 #include "Minigun.h"
 #include "Light.h"
 
-void Igrac::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps)
+void Igrac::Init(Vec2 poz, GameState* stanje, unsigned char** mapa)
 {
     for(int i=0; i<4; ++i)
         oruzjeSlot[i] = false;
 
 	this->poz=poz;
 	this->stanje=stanje;
-	this->maps=maps;
+	this->mapa=mapa;
 	dim.x=64;
 	dim.y=64;
 
-    textura=stanje->DajMT()->DajTexturu("../data/tankTorsoDiffuse.tga")->id;
-    texturaN=stanje->DajMT()->DajTexturu("../data/tankTorsoNormal.tga")->id;
+    textura=stanje->GetTM()->DajTexturu("../data/tankTorsoDiffuse.tga")->id;
+    texturaN=stanje->GetTM()->DajTexturu("../data/tankTorsoNormal.tga")->id;
 
-    podloga_tex=stanje->DajMT()->DajTexturu("../data/tankBaseDiffuse.tga")->id;
-    podloga_normal=stanje->DajMT()->DajTexturu("../data/tankBaseNormal.tga")->id;
+    podloga_tex=stanje->GetTM()->DajTexturu("../data/tankBaseDiffuse.tga")->id;
+    podloga_normal=stanje->GetTM()->DajTexturu("../data/tankBaseNormal.tga")->id;
 
-    tracnica_tex=stanje->DajMT()->DajTexturu("../data/tracksDiffuse.tga")->id;
-    tracnica_normal=stanje->DajMT()->DajTexturu("../data/tracksNormal.tga")->id;
+    tracnica_tex=stanje->GetTM()->DajTexturu("../data/tracksDiffuse.tga")->id;
+    tracnica_normal=stanje->GetTM()->DajTexturu("../data/tracksNormal.tga")->id;
 	
-	farovi=stanje->DodajSvjetlo(false);
+	farovi=stanje->GetLight(false);
 	farovi->Init(Vec2(0.0, 0.0), 1024, stanje);
 	farovi->Postavke(Vec3(1.0, 1.0, 1.0), 16);
 
@@ -87,7 +87,7 @@ void Igrac::Pucaj(Vec2 misPoz, float deltaT)
 					slot.y=sin((rotacijaTorza+kut)/180.0*3.14);
 					slot.Mnozi(sqrt(oPoz.x*oPoz.x + oPoz.y*oPoz.y)); //oruzje x offset
 
-					oruzja[i]->Pucaj(DajSredinu()+slot,smjer,maps,IGRAC);									
+					oruzja[i]->Pucaj(DajSredinu()+slot,smjer,mapa,IGRAC);									
 				}
 				puca=true;
 			}
@@ -103,7 +103,7 @@ bool Igrac::ProvjeraSudara()
 	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
-		if(maps[x][y]!=FLOOR)
+		if(mapa[x][y]!=FLOOR)
 		{
 			Box k2;
 			k2.v1=Vec2(x*BLOCK_SIZE,y*BLOCK_SIZE);
@@ -112,12 +112,12 @@ bool Igrac::ProvjeraSudara()
 				return true;
 		}
 	}
-	for(int i=0; i<stanje->DajMobove()->size(); i++)
+	for(int i=0; i<stanje->GetMobs()->size(); i++)
 	{		
 		Box k2;
-		k2.v1=stanje->DajMobove()->at(i)->DajPoz();
-		k2.v2=stanje->DajMobove()->at(i)->DajPoz()+
-			stanje->DajMobove()->at(i)->DajDim();
+		k2.v1=stanje->GetMobs()->at(i)->DajPoz();
+		k2.v2=stanje->GetMobs()->at(i)->DajPoz()+
+			stanje->GetMobs()->at(i)->DajDim();
 		if(k1.Collision(&k2))
 			return true;		
 	}
@@ -129,17 +129,17 @@ void Igrac::SudarProjektila()
 	Box k1;
 	k1.v1=poz+Vec2(4,4);
 	k1.v2=poz+dim-Vec2(4,4);
-	for(int i=0; i<stanje->DajProjektile()->size(); i++)
+	for(int i=0; i<stanje->GetProjectiles()->size(); i++)
 	{
-		if(stanje->DajProjektile()->at(i)->vlasnik==NEPRIJATELJ)
+		if(stanje->GetProjectiles()->at(i)->vlasnik==NEPRIJATELJ)
 		{
 			Box k2;
-			k2.v1=stanje->DajProjektile()->at(i)->DajPoz();
-			k2.v2=stanje->DajProjektile()->at(i)->DajPoz()+
-				stanje->DajProjektile()->at(i)->DajDim();
+			k2.v1=stanje->GetProjectiles()->at(i)->DajPoz();
+			k2.v2=stanje->GetProjectiles()->at(i)->DajPoz()+
+				stanje->GetProjectiles()->at(i)->DajDim();
 			if(k1.Collision(&k2))
 			{
-				PrimiStetu(stanje->DajProjektile()->at(i));				
+				PrimiStetu(stanje->GetProjectiles()->at(i));				
 			}
 		}
 	}

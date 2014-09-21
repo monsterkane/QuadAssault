@@ -81,17 +81,17 @@ void Igrac::Update(float deltaT, Vec2 mis)
 			hp=0.0;
 			unisten=true;
 			
-			Explosion* e=stanje->DodajExploziju();
+			Explosion* e=stanje->GetExplosion();
 			e->Init(DajSredinu(),512,stanje);
 			e->Setup(256,3000,200);
 
-			sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-				stanje->DajMZ()->DajZvuk("../data/Sounds/explosion1.wav"));		
+			sf::Sound* z = stanje->GetSound(new sf::Sound(),
+				stanje->GetSM()->DajZvuk("../data/Sounds/explosion1.wav"));		
             z->play();
 
 			gameOverPoruka=new Poruka();
-			gameOverPoruka->Init("Base", "All units lost, mission Failed.", 4, "../data/Sounds/blip.wav", stanje);
-			stanje->DodajPoruku(gameOverPoruka);	
+			gameOverPoruka->Init("HQ", "All units lost, mission Failed.", 4, "../data/Sounds/blip.wav", stanje);
+			stanje->GetMessage(gameOverPoruka);	
 
 			farovi->Postavke(Vec3(0,0,0), 0);
 		}
