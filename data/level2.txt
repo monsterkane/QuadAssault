@@ -7,10 +7,10 @@ weapon 970 245 2
 weapon 1775 809 0
 weapon 620 1831 0
 
-messagetrigger 330 256 360 1024 Base;In Q, looks like you going through the teleporter lost all weapons. Find alternative weapons.;6 Sounds/blip.wav
-messagetrigger 498 1927 653 1984 Base;The first generator is located near your position, but he secured the blue door.;6 Sounds/blip.wav
-messagetrigger 750 1342 947 1396 Base;Room with a generator is directly in front of you, with Q.;6 Sounds/blip.wav
-messagetrigger 1173 1637 1369 1714 Base;After fuses room, go to the transporter and put your plant into the air ..;6 Sounds/blip.wav
+messagetrigger 330 256 360 1024 HQ;Commander, it looks like you lost all weapons going through the teleporter. Find alternative weapon.;6 Sounds/blip.wav
+messagetrigger 498 1927 653 1984 HQ;The first generator is located near your position, but is secured behind the blue door.;6 Sounds/blip.wav
+messagetrigger 750 1342 947 1396 HQ;The room with the generator is directly in front of you, Commander.;6 Sounds/blip.wav
+messagetrigger 1173 1637 1369 1714 HQ;After the fuses room, go to the transporter and get into the air ..;6 Sounds/blip.wav
 
 mobtrigger 1349 171 1404 338 1549 124 plasmamob1
 mobtrigger 952 513 1107 574 991 805 lasermob1
