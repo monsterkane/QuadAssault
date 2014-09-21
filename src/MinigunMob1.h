@@ -27,7 +27,7 @@ class MinigunMob1 : public Mob
 {
 private:
 public:
-	void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa);
+	void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps);
 	void Update(float deltaT);
 	void Render(unsigned char stil);
 	void PrimiStetu(Projektil* p);

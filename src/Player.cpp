@@ -26,25 +26,25 @@
 #include "Minigun.h"
 #include "Light.h"
 
-void Igrac::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
+void Igrac::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps)
 {
     for(int i=0; i<4; ++i)
         oruzjeSlot[i] = false;
 
 	this->poz=poz;
 	this->stanje=stanje;
-	this->mapa=mapa;
+	this->maps=maps;
 	dim.x=64;
 	dim.y=64;
 
-    textura=stanje->DajMT()->DajTexturu("../data/tenkTorzoDiffuse.tga")->id;
-    texturaN=stanje->DajMT()->DajTexturu("../data/tenkTorzoNormal.tga")->id;
+    textura=stanje->DajMT()->DajTexturu("../data/tankTorsoDiffuse.tga")->id;
+    texturaN=stanje->DajMT()->DajTexturu("../data/tankTorsoNormal.tga")->id;
 
-    podloga_tex=stanje->DajMT()->DajTexturu("../data/tenkPodlogaDiffuse.tga")->id;
-    podloga_normal=stanje->DajMT()->DajTexturu("../data/tenkPodlogaNormal.tga")->id;
+    podloga_tex=stanje->DajMT()->DajTexturu("../data/tankBaseDiffuse.tga")->id;
+    podloga_normal=stanje->DajMT()->DajTexturu("../data/tankBaseNormal.tga")->id;
 
-    tracnica_tex=stanje->DajMT()->DajTexturu("../data/tracnicaDiffuse.tga")->id;
-    tracnica_normal=stanje->DajMT()->DajTexturu("../data/tracnicaNormal.tga")->id;
+    tracnica_tex=stanje->DajMT()->DajTexturu("../data/tracksDiffuse.tga")->id;
+    tracnica_normal=stanje->DajMT()->DajTexturu("../data/tracksNormal.tga")->id;
 	
 	farovi=stanje->DodajSvjetlo(false);
 	farovi->Init(Vec2(0.0, 0.0), 1024, stanje);
@@ -87,7 +87,7 @@ void Igrac::Pucaj(Vec2 misPoz, float deltaT)
 					slot.y=sin((rotacijaTorza+kut)/180.0*3.14);
 					slot.Mnozi(sqrt(oPoz.x*oPoz.x + oPoz.y*oPoz.y)); //oruzje x offset
 
-					oruzja[i]->Pucaj(DajSredinu()+slot,smjer,mapa,IGRAC);									
+					oruzja[i]->Pucaj(DajSredinu()+slot,smjer,maps,IGRAC);									
 				}
 				puca=true;
 			}
@@ -103,7 +103,7 @@ bool Igrac::ProvjeraSudara()
 	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
-		if(mapa[x][y]!=FLOOR)
+		if(maps[x][y]!=FLOOR)
 		{
 			Box k2;
 			k2.v1=Vec2(x*BLOCK_SIZE,y*BLOCK_SIZE);

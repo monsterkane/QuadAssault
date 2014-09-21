@@ -25,9 +25,9 @@
 void Plazma::Init(GlavnoStanje* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/oruzje2Glow.tga")->id;
+    tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
+    texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
+    texG=stanje->DajMT()->DajTexturu("../data/weapon2Glow.tga")->id;
 	brzinaPunjenja=100;
 	potrebnaEnergija=6;
 }
@@ -39,9 +39,9 @@ void Plazma::Render()
 {
 	Oruzje::Render();
 }
-void Plazma::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Plazma::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
+	Oruzje::Pucaj(poz,smjer,maps,vlasnik);
 	if(trenutnoPunjenje==punjenje)
 	{
 		IspaliProjektil(new PlazmaProjektil());

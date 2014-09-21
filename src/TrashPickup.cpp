@@ -43,8 +43,8 @@ void SmecePickup::Init(Vec2 poz, GlavnoStanje* stanje)
 	s->Postavke(Vec3(1.0, 0.75, 0.5),4);	
 	s->PostaviExplozija(true);
 	
-    tex=stanje->DajMT()->DajTexturu("../data/SmeceDiffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/SmeceNormal.tga")->id;
+    tex=stanje->DajMT()->DajTexturu("../data/TrashDiffuse.tga")->id;
+    texN=stanje->DajMT()->DajTexturu("../data/TrashNormal.tga")->id;
 }
 void SmecePickup::Update(float deltaT)
 {
@@ -88,12 +88,12 @@ bool SmecePickup::ProvjeraSudara()
 	Box k1;
 	k1.v1=poz;
 	k1.v2=poz+dim;
-	unsigned char** mapa=stanje->DajMapu();
+	unsigned char** maps=stanje->DajMapu();
 	for(int x=(poz.x/BLOCK_SIZE)-2; x<(poz.x/BLOCK_SIZE)+2; x++)
 	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
-		if(mapa[x][y]!=FLOOR)
+		if(maps[x][y]!=FLOOR)
 		{
 			Box k2;
 			k2.v1=Vec2(x*BLOCK_SIZE,y*BLOCK_SIZE);
@@ -125,7 +125,7 @@ void SmecePickup::Unisti()
 void SmecePickup::Pokupi(Igrac* igrac)
 {
 	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Zvukovi/pickup.wav"));
+        stanje->DajMZ()->DajZvuk("../data/Sounds/pickup.wav"));
     z->play();
 	unisten=true;
 

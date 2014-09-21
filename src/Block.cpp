@@ -33,24 +33,24 @@ void Block::Init(Vec2 poz, unsigned char type, GlavnoStanje* state)
 		
     if(type==EMPTY)
 	{
-        tex=state->DajMT()->DajTexturu("../data/prazninaDiffuse.tga")->id;
-        texN=state->DajMT()->DajTexturu("../data/prazninaNormal.tga")->id;
+        tex=state->DajMT()->DajTexturu("../data/voidDiffuse.tga")->id;
+        texN=state->DajMT()->DajTexturu("../data/voidNormal.tga")->id;
 	}
     if(type==WALL)
 	{
         tex=state->DajMT()->DajTexturu("../data/Block.tga")->id;
-        texN=state->DajMT()->DajTexturu("../data/zid1Normal.tga")->id;
+        texN=state->DajMT()->DajTexturu("../data/wall1Normal.tga")->id;
 	}
     if(type==RED_DOOR || type==BLUE_DOOR || type==GREEN_DOOR)
 	{
-        tex=state->DajMT()->DajTexturu("../data/vrataDiffuse.tga")->id;
-        texN=state->DajMT()->DajTexturu("../data/vrataNormal.tga")->id;
-        texG=state->DajMT()->DajTexturu("../data/vrataGlow.tga")->id;
+        tex=state->DajMT()->DajTexturu("../data/doorsDiffuse.tga")->id;
+        texN=state->DajMT()->DajTexturu("../data/doorsNormal.tga")->id;
+        texG=state->DajMT()->DajTexturu("../data/doorsGlow.tga")->id;
 	}
     if(type==FLOOR)
 	{		
         tex=state->DajMT()->DajTexturu("../data/pod1Diffuse.tga")->id;
-        texN=state->DajMT()->DajTexturu("../data/prazninaNormal2.tga")->id;
+        texN=state->DajMT()->DajTexturu("../data/voidNormal2.tga")->id;
 	}
     water_flow=0.0;
 }

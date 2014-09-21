@@ -22,9 +22,9 @@
 #include "GameState.h"
 #include "LaserProjectile.h"
 
-void LaserMob1::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
+void LaserMob1::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps)
 {
-	Mob::Init(poz,stanje,mapa);
+	Mob::Init(poz,stanje,maps);
 
 	dim.x=64;
 	dim.y=64;
@@ -67,7 +67,7 @@ void LaserMob1::Pucanje(Projektil* p, float deltaT)
 }
 void LaserMob1::Unisti()
 {
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/explozija1.wav"));
+    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Sounds/explosion1.wav"));
     z->play();
 	Mob::Unisti();
 }

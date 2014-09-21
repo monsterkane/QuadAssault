@@ -91,7 +91,7 @@ vector<Projektil*>* GlavnoStanje::DajProjektile()
 }
 unsigned char** GlavnoStanje::DajMapu()
 {
-	return mapa;
+	return maps;
 }
 ManagerZvuka* GlavnoStanje::DajMZ()
 {

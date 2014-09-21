@@ -29,8 +29,8 @@ void DimRakete::Init(Vec2 poz, GlavnoStanje* stanje)
 	zivot=maxZivot;
 	poz.x+=stanje->DajIgru()->Rand(8,16)-8;
 	poz.y+=stanje->DajIgru()->Rand(8,16)-8;
-    tex=stanje->DajMT()->DajTexturu("../data/Dim1Diffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/Dim1Normal.tga")->id;
+    tex=stanje->DajMT()->DajTexturu("../data/Smoke1Diffuse.tga")->id;
+    texN=stanje->DajMT()->DajTexturu("../data/Smoke1Normal.tga")->id;
 }
 void DimRakete::Update(float deltaT)
 {

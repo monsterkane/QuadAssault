@@ -39,14 +39,14 @@ protected:
 	GlavnoStanje* stanje;
 	Svjetlo* svjetlo;
 
-	unsigned char** mapa;
+	unsigned char** maps;
 
 	float steta;
 
 public:
 	Projektil();
 	~Projektil();
-	virtual void Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** mapa, bool vlasnik);
+	virtual void Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** maps, bool vlasnik);
 	virtual void Update(float deltaT);
 	virtual void Render(unsigned char stil);
 	virtual void Unisti();

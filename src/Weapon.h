@@ -32,7 +32,7 @@ protected:
 	GlavnoStanje* stanje;
 
 	Vec2 absPoz, smjer;
-	unsigned char** mapa;
+	unsigned char** maps;
 	bool vlasnik;
 	
 	float punjenje, trenutnoPunjenje;
@@ -45,7 +45,7 @@ public:
 	virtual void Render();
 	virtual void RenderNormal();
 	virtual void RenderGlow();
-	virtual void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik);
+	virtual void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik);
 	virtual void IspaliProjektil(Projektil* p);
 
 	float DajPotrebnuEnergiju();

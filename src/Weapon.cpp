@@ -47,17 +47,17 @@ void Oruzje::Update(float deltaT)
 		trenutnoPunjenje=punjenje;
 	}
 }
-void Oruzje::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Oruzje::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik)
 {
 	this->absPoz=poz;
 	this->smjer=smjer;
-	this->mapa=mapa;
+	this->maps=maps;
 	this->vlasnik=vlasnik;	
 }
 void Oruzje::IspaliProjektil(Projektil* p)
 {
 	stanje->DodajProjektil(p);
-	p->Init(absPoz,smjer,stanje,mapa,vlasnik);	
+	p->Init(absPoz,smjer,stanje,maps,vlasnik);	
 	stanje->DajIgraca()->OduzmiEnergiju(potrebnaEnergija);
 }
 void Oruzje::Render()

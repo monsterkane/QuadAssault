@@ -63,7 +63,7 @@ void GlavnoStanje::UpdateDev(float deltaT)
 			}			
             if(event.mouseButton.button==sf::Mouse::Right)
 			{					
-				mapa[(int)(kamera->DajPoz().x+mis.x)/BLOCK_SIZE][(int)(kamera->DajPoz().y+mis.y)/BLOCK_SIZE]=PostavljanjeBloka;
+				maps[(int)(kamera->DajPoz().x+mis.x)/BLOCK_SIZE][(int)(kamera->DajPoz().y+mis.y)/BLOCK_SIZE]=PostavljanjeBloka;
 				InitBlokove();
 			}
 		}
@@ -89,7 +89,7 @@ void GlavnoStanje::UpdateDev(float deltaT)
             if(event.key.code==sf::Keyboard::F6)
 			{
 				SpremiBlokove();				
-				cout << "MAPA SPREMLJENA." << endl;
+				cout << "MAPS SAVED." << endl;
 			}
             if(event.key.code==sf::Keyboard::G)
 			{				
@@ -126,13 +126,13 @@ void GlavnoStanje::SpremiBlokove()
 	for(int i=0; i<MX; i++)
 	for(int j=0; j<MY; j++)
 	{
-		of << "blok " << i*BLOCK_SIZE << " " << j*BLOCK_SIZE << " " << (int)mapa[i][j] << "\n";		
+		of << "block " << i*BLOCK_SIZE << " " << j*BLOCK_SIZE << " " << (int)maps[i][j] << "\n";		
 	}
 	for(int i=0; i<svjetla.size(); i++)
 	{
 		if(svjetla[i]->staticno==true)
 		{
-		of << "svjetlo " << svjetla[i]->DajPoz().x << " " << svjetla[i]->DajPoz().y 
+		of << "light " << svjetla[i]->DajPoz().x << " " << svjetla[i]->DajPoz().y 
 			<< " " << svjetla[i]->radius << " " << svjetla[i]->intenzitet << " " << svjetla[i]->boja.x << " " << svjetla[i]->boja.y << 
 			" " << svjetla[i]->boja.z << "\n";
 		}

@@ -79,7 +79,7 @@ void Trigger::Update(float deltaT)
 				if(nivo_trenutni<BROJ_NIVOA-1)
 					nivo_omogucen[nivo_trenutni+1]=true;
 				
-                ofstream of("../data/nivoLock.gdf");
+                ofstream of("../data/levelLock.gdf");
 				for(int i=0; i<BROJ_NIVOA; i++)
 				{
 					of << nivo_omogucen[i] << " ";	

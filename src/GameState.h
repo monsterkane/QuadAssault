@@ -46,19 +46,19 @@ private:
 	bool DEVMODE;
 	
 	Svjetlo* postavljenoSvjetlo;
-	float sr,sg,sb, si, srad; //boja postavljenog svjetla
+	float sr,sg,sb, si, srad; //color mounted lights
 
-	int PostavljanjeBloka; //vrsta bloka koji se postavlja
+	int PostavljanjeBloka; //types of blocks which are set
 	bool postavljaSvjetlo;
 
 	unsigned char postavljaMobTrigger;	
 	Trigger* postavljeniTrigger;
-	Vec2 t1, t2, t3; //pocetak, kraj i spawnpoint triggera
+	Vec2 t1, t2, t3; //beginning, end and spawnpoint trigger
 
-	unsigned char** mapa;
+	unsigned char** maps;
 	Block** blokovi;
 
-	float gameOverTimer; //dok dosegne nulu, igra odlazi na glavni menu
+	float gameOverTimer; //until reaches zero, the game goes to the main menu
 	bool nivoZavrsen;
 
 	Igrac* igrac;

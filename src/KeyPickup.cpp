@@ -30,9 +30,9 @@ void KljucPickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
 	this->id=id;
 	
 	rotacija=0;
-    tex=stanje->DajMT()->DajTexturu("../data/KljucDiffuse.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/KljucNormal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/KljucGlow.tga")->id;
+    tex=stanje->DajMT()->DajTexturu("../data/KeyDiffuse.tga")->id;
+    texN=stanje->DajMT()->DajTexturu("../data/KeyNormal.tga")->id;
+    texG=stanje->DajMT()->DajTexturu("../data/KeyGlow.tga")->id;
 
 	s=stanje->DodajSvjetlo(false);
 	s->Init(poz+Vec2(dim.x/2,dim.y/2),128,stanje);
@@ -77,7 +77,7 @@ void KljucPickup::Unisti()
 void KljucPickup::Pokupi(Igrac* igrac)
 {
 	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Zvukovi/pickup.wav"));
+        stanje->DajMZ()->DajZvuk("../data/Sounds/pickup.wav"));
     z->play();
 	int vrata;
 	if(id==CRVENI)	

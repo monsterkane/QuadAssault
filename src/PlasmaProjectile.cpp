@@ -22,9 +22,9 @@
 #include "GameState.h"
 #include "RocketSmoke.h"
 
-void PlazmaProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** mapa, bool vlasnik)
+void PlazmaProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** maps, bool vlasnik)
 {
-	Projektil::Init(poz,smjer,stanje,mapa,vlasnik);
+	Projektil::Init(poz,smjer,stanje,maps,vlasnik);
 	brzina=800;
 	domet=800;
 	steta=12;
@@ -36,10 +36,10 @@ void PlazmaProjektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned 
 	svjetlo->Init(poz,256,stanje);
 	svjetlo->Postavke(Vec3(0.25, 0.5, 1.0),18);	
 
-    tex=stanje->DajMT()->DajTexturu("../data/granata1.tga")->id;
+    tex=stanje->DajMT()->DajTexturu("../data/shell1.tga")->id;
 
 	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Zvukovi/plazma1.wav"));
+        stanje->DajMZ()->DajZvuk("../data/Sounds/plasma1.wav"));
     z->play();
 }
 void PlazmaProjektil::Update(float deltaT)
@@ -69,6 +69,6 @@ void PlazmaProjektil::Unisti()
 	e->SetColor(Vec3(1.0, 0.75, 0.5));
 
 	sf::Sound* z = stanje->DodajZvuk(new sf::Sound(),
-        stanje->DajMZ()->DajZvuk("../data/Zvukovi/explozija1.wav"));
+        stanje->DajMZ()->DajZvuk("../data/Sounds/explosion1.wav"));
     z->play();
 }

@@ -22,9 +22,9 @@
 #include "GameState.h"
 #include "PlasmaProjectile.h"
 
-void PlazmaMob1::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
+void PlazmaMob1::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps)
 {
-	Mob::Init(poz,stanje,mapa);
+	Mob::Init(poz,stanje,maps);
 
 	dim.x=64;
 	dim.y=64;
@@ -64,7 +64,7 @@ void PlazmaMob1::Render(unsigned char stil)
 }
 void PlazmaMob1::Unisti()
 {
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/explozija1.wav"));
+    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Sounds/explosion1.wav"));
     z->play();
 	Mob::Unisti();
 }

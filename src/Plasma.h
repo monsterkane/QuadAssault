@@ -29,7 +29,7 @@ public:
 	void Init(GlavnoStanje* stanje);
 	void Update(float deltaT);
 	void Render();
-	void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik);
+	void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik);
 };
 
 #endif

@@ -32,7 +32,7 @@ protected:
 	float akceleracija;	
 	float rotacija;	
 	GlavnoStanje* stanje;
-	unsigned char** mapa;
+	unsigned char** maps;
 	float punjenje;
 
 	//NASLIJED:
@@ -45,7 +45,7 @@ protected:
 
 public:
 	
-	virtual void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa);
+	virtual void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps);
 	virtual void SpawnEfekt();
 	virtual void Update(float deltaT);
 	virtual void Pucanje(Projektil* p, float deltaT);

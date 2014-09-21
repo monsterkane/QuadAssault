@@ -34,16 +34,16 @@ bool GlavnoStanje::Init(Game* igra)
 	sr=1.0; sg=10; sb=1.0; si=8.0; srad=128.0;
 
 	mt=new ManagerTextura();
-    mt->UcitajTexturu("../data/kurzor.tga");
-    mt->UcitajTexturu("../data/pozadinaSvemir.tga");
+    mt->UcitajTexturu("../data/cursor.tga");
+    mt->UcitajTexturu("../data/backgroundUniverse.tga");
 
 	mz=new ManagerZvuka();		
 
-    shaderi.push_back(new Shader("../data/SvjetloVS.txt", "../data/SvjetloFS.txt"));
-    shaderi.push_back(new Shader("../data/RenderScenuVS.txt", "../data/RenderScenuFS.txt"));
+    shaderi.push_back(new Shader("../data/LightVS.txt", "../data/LightFS.txt"));
+    shaderi.push_back(new Shader("../data/RenderSceneVS.txt", "../data/RenderSceneFS.txt"));
 
 	fontovi.push_back(sf::Font());
-    fontovi.back().loadFromFile("../data/DijalogFont.TTF");
+    fontovi.back().loadFromFile("../data/DialogueFont.TTF");
 
 	uim=new UI_Menager();
 	uim->Init(mt,igra);
@@ -55,19 +55,19 @@ bool GlavnoStanje::Init(Game* igra)
 	
 	p->DodajElement(new UI_Gumb());	
 	UI_Gumb* g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(16,32),Vec2(32,32),PosSvjetGUI,mt->DajTexturu("../data/gumb_svjetlo.tga")->id);
+    g->Init(uim->DajProzore().back(),Vec2(16,32),Vec2(32,32),PosSvjetGUI,mt->DajTexturu("../data/button_light.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(64,32),Vec2(32,32),PosTrigGUI,mt->DajTexturu("../data/gumb_svjetlo.tga")->id);
+    g->Init(uim->DajProzore().back(),Vec2(64,32),Vec2(32,32),PosTrigGUI,mt->DajTexturu("../data/button_light.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenPrazniLevelGUI,mt->DajTexturu("../data/gumb_gen.tga")->id);
+    g->Init(uim->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenPrazniLevelGUI,mt->DajTexturu("../data/button_gen.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uim->DajProzore().back(),Vec2(64,72),Vec2(32,32),SpremiLevelGUI,mt->DajTexturu("../data/gumb_spremi.tga")->id);
+    g->Init(uim->DajProzore().back(),Vec2(64,72),Vec2(32,32),SpremiLevelGUI,mt->DajTexturu("../data/button_save.tga")->id);
 
 	DEVMODE=false;
 

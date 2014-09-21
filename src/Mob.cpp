@@ -24,11 +24,11 @@
 #include "LaserProjectile.h"
 #include "TrashPickup.h"
 
-void Mob::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa)
+void Mob::Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps)
 {
 	this->poz=poz;
 	this->stanje=stanje;
-	this->mapa=mapa;
+	this->maps=maps;
 
 	dim.x=64;
 	dim.y=64;
@@ -140,7 +140,7 @@ bool Mob::ProvjeraSudara()
 	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
-		if(mapa[x][y]!=FLOOR)
+		if(maps[x][y]!=FLOOR)
 		{
 			Box k2;
 			k2.v1=Vec2(x*BLOCK_SIZE,y*BLOCK_SIZE);
@@ -210,7 +210,7 @@ void Mob::Pucanje(Projektil* p, float deltaT)
 			{
 				smjerPucanja.Normaliziraj();
 				Projektil* pr=stanje->DodajProjektil(p);
-				pr->Init(DajSredinu(),smjerPucanja,stanje,mapa,NEPRIJATELJ);				
+				pr->Init(DajSredinu(),smjerPucanja,stanje,maps,NEPRIJATELJ);				
 			}	
 			punjenje=0;
 		}

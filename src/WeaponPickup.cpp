@@ -35,21 +35,21 @@ void OruzjePickup::Init(Vec2 poz, GlavnoStanje* stanje, int id)
 	rotacija=0;
 	if(id==LASER1)
 	{
-        tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-        texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-        texG=stanje->DajMT()->DajTexturu("../data/oruzje1Glow.tga")->id;
+        tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
+        texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
+        texG=stanje->DajMT()->DajTexturu("../data/weapon1Glow.tga")->id;
 	}
 	if(id==PLAZMA1)
 	{
-        tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-        texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-        texG=stanje->DajMT()->DajTexturu("../data/oruzje2Glow.tga")->id;
+        tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
+        texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
+        texG=stanje->DajMT()->DajTexturu("../data/weapon2Glow.tga")->id;
 	}
 	if(id==MINIGUN1)
 	{
-        tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-        texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-        texG=stanje->DajMT()->DajTexturu("../data/oruzje3Glow.tga")->id;
+        tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
+        texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
+        texG=stanje->DajMT()->DajTexturu("../data/weapon3Glow.tga")->id;
 	}
 
 	s=stanje->DodajSvjetlo(false);
@@ -83,7 +83,7 @@ void OruzjePickup::Unisti()
 }
 void OruzjePickup::Pokupi(Igrac* igrac)
 {
-    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Zvukovi/pickup.wav"));
+    sf::Sound* z = stanje->DodajZvuk(new sf::Sound(), stanje->DajMZ()->DajZvuk("../data/Sounds/pickup.wav"));
     z->play();
 	if(id==LASER1)
 		igrac->DodajOruzje(new Laser());

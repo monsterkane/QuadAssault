@@ -22,12 +22,12 @@
 #include "GameState.h"
 #include "Explosion.h"
 
-void Projektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** mapa, bool vlasnik)
+void Projektil::Init(Vec2 poz, Vec2 smjer, GlavnoStanje* stanje, unsigned char** maps, bool vlasnik)
 {
 	this->poz=poz;
 	this->smjer=smjer;
 	this->stanje=stanje;
-	this->mapa=mapa;
+	this->maps=maps;
 	this->vlasnik=vlasnik;	
 
 	svjetlo=stanje->DodajSvjetlo(false);	
@@ -58,7 +58,7 @@ void Projektil::Update(float deltaT)
 			break;break;
 		}
 		if(x>=0 && x<MX && y>=0 && y<MY)
-		if(mapa[x][y]!=FLOOR && mapa[x][y]!=EMPTY)
+		if(maps[x][y]!=FLOOR && maps[x][y]!=EMPTY)
 		{
 			Box k1;
 			k1.v1=poz;

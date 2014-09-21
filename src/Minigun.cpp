@@ -25,9 +25,9 @@
 void Minigun::Init(GlavnoStanje* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->DajMT()->DajTexturu("../data/oruzje1.tga")->id;
-    texN=stanje->DajMT()->DajTexturu("../data/oruzje1Normal.tga")->id;
-    texG=stanje->DajMT()->DajTexturu("../data/oruzje3Glow.tga")->id;
+    tex=stanje->DajMT()->DajTexturu("../data/weapon1.tga")->id;
+    texN=stanje->DajMT()->DajTexturu("../data/weapon1Normal.tga")->id;
+    texG=stanje->DajMT()->DajTexturu("../data/weapon3Glow.tga")->id;
 	brzinaPunjenja=1500;
 	potrebnaEnergija=0.5;
 }
@@ -39,9 +39,9 @@ void Minigun::Render()
 {
 	Oruzje::Render();
 }
-void Minigun::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Minigun::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** maps, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
+	Oruzje::Pucaj(poz,smjer,maps,vlasnik);
 	if(trenutnoPunjenje==punjenje)
 	{
 		for(int i=0; i<1; i++)

@@ -58,12 +58,12 @@ private:
 
 	float pomak_tracnica;
 
-	unsigned char** mapa;
+	unsigned char** maps;
 
 public:
 	Igrac();
 	~Igrac();
-	void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** mapa);
+	void Init(Vec2 poz, GlavnoStanje* stanje, unsigned char** maps);
 	void Update(float deltaT, Vec2 mis);
 	void UpdateFarove();
 	void Render(unsigned char stil);	

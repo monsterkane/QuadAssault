@@ -103,17 +103,17 @@ void GlavnoStanje::RenderScenu()
 	int geometrijaLoc, lightmapaLoc, ambijentLoc;
 		
 	glEnable(GL_TEXTURE_2D);
-    geometrijaLoc = glGetUniformLocation(shaderi[1]->ID, "geometrija");
+    geometrijaLoc = glGetUniformLocation(shaderi[1]->ID, "geometry");
 	glActiveTextureARB(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, geometrija);
 	glUniform1i(geometrijaLoc, 0);	
 
-	lightmapaLoc = glGetUniformLocation(shaderi[1]->ID, "lightmapa");
+	lightmapaLoc = glGetUniformLocation(shaderi[1]->ID, "lightmaps");
 	glActiveTextureARB(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, lightmapa);
 	glUniform1i(lightmapaLoc, 1);
 
-	ambijentLoc = glGetUniformLocation(shaderi[1]->ID, "ambijent");
+	ambijentLoc = glGetUniformLocation(shaderi[1]->ID, "environment");
 	glUniform3f(ambijentLoc, ambijentnoSvjetlo.x, ambijentnoSvjetlo.y, ambijentnoSvjetlo.z);
 
 	glBegin(GL_QUADS);
