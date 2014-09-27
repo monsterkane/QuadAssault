@@ -34,16 +34,16 @@ bool GameState::Init(Game* game)
 	light_red=1.0; light_green=10; light_blue=1.0; light_intensity=8.0; light_radius=128.0;
 
 	textureManager=new ManagerTextura();
-    textureManager->UcitajTexturu("../data/kurzor.tga");
-    textureManager->UcitajTexturu("../data/pozadinaSvemir.tga");
+    textureManager->UcitajTexturu("../data/cursor.tga");
+    textureManager->UcitajTexturu("../data/backgroundUniverse.tga");
 
 	soundManager=new ManagerZvuka();		
 
-    shaders.push_back(new Shader("../data/SvjetloVS.txt", "../data/SvjetloFS.txt"));
-    shaders.push_back(new Shader("../data/RenderScenuVS.txt", "../data/RenderScenuFS.txt"));
+    shaders.push_back(new Shader("../data/LightVS.txt", "../data/LightFS.txt"));
+    shaders.push_back(new Shader("../data/RenderSceneVS.txt", "../data/RenderSceneFS.txt"));
 
 	fonts.push_back(sf::Font());
-    fonts.back().loadFromFile("../data/DijalogFont.TTF");
+    fonts.back().loadFromFile("../data/DialogueFont.TTF");
 
 	uiManager=new UI_Menager();
     uiManager->Init(textureManager,game);
@@ -55,19 +55,19 @@ bool GameState::Init(Game* game)
 	
 	p->DodajElement(new UI_Gumb());	
 	UI_Gumb* g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(16,32),Vec2(32,32),SetupLightGUI,textureManager->DajTexturu("../data/gumb_svjetlo.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(16,32),Vec2(32,32),SetupLightGUI,textureManager->DajTexturu("../data/button_light.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(64,32),Vec2(32,32),SetupTriggerGUI,textureManager->DajTexturu("../data/gumb_svjetlo.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(64,32),Vec2(32,32),SetupTriggerGUI,textureManager->DajTexturu("../data/button_light.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenerateEmptyLevelGUI,textureManager->DajTexturu("../data/gumb_gen.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(16,72),Vec2(32,32),GenerateEmptyLevelGUI,textureManager->DajTexturu("../data/button_gen.tga")->id);
 
 	p->DodajElement(new UI_Gumb());	
 	g=(UI_Gumb*)p->DajElemente().back();
-    g->Init(uiManager->DajProzore().back(),Vec2(64,72),Vec2(32,32),SaveLevelGUI,textureManager->DajTexturu("../data/gumb_spremi.tga")->id);
+    g->Init(uiManager->DajProzore().back(),Vec2(64,72),Vec2(32,32),SaveLevelGUI,textureManager->DajTexturu("../data/button_save.tga")->id);
 
 	DEVMODE=false;
 

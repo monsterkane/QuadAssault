@@ -1,0 +1,40 @@
+preload_sound Sounds/blip.wav
+//music Sounds/Level1/Music1.ogg
+
+player 256 256
+
+weapon 970 245 2
+weapon 1775 809 0
+weapon 620 1831 0
+
+messagetrigger 330 256 360 1024 HQ;Commander, it looks like you lost all weapons going through the teleporter. Find alternative weapon.;6 Sounds/blip.wav
+messagetrigger 498 1927 653 1984 HQ;The first generator is located near your position, but is secured behind the blue door.;6 Sounds/blip.wav
+messagetrigger 750 1342 947 1396 HQ;The room with the generator is directly in front of you, Commander.;6 Sounds/blip.wav
+messagetrigger 1173 1637 1369 1714 HQ;After the fuses room, go to the transporter and get into the air ..;6 Sounds/blip.wav
+
+mobtrigger 1349 171 1404 338 1549 124 plasmamob1
+mobtrigger 952 513 1107 574 991 805 lasermob1
+
+mobtrigger 1208 750 1288 904 1536 703 lasermob1
+mobtrigger 1208 750 1288 904 1536 803 plasmamob1
+mobtrigger 1208 750 1288 904 1536 903 lasermob1
+
+//Blue room
+mobtrigger 706 1083 779 1232 238 1116 lasermob1
+mobtrigger 706 1083 779 1232 163 796 plasmamob1
+mobtrigger 706 1083 779 1232 544 790 plasmamob1
+
+mobtrigger 48 1594 206 1620 130 1896 plasmamob1
+
+mobtrigger 750 1342 947 1396 427 1452 plasmamob1
+mobtrigger 750 1342 947 1396 1220 1452 lasermob1
+
+mobtrigger 1173 1637 1369 1714 925 1961 plasmamob1
+mobtrigger 1173 1637 1369 1714 1579 1961 lasermob1
+mobtrigger 1173 1637 1369 1714 940 1761 lasermob1
+mobtrigger 1173 1637 1369 1714 1580 1761 lasermob1
+
+key 1527 236 2
+key 555 2096 1
+
+endtrigger 1205 2309 1357 2442

@@ -39,14 +39,14 @@ bool ManagerZvuka::UcitajZvuk(char* ime)
 	sf::SoundBuffer Buffer;
     if (!Buffer.loadFromFile(ime))
 	{
-        cerr << "ERROR: Greska kod ucitavanja zvukova.";
+        cerr << "ERROR: Errors loading sound files.";
 		return false;
 	}
 	Zvuk z;
 	z.file=ime;
 	z.buffer=Buffer;	
 	zvukovi.push_back(z);
-	cout << "Zvuk ucitan : " << ime << endl;
+	cout << "Sound loaded : " << ime << endl;
 	return true;
 }
 void ManagerZvuka::Brisi()

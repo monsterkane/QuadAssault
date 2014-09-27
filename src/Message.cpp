@@ -49,7 +49,7 @@ void Poruka::Init(string posiljatelj, string sadrzaj, float trajanje, string zvu
 	this->zvuk=zvuk;
 	SvirajZvuk=true;	
 
-    portret=stanje->GetTM()->DajTexturu("../data/portret2.tga")->id;
+    portret=stanje->GetTM()->DajTexturu("../data/portrait2.tga")->id;
 }
 void Poruka::Update(float deltaT)
 {

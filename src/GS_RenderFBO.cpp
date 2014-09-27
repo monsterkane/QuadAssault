@@ -103,17 +103,17 @@ void GameState::RenderScene()
     int geometryLoc, lightmapLoc, ambientLoc;
 		
 	glEnable(GL_TEXTURE_2D);
-    geometryLoc = glGetUniformLocation(shaders[1]->ID, "geometrija");
+    geometryLoc = glGetUniformLocation(shaders[1]->ID, "geometry");
 	glActiveTextureARB(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, geometry);
     glUniform1i(geometryLoc, 0);
 
-    lightmapLoc = glGetUniformLocation(shaders[1]->ID, "lightmapa");
+    lightmapLoc = glGetUniformLocation(shaders[1]->ID, "lightmaps");
 	glActiveTextureARB(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, lightmap);
     glUniform1i(lightmapLoc, 1);
 
-    ambientLoc = glGetUniformLocation(shaders[1]->ID, "ambijent");
+    ambientLoc = glGetUniformLocation(shaders[1]->ID, "environment");
     glUniform3f(ambientLoc, ambientLight.x, ambientLight.y, ambientLight.z);
 
 	glBegin(GL_QUADS);

@@ -1,0 +1,53 @@
+preload_sound Sounds/Level1/Dialogue1.wav
+preload_sound Sounds/blip.wav
+//music Sounds/Level1/Music1.ogg
+
+player 4096 4096
+
+//weapons 3512 3376 2
+weapon 4096 4096 0
+weapon 2837 1618 0
+
+messagetrigger 4031 3839 4225 3970 HQ;Commander, we received notice of your arrival on the scene.;3 Sounds/blip.wav
+messagetrigger 4031 3739 4225 3870 HQ;You have permission to continue with the mission.;4 Sounds/blip.wav
+messagetrigger 4031 3639 4225 3770 HQ;The primary targets are the generators that the enemy use;3 Sounds/blip.wav
+messagetrigger 4031 3539 4225 3670 HQ;that power large anti-air emplacements..;3 Sounds/blip.wav
+messagetrigger 4031 3439 4225 3570 HQ;They are located about 2km from your position.;4 Sounds/blip.wav
+
+messagetrigger 1728 1317 1913 1481 HQ;Commander, it seems that in the area in front of you there is no electricity. Proceed with caution.;4 Sounds/blip.wav
+
+//FIRST MOB
+mobtrigger 3200 3328 3265 3463 2344 3343 lasermob1
+
+//Generators
+mobtrigger 2302 2879 2429 2942 2124 2570 lasermob1
+mobtrigger 2302 2879 2429 2942 2594 2464 plasmamob1
+mobtrigger 2302 2879 2429 2942 2247 2277 lasermob1
+
+//UP WITH WEAPONS
+mobtrigger 2943 1727 3079 1791 2809 1589 lasermob1
+
+endtrigger 2060 4723 2255 4876
+
+//DARK ROOM
+mobtrigger 1384 1847 1623 1976 1394 2203 lasermob1
+mobtrigger 1384 1847 1623 1976 1550 2203 plasmamob1
+
+//RED KEY
+mobtrigger 447 1535 576 1590 427 1219 lasermob1
+mobtrigger 447 1535 576 1590 527 1219 lasermob1
+
+//RED DOOR
+mobtrigger 508 3201 648 3263 328 3606 plasmamob1
+mobtrigger 508 3201 648 3263 628 3606 plasmamob1
+
+messagetrigger 568 4479 714 4537 HQ;Commander, the generators are on the level below yours. Locate the teleporter near your position to travel to the level below you.;5 Sounds/blip.wav
+
+mobtrigger 1404 4723 1604 4900 1817 4651 plasmamob1
+mobtrigger 1404 4723 1604 4900 1817 4751 lasermob1
+mobtrigger 1404 4723 1604 4900 1817 4851 plasmamob1
+
+key 495 1199 0
+
+
+

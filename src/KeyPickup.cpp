@@ -30,9 +30,9 @@ void KeyPickup::Init(Vec2 pos, GameState* state, int id)
 	this->id=id;
 	
     rotation=0;
-    tex=state->GetTM()->DajTexturu("../data/KljucDiffuse.tga")->id;
-    texN=state->GetTM()->DajTexturu("../data/KljucNormal.tga")->id;
-    texG=state->GetTM()->DajTexturu("../data/KljucGlow.tga")->id;
+    tex=state->GetTM()->DajTexturu("../data/KeyDiffuse.tga")->id;
+    texN=state->GetTM()->DajTexturu("../data/KeyNormal.tga")->id;
+    texG=state->GetTM()->DajTexturu("../data/KeyGlow.tga")->id;
 
     light=state->GetLight(false);
     light->Init(pos+Vec2(dim.x/2,dim.y/2),128,state);
@@ -77,7 +77,7 @@ void KeyPickup::Unisti()
 void KeyPickup::Pokupi(Igrac* player)
 {
     sf::Sound* s = stanje->GetSound(new sf::Sound(),
-        stanje->GetSM()->DajZvuk("../data/Zvukovi/pickup.wav"));
+        stanje->GetSM()->DajZvuk("../data/Sounds/pickup.wav"));
     s->play();
     int door;
     if(id==RED)

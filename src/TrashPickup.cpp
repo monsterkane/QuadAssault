@@ -43,8 +43,8 @@ void SmecePickup::Init(Vec2 poz, GameState* stanje)
 	s->Postavke(Vec3(1.0, 0.75, 0.5),4);	
 	s->PostaviExplozija(true);
 	
-    tex=stanje->GetTM()->DajTexturu("../data/SmeceDiffuse.tga")->id;
-    texN=stanje->GetTM()->DajTexturu("../data/SmeceNormal.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/TrashDiffuse.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/TrashNormal.tga")->id;
 }
 void SmecePickup::Update(float deltaT)
 {
@@ -125,7 +125,7 @@ void SmecePickup::Unisti()
 void SmecePickup::Pokupi(Igrac* igrac)
 {
 	sf::Sound* z = stanje->GetSound(new sf::Sound(),
-        stanje->GetSM()->DajZvuk("../data/Zvukovi/pickup.wav"));
+        stanje->GetSM()->DajZvuk("../data/Sounds/pickup.wav"));
     z->play();
 	unisten=true;
 

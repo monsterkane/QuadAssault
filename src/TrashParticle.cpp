@@ -26,8 +26,8 @@ void SmeceCestica::Init(Vec2 poz, GameState* stanje)
 	Cestica::Init(poz,stanje);
 	maxZivot=45;
 	zivot=maxZivot;	
-    tex=stanje->GetTM()->DajTexturu("../data/Dim1Diffuse.tga")->id;
-    texN=stanje->GetTM()->DajTexturu("../data/Dim1Normal.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/Smoke1Diffuse.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/Smoke1Normal.tga")->id;
 }
 void SmeceCestica::Update(float deltaT)
 {

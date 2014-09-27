@@ -31,7 +31,7 @@ void LaserProjektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char
 	svjetlo->Init(poz,128,stanje);
 	svjetlo->Postavke(Vec3(0.5, 1.0, 0.2),12);
 
-    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/laser1.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Sounds/laser1.wav"));
     z->play();
 
     texG=stanje->GetTM()->DajTexturu("../data/laser1Glow.tga")->id;

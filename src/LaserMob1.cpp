@@ -67,7 +67,7 @@ void LaserMob1::Pucanje(Projektil* p, float deltaT)
 }
 void LaserMob1::Unisti()
 {
-    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/explozija1.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Sounds/explosion1.wav"));
     z->play();
 	Mob::Unisti();
 }

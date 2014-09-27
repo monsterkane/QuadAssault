@@ -28,12 +28,12 @@ bool MenuStanje::Init(Game* igra)
 	gotovo=false;	
 
 	mt=new ManagerTextura();
-    mt->UcitajTexturu("../data/kurzor.tga");
+    mt->UcitajTexturu("../data/cursor.tga");
     mt->UcitajTexturu("../data/Menu1.tga");
     mt->UcitajTexturu("../data/MenuLoading1.tga");
 	
 	fontovi.push_back(sf::Font());
-    fontovi.back().loadFromFile("../data/DijalogFont.TTF");
+    fontovi.back().loadFromFile("../data/DialogueFont.TTF");
 
 	Vec2 poz;
     sf::Vector2u window_size = igra->GetRW()->getSize();
@@ -86,7 +86,7 @@ bool MenuStanje::Init(Game* igra)
         oigriText.setPosition(32, 32);
 	igra->GetRW()->popGLStates();
 
-    ifstream file("../data/nivoLista.gdf",ios::in);
+    ifstream file("../data/levelList.gdf",ios::in);
 	string linija;
 	while(getline(file,linija))
 	{
@@ -94,16 +94,16 @@ bool MenuStanje::Init(Game* igra)
 		string vrijednost;
 		while(getline(lstring,vrijednost,' '))
 		{
-			if(vrijednost=="[NIVO]")
+			if(vrijednost=="[LEVEL]")
 			{				
 				nivoi.push_back(Nivo());
 			}
-			if(vrijednost=="datoteka")
+			if(vrijednost=="file")
 			{
 				getline(lstring,vrijednost,' ');
                 nivoi.back().datoteka="../data/"+vrijednost;
 			}
-			if(vrijednost=="datoteka_g")
+			if(vrijednost=="file_g")
 			{
 				getline(lstring,vrijednost,' ');
                 nivoi.back().datoteka_g="../data/"+vrijednost;
@@ -116,7 +116,7 @@ bool MenuStanje::Init(Game* igra)
 		odabir_levela_odmah=false;
 	if(odabir_levela_odmah==true)
 		stanje=NIVO_ODABIR;
-    ifstream in("../data/nivoLock.gdf");
+    ifstream in("../data/levelLock.gdf");
 	for(int i=0; i<BROJ_NIVOA; i++)
 	{
 		in >> nivo_omogucen[i];	
