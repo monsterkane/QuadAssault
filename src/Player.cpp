@@ -37,14 +37,14 @@ void Igrac::Init(Vec2 poz, GameState* stanje, unsigned char** mapa)
 	dim.x=64;
 	dim.y=64;
 
-    textura=stanje->GetTM()->DajTexturu("../data/tenkTorzoDiffuse.tga")->id;
-    texturaN=stanje->GetTM()->DajTexturu("../data/tenkTorzoNormal.tga")->id;
+    textura=stanje->GetTM()->DajTexturu("../data/tankTorsoDiffuse.tga")->id;
+    texturaN=stanje->GetTM()->DajTexturu("../data/tankTorsoNormal.tga")->id;
 
-    podloga_tex=stanje->GetTM()->DajTexturu("../data/tenkPodlogaDiffuse.tga")->id;
-    podloga_normal=stanje->GetTM()->DajTexturu("../data/tenkPodlogaNormal.tga")->id;
+    podloga_tex=stanje->GetTM()->DajTexturu("../data/tankBaseDiffuse.tga")->id;
+    podloga_normal=stanje->GetTM()->DajTexturu("../data/tankBaseNormal.tga")->id;
 
-    tracnica_tex=stanje->GetTM()->DajTexturu("../data/tracnicaDiffuse.tga")->id;
-    tracnica_normal=stanje->GetTM()->DajTexturu("../data/tracnicaNormal.tga")->id;
+    tracnica_tex=stanje->GetTM()->DajTexturu("../data/tracksDiffuse.tga")->id;
+    tracnica_normal=stanje->GetTM()->DajTexturu("../data/tracksNormal.tga")->id;
 	
 	farovi=stanje->GetLight(false);
 	farovi->Init(Vec2(0.0, 0.0), 1024, stanje);

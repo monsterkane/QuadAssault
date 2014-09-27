@@ -31,7 +31,7 @@ void MinigunProjektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned ch
 	svjetlo->Init(poz,128,stanje);
 	svjetlo->Postavke(Vec3(1.0, 1.0, 0.1),12);
 
-    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Zvukovi/minigun1.wav"));
+    sf::Sound* z = stanje->GetSound(new sf::Sound(), stanje->GetSM()->DajZvuk("../data/Sounds/minigun1.wav"));
     z->play();
 
     texG=stanje->GetTM()->DajTexturu("../data/minigun1Glow.tga")->id;

@@ -36,10 +36,10 @@ void PlazmaProjektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned cha
 	svjetlo->Init(poz,256,stanje);
 	svjetlo->Postavke(Vec3(0.25, 0.5, 1.0),18);	
 
-    tex=stanje->GetTM()->DajTexturu("../data/granata1.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/shell1.tga")->id;
 
 	sf::Sound* z = stanje->GetSound(new sf::Sound(),
-        stanje->GetSM()->DajZvuk("../data/Zvukovi/plazma1.wav"));
+        stanje->GetSM()->DajZvuk("../data/Sounds/plasma1.wav"));
     z->play();
 }
 void PlazmaProjektil::Update(float deltaT)
@@ -69,6 +69,6 @@ void PlazmaProjektil::Unisti()
 	e->SetColor(Vec3(1.0, 0.75, 0.5));
 
 	sf::Sound* z = stanje->GetSound(new sf::Sound(),
-        stanje->GetSM()->DajZvuk("../data/Zvukovi/explozija1.wav"));
+        stanje->GetSM()->DajZvuk("../data/Sounds/explosion1.wav"));
     z->play();
 }

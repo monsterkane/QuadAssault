@@ -96,12 +96,12 @@ bool ManagerTextura::UcitajTexturu(char* name)
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);				
 			
 		texture.push_back(Textura(name,id));
-		cout << "Textura ucitana : " << name << endl;
+		cout << "Texture loaded : " << name << endl;
 		return true;
 	}
 	else
 	{
-        cerr << "ERROR: Greska kod ucitavanja textura.";
+        cerr << "ERROR: Errors loading texture files.";
 		return false;
 	}
 }

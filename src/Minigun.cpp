@@ -25,9 +25,9 @@
 void Minigun::Init(GameState* stanje)
 {
 	Oruzje::Init(stanje);
-    tex=stanje->GetTM()->DajTexturu("../data/oruzje1.tga")->id;
-    texN=stanje->GetTM()->DajTexturu("../data/oruzje1Normal.tga")->id;
-    texG=stanje->GetTM()->DajTexturu("../data/oruzje3Glow.tga")->id;
+    tex=stanje->GetTM()->DajTexturu("../data/weapon1.tga")->id;
+    texN=stanje->GetTM()->DajTexturu("../data/weapon1Normal.tga")->id;
+    texG=stanje->GetTM()->DajTexturu("../data/weapon3Glow.tga")->id;
 	brzinaPunjenja=1500;
 	potrebnaEnergija=0.5;
 }

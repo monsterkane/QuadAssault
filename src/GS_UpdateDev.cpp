@@ -126,13 +126,13 @@ void GameState::SaveBlocks()
 	for(int i=0; i<MX; i++)
 	for(int j=0; j<MY; j++)
 	{
-        of << "blok " << i*BLOCK_SIZE << " " << j*BLOCK_SIZE << " " << (int)map[i][j] << "\n";
+        of << "block " << i*BLOCK_SIZE << " " << j*BLOCK_SIZE << " " << (int)map[i][j] << "\n";
 	}
     for(int i=0; i<lights.size(); i++)
 	{
         if(lights[i]->staticno==true)
 		{
-        of << "svjetlo " << lights[i]->DajPoz().x << " " << lights[i]->DajPoz().y
+        of << "light " << lights[i]->DajPoz().x << " " << lights[i]->DajPoz().y
             << " " << lights[i]->radius << " " << lights[i]->intenzitet << " " << lights[i]->boja.x << " " << lights[i]->boja.y <<
             " " << lights[i]->boja.z << "\n";
 		}

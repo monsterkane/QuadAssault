@@ -60,7 +60,7 @@ void GameState::LoadMap()
         string value;
         while(getline(lstring,value,' '))
 		{
-            if(value=="blok")
+            if(value=="block")
 			{
                 getline(lstring,value,' ');
                 int x=atoi(value.c_str());
@@ -71,7 +71,7 @@ void GameState::LoadMap()
 				if(x/BLOCK_SIZE<MX && y/BLOCK_SIZE<MY)
                     map[x/BLOCK_SIZE][y/BLOCK_SIZE]=type;
 			}
-            if(value=="svjetlo")
+            if(value=="light")
 			{
 				lights.push_back(new Svjetlo());
                 getline(lstring,value,' ');
@@ -104,7 +104,7 @@ void GameState::LoadMap()
         string value;
         while(getline(lstring,value,' '))
 		{			
-            if(value=="igrac")
+            if(value=="player")
 			{
                 getline(lstring,value,' ');
                 float x=atof(value.c_str());
@@ -112,7 +112,7 @@ void GameState::LoadMap()
                 float y=atof(value.c_str());
                 playerPos=Vec2(x,y);
 			}	
-            if(value=="oruzje")
+            if(value=="weapon")
 			{
                 getline(lstring,value,' ');
                 float x=atof(value.c_str());
@@ -124,7 +124,7 @@ void GameState::LoadMap()
 				OruzjePickup* o=(OruzjePickup*)things.back();
 				o->Init(Vec2(x,y),this,id);
 			}
-            if(value=="kljuc")
+            if(value=="key")
 			{
                 getline(lstring,value,' ');
                 float x=atof(value.c_str());
@@ -136,12 +136,12 @@ void GameState::LoadMap()
                 KeyPickup* k=(KeyPickup*)things.back();
 				k->Init(Vec2(x,y),this,id);
 			}
-            if(value=="preload_zvuk")
+            if(value=="preload_sound")
 			{
                 getline(lstring,value,' ');
                 soundManager->UcitajZvuk((char*)("../data/"+value).c_str());
 			}
-            if(value=="muzika")
+            if(value=="music")
 			{
                 getline(lstring,value,' ');
                 music.openFromFile((char*)("../data/"+value).c_str());
@@ -179,7 +179,7 @@ void GameState::LoadMap()
                 Mob* m=SpawnMobByName(value);
 				triggers.back()->InitMob(Vec2(x,y),Vec2(x2,y2),Vec2(mx,my),m,this);
 			}
-            if(value=="krajtrigger")
+            if(value=="endtrigger")
 			{
 				triggers.push_back(new Trigger());
                 getline(lstring,value,' ');
@@ -192,7 +192,7 @@ void GameState::LoadMap()
                 float y2=atof(value.c_str());
 				triggers.back()->InitKraj(Vec2(x,y),Vec2(x2,y2),this);
 			}
-            if(value=="porukatrigger")
+            if(value=="messagetrigger")
 			{				
                 getline(lstring,value,' ');
                 float x=atof(value.c_str());
@@ -225,7 +225,7 @@ Mob* GameState::SpawnMobByName(string name)
 {
 	if(name=="lasermob1")				
 		return new LaserMob1();	
-	if(name=="plazmamob1")				
+	if(name=="plasmamob1")				
 		return new PlazmaMob1();	
 	if(name=="minigunmob1")		
 		return new MinigunMob1();

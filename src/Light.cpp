@@ -74,34 +74,34 @@ void Svjetlo::RenderNaFBO(Shader* s, Objekt* kamera, GLuint normalmapa)
 		lightX=poz.x-kamera->DajPoz().x;
 		lightY=poz.y-kamera->DajPoz().y;
 		
-		int svjetloLoc = glGetUniformLocation(s->ID, "pozSvjetla");
+		int svjetloLoc = glGetUniformLocation(s->ID, "pozLights");
 		glUniform2f(svjetloLoc, lightX, lightY);
 
-		int bojaSvjetlaLoc = glGetUniformLocation(s->ID, "bojaSvjetla");
+		int bojaSvjetlaLoc = glGetUniformLocation(s->ID, "colourLights");
 		glUniform3f(bojaSvjetlaLoc, boja.x, boja.y, boja.z);		
 
-		int smjerLoc = glGetUniformLocation(s->ID, "smjer");
+		int smjerLoc = glGetUniformLocation(s->ID, "direction");
 		glUniform2f(smjerLoc, smjer.x, smjer.y);	
 
-		int kutLoc = glGetUniformLocation(s->ID, "kut");
+		int kutLoc = glGetUniformLocation(s->ID, "angle");
 		glUniform1f(kutLoc, kut);	
 
-		int visinaZaslonaLoc = glGetUniformLocation(s->ID, "visinaZaslona");
+		int visinaZaslonaLoc = glGetUniformLocation(s->ID, "heightScreen");
         glUniform1f(visinaZaslonaLoc,stanje->DajIgru()->GetRW()->getSize().y);
 
 		int radiusLoc = glGetUniformLocation(s->ID, "radius");
 		glUniform1f(radiusLoc,radius);
 
-		int intenzitetSvjetla = glGetUniformLocation(s->ID, "intenzitet");
+		int intenzitetSvjetla = glGetUniformLocation(s->ID, "intensity");
 		glUniform1f(intenzitetSvjetla,intenzitet);	
-
+		//TODO: need to look up the id below
 		int jeExplozija = glGetUniformLocation(s->ID, "jeExplozija");
 		if(explozija==true)
 			glUniform1i(jeExplozija,1);	
 		else
 			glUniform1i(jeExplozija,0);
 
-		int normalmapaLoc = glGetUniformLocation(s->ID, "nMapa");
+		int normalmapaLoc = glGetUniformLocation(s->ID, "nMaps");
 		glActiveTextureARB(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, normalmapa);
 		glUniform1i(normalmapaLoc, 0);		
