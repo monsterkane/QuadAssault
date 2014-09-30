@@ -1,10 +1,10 @@
 TODO:
 
-59% completed (115/193)
+60% completed (117/193)
 Translation:
 
 
-	24% completed (25/101)
+	26% completed (27/101)
 	Source files waiting for translation: 
 
 	Laser.cpp
@@ -80,8 +80,6 @@ Translation:
 	UI_Window.h
 	Vec2.cpp
 	Vec2.h
-	Weapon.cpp
-	Weapon.h
 	WeaponPickup.cpp
 	WeaponPickup.h
 
