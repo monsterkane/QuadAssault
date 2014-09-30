@@ -62,16 +62,16 @@ void SmecePickup::Update(float deltaT)
 		else
 			cesticaTimer+=deltaT*10;
 
-		poz.y+=smjer.y*brzina*deltaT;
+		pos.y+=smjer.y*brzina*deltaT;
 		if(ProvjeraSudara()==true)
 		{
-			poz.y-=smjer.y*brzina*deltaT;
+			pos.y-=smjer.y*brzina*deltaT;
 			smjer.y=-smjer.y;
 		}
-		poz.x+=smjer.x*brzina*deltaT;
+		pos.x+=smjer.x*brzina*deltaT;
 		if(ProvjeraSudara()==true)
 		{
-			poz.x-=smjer.x*brzina*deltaT;
+			pos.x-=smjer.x*brzina*deltaT;
 			smjer.x=-smjer.x;
 		}
 		brzina-=100*deltaT;
@@ -86,11 +86,11 @@ void SmecePickup::Update(float deltaT)
 bool SmecePickup::ProvjeraSudara()
 {
 	Box k1;
-	k1.v1=poz;
-	k1.v2=poz+dim;
+	k1.v1=pos;
+	k1.v2=pos+dim;
 	unsigned char** mapa=stanje->GetMap();
-	for(int x=(poz.x/BLOCK_SIZE)-2; x<(poz.x/BLOCK_SIZE)+2; x++)
-	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
+	for(int x=(pos.x/BLOCK_SIZE)-2; x<(pos.x/BLOCK_SIZE)+2; x++)
+	for(int y=(pos.y/BLOCK_SIZE)-2; y<(pos.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
 		if(mapa[x][y]!=FLOOR)
@@ -113,7 +113,7 @@ void SmecePickup::Render(unsigned char stil)
 		if(stil==NORMAL)
 			t=texN;
 	
-		SpriteT(poz,Vec2(dim.x,dim.y),0,t);
+		SpriteT(pos,Vec2(dim.x,dim.y),0,t);
 		glColor3f(1.0, 1.0, 1.0);
 	}
 	

@@ -53,7 +53,7 @@ void DimRakete::Render(unsigned char stil)
 		float faktorBoje=zivot/maxZivot;
 
 		glPushMatrix();
-		glTranslatef(poz.x+dim.x/2, poz.y+dim.y/2, 0);	
+		glTranslatef(pos.x+dim.x/2, pos.y+dim.y/2, 0);	
 		glScalef(faktorSkaliranja,faktorSkaliranja,0);
 		glTranslatef(-dim.x,-dim.y,0);	
 

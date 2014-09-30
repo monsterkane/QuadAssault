@@ -33,7 +33,7 @@ protected:
 
 	bool odabran; //je li kliknut
 public:
-	virtual void Init(UI_Prozor* prozor, Vec2 poz);
+	virtual void Init(UI_Prozor* prozor, Vec2 pos);
 	virtual void Update(float deltaT);
 	virtual void Render();
 

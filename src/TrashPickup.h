@@ -35,7 +35,7 @@ protected:
 	Svjetlo* s;
 
 public:
-	void Init(Vec2 poz, GameState* stanje);
+	void Init(Vec2 pos, GameState* stanje);
 	void Update(float deltaT);
 	bool ProvjeraSudara();
 	void Render(unsigned char stil);

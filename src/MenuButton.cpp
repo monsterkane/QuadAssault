@@ -25,7 +25,7 @@
 
 void MenuGumb::Init(Vec2 p, Vec2 d, string text, sf::Font font, bool omogucen, MenuStanje* stanje)
 {
-	this->poz=p;
+	this->pos=p;
 	this->dim=d;
 	this->text=text;
 	this->stanje=stanje;
@@ -40,7 +40,7 @@ void MenuGumb::Init(Vec2 p, Vec2 d, string text, sf::Font font, bool omogucen, M
         t.setColor(sf::Color(150,150,150));
     t.setCharacterSize(30);
     t.setString(text);
-    t.setPosition(poz.x+dim.x/2-t.getLocalBounds().width/2 , poz.y+dim.y/2-t.getLocalBounds().height/2 );
+    t.setPosition(pos.x+dim.x/2-t.getLocalBounds().width/2 , pos.y+dim.y/2-t.getLocalBounds().height/2 );
 	stanje->DajIgru()->GetRW()->popGLStates();
 }
 void MenuGumb::Update(float deltaT)
@@ -48,8 +48,8 @@ void MenuGumb::Update(float deltaT)
 	if(omogucen==true)
 	{
 		Vec2 mis=stanje->DajMis();	
-		if(mis.x>=poz.x && mis.x<poz.x+dim.x
-			&& mis.y>=poz.y && mis.y<poz.y+dim.y)	
+		if(mis.x>=pos.x && mis.x<pos.x+dim.x
+			&& mis.y>=pos.y && mis.y<pos.y+dim.y)	
 			odabran=true;	
 		else
 			odabran=false;
@@ -72,10 +72,10 @@ void MenuGumb::Render(sf::Font font)
 	}
 
 	glBegin(GL_QUADS);
-	glVertex2f(poz.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y+dim.y);
-	glVertex2f(poz.x, poz.y+dim.y);
+	glVertex2f(pos.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y+dim.y);
+	glVertex2f(pos.x, pos.y+dim.y);
 	glEnd();
 
 	if(omogucen==true)
@@ -91,10 +91,10 @@ void MenuGumb::Render(sf::Font font)
 	}
 
 	glBegin(GL_LINE_LOOP);
-	glVertex2f(poz.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y+dim.y);
-	glVertex2f(poz.x, poz.y+dim.y);
+	glVertex2f(pos.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y+dim.y);
+	glVertex2f(pos.x, pos.y+dim.y);
 	glEnd();	
 
 	glColor3f(1.0, 1.0, 1.0);

@@ -49,7 +49,7 @@ void PlazmaProjektil::Update(float deltaT)
 	if(dimTimer>=10.0)
 	{
 		Cestica* c=stanje->GetParticle(new DimRakete());
-		c->Init(poz+Vec2(dim.x/2,dim.y/2),stanje);
+		c->Init(pos+Vec2(dim.x/2,dim.y/2),stanje);
 		dimTimer=0.0;
 	}
 }
@@ -57,14 +57,14 @@ void PlazmaProjektil::Render(unsigned char stil)
 {
 	Projektil::Render(stil);
 	if(stil==DIFFUSE)
-		SpriteT(poz,dim,0,tex);
+		SpriteT(pos,dim,0,tex);
 }
 void PlazmaProjektil::Unisti()
 {		
 	unisten=true;
 	svjetlo->Unisti();
 	Explosion* e=stanje->GetExplosion();	
-	e->Init(poz,256,stanje);
+	e->Init(pos,256,stanje);
 	e->Setup(20,1000,50);
 	e->SetColor(Vec3(1.0, 0.75, 0.5));
 

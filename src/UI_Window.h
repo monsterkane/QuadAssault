@@ -40,7 +40,7 @@ private:
 public:
 	UI_Prozor();
 	~UI_Prozor();
-	void Init(UI_Menager* manager, Vec2 poz, Vec2 dim, string naziv);
+	void Init(UI_Menager* manager, Vec2 pos, Vec2 dim, string naziv);
 	void Update(float deltaT, Vec2 mis);
 	void Render();
 

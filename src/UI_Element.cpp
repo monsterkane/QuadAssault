@@ -24,7 +24,7 @@
 void UI_Element::Init(UI_Prozor* prozor, Vec2 poz)
 {
 	this->prozor=prozor;
-	this->poz=poz;
+	this->pos=poz;
 	odabran=false;
 }
 void UI_Element::Update(float deltaT)

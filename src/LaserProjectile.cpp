@@ -46,7 +46,7 @@ void LaserProjektil::Render(unsigned char stil)
 	if(stil==GLOW)
 	{
 		float rot=atan2(smjer.y,smjer.x)*180/3.14 + 90;	
-		SpriteT(poz-Vec2(8,16),Vec2(16,32),rot,texG);		
+		SpriteT(pos-Vec2(8,16),Vec2(16,32),rot,texG);		
 	}
 }
 void LaserProjektil::Unisti()
@@ -54,7 +54,7 @@ void LaserProjektil::Unisti()
 	unisten=true;
 	svjetlo->Unisti();
 	Explosion* e=stanje->GetExplosion();
-	e->Init(poz,128,stanje);
+	e->Init(pos,128,stanje);
 	e->Setup(8,100,80);
 	e->SetColor(Vec3(1.0, 0.75, 0.5));	
 }

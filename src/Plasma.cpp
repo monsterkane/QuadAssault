@@ -24,27 +24,27 @@
 
 void Plazma::Init(GameState* stanje)
 {
-	Oruzje::Init(stanje);
+	Weapon::Init(stanje);
     tex=stanje->GetTM()->DajTexturu("../data/weapon1.tga")->id;
     texN=stanje->GetTM()->DajTexturu("../data/weapon1Normal.tga")->id;
     texG=stanje->GetTM()->DajTexturu("../data/weapon2Glow.tga")->id;
-	brzinaPunjenja=100;
-	potrebnaEnergija=6;
+	chargingSpeed=100;
+	requiredEnergy=6;
 }
 void Plazma::Update(float deltaT)
 {
-	Oruzje::Update(deltaT);
+	Weapon::Update(deltaT);
 }
 void Plazma::Render()
 {
-	Oruzje::Render();
+	Weapon::Render();
 }
-void Plazma::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Plazma::Fire(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
-	if(trenutnoPunjenje==punjenje)
+	Weapon::Fire(poz,smjer,mapa,vlasnik);
+	if(currentCharging==charging)
 	{
-		IspaliProjektil(new PlazmaProjektil());
-		trenutnoPunjenje=0;
+		FireProjectile(new PlazmaProjektil());
+		currentCharging=0;
 	}
 }

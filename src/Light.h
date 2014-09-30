@@ -44,7 +44,7 @@ public:
 
 	Svjetlo();
 	~Svjetlo();
-	void Init(Vec2 poz, float radius, GameState* stanje);
+	void Init(Vec2 pos, float radius, GameState* stanje);
 	void Postavke(Vec3 boja, float intenzitet);
 	void PostaviExplozija(bool explozija);
 	void PostavkeKuta(Vec2 smjer, float kut);

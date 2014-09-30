@@ -43,7 +43,7 @@ private:
 	float hp; //zdravlje	
 	float energija; //za pucanje
 
-	Oruzje* oruzja[4];
+	Weapon* oruzja[4];
 	bool oruzjeSlot[4];
 	bool puca; //je li pucanje u tijeku
 
@@ -63,7 +63,7 @@ private:
 public:
 	Igrac();
 	~Igrac();
-	void Init(Vec2 poz, GameState* stanje, unsigned char** mapa);
+	void Init(Vec2 pos, GameState* stanje, unsigned char** mapa);
 	void Update(float deltaT, Vec2 mis);
 	void UpdateFarove();
 	void Render(unsigned char stil);	
@@ -74,7 +74,7 @@ public:
 	void RenderPodlogu(unsigned char stil);
 	void RenderTorzo(unsigned char stil);
 	void RenderTracnice(unsigned char stil);
-	void RenderOruzje(float x, float y, Oruzje* oruzje, unsigned char stil);
+	void RenderOruzje(float x, float y, Weapon* oruzje, unsigned char stil);
 
 	void RenderHP_Bar();
 	void RenderEnergija_Bar();
@@ -89,7 +89,7 @@ public:
 	void OduzmiEnergiju(float e);
 	void DodajHP(float kolicina);
 
-	void DodajOruzje(Oruzje* o);
+	void DodajOruzje(Weapon* o);
 
 	Poruka* gameOverPoruka;
 };

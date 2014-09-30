@@ -24,7 +24,7 @@
 
 void Projektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik)
 {
-	this->poz=poz;
+	this->pos=poz;
 	this->smjer=smjer;
 	this->stanje=stanje;
 	this->mapa=mapa;
@@ -50,8 +50,8 @@ void Projektil::Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** ma
 }
 void Projektil::Update(float deltaT)
 {
-	for(int x=(poz.x/BLOCK_SIZE)-2; x<(poz.x/BLOCK_SIZE)+2; x++)
-	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
+	for(int x=(pos.x/BLOCK_SIZE)-2; x<(pos.x/BLOCK_SIZE)+2; x++)
+	for(int y=(pos.y/BLOCK_SIZE)-2; y<(pos.y/BLOCK_SIZE)+2; y++)
 	{
 		if(unisten==true)
 		{
@@ -61,8 +61,8 @@ void Projektil::Update(float deltaT)
 		if(mapa[x][y]!=FLOOR && mapa[x][y]!=EMPTY)
 		{
 			Box k1;
-			k1.v1=poz;
-			k1.v2=poz+dim;
+			k1.v1=pos;
+			k1.v2=pos+dim;
 
 			Box k2;
 			k2.v1=Vec2(x*BLOCK_SIZE,y*BLOCK_SIZE);
@@ -73,9 +73,9 @@ void Projektil::Update(float deltaT)
 	}
 	if(unisten==false)
 	{		
-		poz.y+=smjer.y*brzina*deltaT;
-		poz.x+=smjer.x*brzina*deltaT;
-		svjetlo->PromijeniPoz(poz);		
+		pos.y+=smjer.y*brzina*deltaT;
+		pos.x+=smjer.x*brzina*deltaT;
+		svjetlo->PromijeniPoz(pos);		
 		domet_timer+=1000*deltaT;
 		if(domet_timer>domet)
 			unisten=true;
@@ -91,7 +91,7 @@ void Projektil::Unisti()
 	svjetlo->Unisti();
 	svjetlo=NULL;
 	Explosion* e=stanje->GetExplosion();
-	e->Init(poz,128,stanje);
+	e->Init(pos,128,stanje);
 	e->Setup(4,100,20);
 	e->SetColor(Vec3(0.25, 0.5, 1.0));	
 	e=NULL;

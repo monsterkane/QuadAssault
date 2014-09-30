@@ -31,7 +31,7 @@ private:
 
 	GLuint tex;
 public:
-	void Init(UI_Prozor* prozor, Vec2 poz, Vec2 dim, void (*funkcija)(), GLuint tex);
+	void Init(UI_Prozor* prozor, Vec2 pos, Vec2 dim, void (*funkcija)(), GLuint tex);
 	void Update(float deltaT);
 	void Render();
 

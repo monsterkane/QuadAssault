@@ -45,7 +45,7 @@ protected:
 
 public:
 	
-	virtual void Init(Vec2 poz, GameState* stanje, unsigned char** mapa);
+	virtual void Init(Vec2 pos, GameState* stanje, unsigned char** mapa);
 	virtual void SpawnEfekt();
 	virtual void Update(float deltaT);
 	virtual void Pucanje(Projektil* p, float deltaT);

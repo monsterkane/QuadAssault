@@ -32,7 +32,7 @@ Svjetlo::~Svjetlo()
 
 void Svjetlo::Init(Vec2 poz, float radius, GameState* stanje)
 {
-	this->poz=poz;
+	this->pos=poz;
 	this->radius=radius;
 	this->stanje=stanje;
 
@@ -60,10 +60,10 @@ void Svjetlo::Update(float deltaT)
 }
 void Svjetlo::RenderNaFBO(Shader* s, Objekt* kamera, GLuint normalmapa)
 {
-	if(poz.x+radius>kamera->DajPoz().x && 
-        poz.x-radius<kamera->DajPoz().x+stanje->DajIgru()->GetRW()->getSize().x
-		&& poz.y+radius>kamera->DajPoz().y && 
-        poz.y-radius<kamera->DajPoz().y+stanje->DajIgru()->GetRW()->getSize().y)
+	if(pos.x+radius>kamera->DajPoz().x && 
+        pos.x-radius<kamera->DajPoz().x+stanje->DajIgru()->GetRW()->getSize().x
+		&& pos.y+radius>kamera->DajPoz().y && 
+        pos.y-radius<kamera->DajPoz().y+stanje->DajIgru()->GetRW()->getSize().y)
 	{
 		s->Bind();
 
@@ -71,8 +71,8 @@ void Svjetlo::RenderNaFBO(Shader* s, Objekt* kamera, GLuint normalmapa)
 		
 		float lightX, lightY, lightZ;		
 	
-		lightX=poz.x-kamera->DajPoz().x;
-		lightY=poz.y-kamera->DajPoz().y;
+		lightX=pos.x-kamera->DajPoz().x;
+		lightY=pos.y-kamera->DajPoz().y;
 		
 		int svjetloLoc = glGetUniformLocation(s->ID, "pozLights");
 		glUniform2f(svjetloLoc, lightX, lightY);

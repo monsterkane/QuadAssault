@@ -24,7 +24,7 @@
 
 void Trigger::InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GameState* stanje)
 {
-	this->poz=v1;
+	this->pos=v1;
 	this->dim=v2-v1;
 	this->meta=meta;
 	this->mob=mob;
@@ -34,7 +34,7 @@ void Trigger::InitMob(Vec2 v1, Vec2 v2, Vec2 meta, Mob* mob, GameState* stanje)
 }
 void Trigger::InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GameState* stanje)
 {
-	this->poz=v1;
+	this->pos=v1;
 	this->dim=v2-v1;
 	this->stanje=stanje;
 	status=AKTIVIRAN;
@@ -43,7 +43,7 @@ void Trigger::InitPoruka(Vec2 v1, Vec2 v2, Poruka* poruka, GameState* stanje)
 }
 void Trigger::InitKraj(Vec2 v1, Vec2 v2, GameState* stanje)
 {
-	this->poz=v1;
+	this->pos=v1;
 	this->dim=v2-v1;
 	this->stanje=stanje;
 	status=AKTIVIRAN;
@@ -54,8 +54,8 @@ void Trigger::Update(float deltaT)
 	if(status==AKTIVIRAN)
 	{
 		Box k1;
-		k1.v1=poz;
-		k1.v2=poz+dim;
+		k1.v1=pos;
+		k1.v2=pos+dim;
 		Box k2;
 		k2.v1=stanje->GetPlayer()->DajPoz();
 		k2.v2=stanje->GetPlayer()->DajPoz()+
@@ -95,9 +95,9 @@ void Trigger::Render()
 {
 	glColor3f(1,1,1);
 	glBegin(GL_LINE_LOOP);
-	glVertex2f(poz.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y+dim.y);
-	glVertex2f(poz.x, poz.y+dim.y);
+	glVertex2f(pos.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y+dim.y);
+	glVertex2f(pos.x, pos.y+dim.y);
 	glEnd();
 }

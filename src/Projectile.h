@@ -46,7 +46,7 @@ protected:
 public:
 	Projektil();
 	~Projektil();
-	virtual void Init(Vec2 poz, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik);
+	virtual void Init(Vec2 pos, Vec2 smjer, GameState* stanje, unsigned char** mapa, bool vlasnik);
 	virtual void Update(float deltaT);
 	virtual void Render(unsigned char stil);
 	virtual void Unisti();

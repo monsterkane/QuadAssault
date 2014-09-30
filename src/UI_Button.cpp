@@ -39,21 +39,21 @@ void UI_Gumb::Render()
 		glColor3f(0.25, 0.25, 0.25);
 	else
 		glColor3f(1.0, 1.0, 1.0);
-	Sprite(prozor->DajPoz()+poz,dim,tex);
+	Sprite(prozor->DajPoz()+pos,dim,tex);
 	glColor3f(1.0, 1.0, 1.0);
 }
 
 void UI_Gumb::LijeviKlik(Vec2 mis)
 {	
-	if(mis.x>=prozor->DajPoz().x+poz.x && mis.y>=prozor->DajPoz().y+poz.y
-		&& mis.y<prozor->DajPoz().y+poz.y+dim.y && mis.x<prozor->DajPoz().x+poz.x+dim.x)
+	if(mis.x>=prozor->DajPoz().x+pos.x && mis.y>=prozor->DajPoz().y+pos.y
+		&& mis.y<prozor->DajPoz().y+pos.y+dim.y && mis.x<prozor->DajPoz().x+pos.x+dim.x)
 		odabran=true;
 }
 void UI_Gumb::LijeviOtpust(Vec2 mis)
 {	
 	odabran=false;
-	if(mis.x>=prozor->DajPoz().x+poz.x && mis.y>=prozor->DajPoz().y+poz.y
-		&& mis.y<prozor->DajPoz().y+poz.y+dim.y && mis.x<prozor->DajPoz().x+poz.x+dim.x)
+	if(mis.x>=prozor->DajPoz().x+pos.x && mis.y>=prozor->DajPoz().y+pos.y
+		&& mis.y<prozor->DajPoz().y+pos.y+dim.y && mis.x<prozor->DajPoz().x+pos.x+dim.x)
 	(*funkcija)();
 }
 void UI_Gumb::DesniKlik(Vec2 mis)

@@ -24,32 +24,32 @@
 
 void Laser::Init(GameState* stanje)
 {
-	Oruzje::Init(stanje);
+    Weapon::Init(stanje);
     tex=stanje->GetTM()->DajTexturu("../data/weapon1.tga")->id;
     texN=stanje->GetTM()->DajTexturu("../data/weapon1Normal.tga")->id;
     texG=stanje->GetTM()->DajTexturu("../data/weapon1Glow.tga")->id;
-	brzinaPunjenja=600;
-	potrebnaEnergija=2;
+    chargingSpeed=600;
+    requiredEnergy=2;
 }
 void Laser::Update(float deltaT)
 {
-	Oruzje::Update(deltaT);
+    Weapon::Update(deltaT);
 }
 void Laser::Render()
 {
-	Oruzje::Render();
+    Weapon::Render();
 }
-void Laser::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Laser::Fire(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
-	if(trenutnoPunjenje==punjenje)
+    Weapon::Fire(poz,smjer,mapa,vlasnik);
+    if(currentCharging==charging)
 	{
 		for(int i=0; i<1; i++)
 		{
-			absPoz.x-=smjer.x*4;
-			absPoz.y-=smjer.y*4;		
-			IspaliProjektil(new LaserProjektil());				
+            absPos.x-=smjer.x*4;
+            absPos.y-=smjer.y*4;
+            FireProjectile(new LaserProjektil());
 		}
-		trenutnoPunjenje=0;
+        currentCharging=0;
 	}
 }

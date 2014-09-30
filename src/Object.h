@@ -30,14 +30,14 @@
 class Objekt
 {
 protected:
-	Vec2 poz,dim;	
+    Vec2 pos,dim;
 public:
 	Objekt();
 	~Objekt();
 	Vec2 DajPoz(); //daje poziciju objekta
 	Vec2 DajDim();
 	Vec2 DajSredinu();
-	virtual void PromijeniPoz(Vec2 poz); //mijenja poziciju objekta
+    virtual void PromijeniPoz(Vec2 pos); //mijenja poziciju objekta
 	virtual void PromijeniDim(Vec2 dim);
 };
 

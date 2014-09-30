@@ -43,7 +43,7 @@ void MinigunMob1::Update(float deltaT)
 	Mob::Update(deltaT);
 	Pucanje(new MinigunProjektil(),deltaT);	
 	Vec2 smjer;
-	smjer=stanje->GetPlayer()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
+	smjer=stanje->GetPlayer()->DajSredinu()-pos-Vec2(dim.x/2, dim.y/2);
 	if(smjer.Duljina()<300)
 	{
 		brzina-=100*deltaT;

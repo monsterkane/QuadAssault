@@ -24,7 +24,7 @@
 
 void Cestica::Init(Vec2 poz, GameState* stanje)
 {
-	this->poz=poz;
+	this->pos=poz;
 	this->stanje=stanje;
 	unisten=false;
 	int xof=stanje->DajIgru()->Rand(2,4)-2;
@@ -52,7 +52,7 @@ void Cestica::Render(unsigned char stil)
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_ONE, GL_ONE);
 		glColor3f(zivot/maxZivot, zivot/maxZivot, zivot/maxZivot );
-		SpriteT(poz,dim,0,t);
+		SpriteT(pos,dim,0,t);
 		glColor3f(1.0, 1.0, 1.0);
 		glDisable(GL_BLEND);
 	}

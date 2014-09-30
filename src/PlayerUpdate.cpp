@@ -33,12 +33,12 @@ void Igrac::Update(float deltaT, Vec2 mis)
 		moment.x=cos((rotacija-90)/180.0*3.14)*akceleracija;
 		moment.y=sin((rotacija-90)/180.0*3.14)*akceleracija;	
 
-		poz.y+=moment.y*brzina*deltaT;
+		pos.y+=moment.y*brzina*deltaT;
 		if(ProvjeraSudara())
-			poz.y-=moment.y*brzina*deltaT;
-		poz.x+=moment.x*brzina*deltaT;
+			pos.y-=moment.y*brzina*deltaT;
+		pos.x+=moment.x*brzina*deltaT;
 		if(ProvjeraSudara())
-			poz.x-=moment.x*brzina*deltaT;
+			pos.x-=moment.x*brzina*deltaT;
 	
 		if(moment.x!=0 || moment.y!=0)
 		{
@@ -55,7 +55,7 @@ void Igrac::Update(float deltaT, Vec2 mis)
 
 		SudarProjektila();
 
-		rotacijaTorza=atan2((mis.y-poz.y-dim.y/2),(mis.x-poz.x-dim.x/2))*180/3.14;
+		rotacijaTorza=atan2((mis.y-pos.y-dim.y/2),(mis.x-pos.x-dim.x/2))*180/3.14;
 
 		for(int i=0; i<4; i++)
 		{

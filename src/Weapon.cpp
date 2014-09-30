@@ -22,47 +22,47 @@
 #include "GameState.h"
 #include "Projectile.h"
 
-void Oruzje::Init(GameState* stanje)
+void Weapon::Init(GameState* state)
 {	
-	this->stanje=stanje;
-	poz.x=0;
-	poz.y=0;
+    this->state=state;
+    pos.x=0;
+    pos.y=0;
 	dim.x=16;
 	dim.y=32;
 
-	punjenje=100;
-	trenutnoPunjenje=punjenje;
-	brzinaPunjenja=250;	
-	potrebnaEnergija=1;
+    charging=100;
+    currentCharging=charging;
+    chargingSpeed=250;
+    requiredEnergy=1;
 }
 
-void Oruzje::Update(float deltaT)
+void Weapon::Update(float deltaT)
 {	
-	if(trenutnoPunjenje<punjenje)
+    if(currentCharging<charging)
 	{
-		trenutnoPunjenje+=brzinaPunjenja*deltaT;
+        currentCharging+=chargingSpeed*deltaT;
 	}
 	else
 	{
-		trenutnoPunjenje=punjenje;
+        currentCharging=charging;
 	}
 }
-void Oruzje::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Weapon::Fire(Vec2 pos, Vec2 direction, unsigned char** map, bool owner)
 {
-	this->absPoz=poz;
-	this->smjer=smjer;
-	this->mapa=mapa;
-	this->vlasnik=vlasnik;	
+    this->absPos=pos;
+    this->direction=direction;
+    this->map=map;
+    this->owner=owner;
 }
-void Oruzje::IspaliProjektil(Projektil* p)
+void Weapon::FireProjectile(Projektil* p)
 {
-	stanje->GetProjectile(p);
-	p->Init(absPoz,smjer,stanje,mapa,vlasnik);	
-	stanje->GetPlayer()->OduzmiEnergiju(potrebnaEnergija);
+    state->GetProjectile(p);
+    p->Init(absPos, direction, state, map, owner);
+    state->GetPlayer()->OduzmiEnergiju(requiredEnergy);
 }
-void Oruzje::Render()
+void Weapon::Render()
 {
-	float o=trenutnoPunjenje/punjenje*8;
+    float o=currentCharging/charging*8;
 	glPushMatrix();
 	glTranslatef(0,-o,0);
 	glEnable(GL_ALPHA_TEST);
@@ -79,9 +79,9 @@ void Oruzje::Render()
 	glDisable(GL_ALPHA_TEST);
 	glPopMatrix();
 }
-void Oruzje::RenderNormal()
+void Weapon::RenderNormal()
 {
-	float o=trenutnoPunjenje/punjenje*8;
+    float o=currentCharging/charging*8;
 	glPushMatrix();
 	glTranslatef(0,-o,0);
 	glEnable(GL_ALPHA_TEST);
@@ -98,9 +98,9 @@ void Oruzje::RenderNormal()
 	glDisable(GL_ALPHA_TEST);
 	glPopMatrix();
 }
-void Oruzje::RenderGlow()
+void Weapon::RenderGlow()
 {
-	float o=trenutnoPunjenje/punjenje*8;
+    float o=currentCharging/charging*8;
 	glPushMatrix();
 	glTranslatef(0,-o,0);
 	glEnable(GL_ALPHA_TEST);
@@ -117,7 +117,7 @@ void Oruzje::RenderGlow()
 	glDisable(GL_ALPHA_TEST);
 	glPopMatrix();
 }
-float Oruzje::DajPotrebnuEnergiju()
+float Weapon::GetRequiredEnergy()
 {
-	return potrebnaEnergija;
+    return requiredEnergy;
 }

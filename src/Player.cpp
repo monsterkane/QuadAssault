@@ -31,7 +31,7 @@ void Igrac::Init(Vec2 poz, GameState* stanje, unsigned char** mapa)
     for(int i=0; i<4; ++i)
         oruzjeSlot[i] = false;
 
-	this->poz=poz;
+	this->pos=poz;
 	this->stanje=stanje;
 	this->mapa=mapa;
 	dim.x=64;
@@ -69,14 +69,14 @@ void Igrac::Pucaj(Vec2 misPoz, float deltaT)
 	if(unisten==false)
 	{
 		Vec2 smjer;
-		smjer=misPoz-poz-Vec2(dim.x/2, dim.y/2);
+		smjer=misPoz-pos-Vec2(dim.x/2, dim.y/2);
 		smjer.Normaliziraj();
 
 		for(int i=0; i<4; i++)
 		{		
 			if(oruzjeSlot[i]==true && oruzja[i]!=NULL)
 			{
-				if(energija>=oruzja[i]->DajPotrebnuEnergiju())
+                if(energija>=oruzja[i]->GetRequiredEnergy())
 				{
 					Vec2 oPoz=oruzja[i]->DajPoz();
 		
@@ -87,7 +87,7 @@ void Igrac::Pucaj(Vec2 misPoz, float deltaT)
 					slot.y=sin((rotacijaTorza+kut)/180.0*3.14);
 					slot.Mnozi(sqrt(oPoz.x*oPoz.x + oPoz.y*oPoz.y)); //oruzje x offset
 
-					oruzja[i]->Pucaj(DajSredinu()+slot,smjer,mapa,IGRAC);									
+					oruzja[i]->Fire(DajSredinu()+slot,smjer,mapa,IGRAC);									
 				}
 				puca=true;
 			}
@@ -97,10 +97,10 @@ void Igrac::Pucaj(Vec2 misPoz, float deltaT)
 bool Igrac::ProvjeraSudara()
 {
 	Box k1;
-	k1.v1=poz+Vec2(4,4);
-	k1.v2=poz+dim-Vec2(4,4);
-	for(int x=(poz.x/BLOCK_SIZE)-2; x<(poz.x/BLOCK_SIZE)+2; x++)
-	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
+	k1.v1=pos+Vec2(4,4);
+	k1.v2=pos+dim-Vec2(4,4);
+	for(int x=(pos.x/BLOCK_SIZE)-2; x<(pos.x/BLOCK_SIZE)+2; x++)
+	for(int y=(pos.y/BLOCK_SIZE)-2; y<(pos.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
 		if(mapa[x][y]!=FLOOR)
@@ -127,8 +127,8 @@ bool Igrac::ProvjeraSudara()
 void Igrac::SudarProjektila()
 {
 	Box k1;
-	k1.v1=poz+Vec2(4,4);
-	k1.v2=poz+dim-Vec2(4,4);
+	k1.v1=pos+Vec2(4,4);
+	k1.v2=pos+dim-Vec2(4,4);
 	for(int i=0; i<stanje->GetProjectiles()->size(); i++)
 	{
 		if(stanje->GetProjectiles()->at(i)->vlasnik==NEPRIJATELJ)
@@ -152,7 +152,7 @@ void Igrac::PrimiStetu(Projektil* p)
 		p->unisten=true;
 	}
 }
-void Igrac::DodajOruzje(Oruzje* o)
+void Igrac::DodajOruzje(Weapon* o)
 {
 	for(int i=0; i<4; i++)
 	{

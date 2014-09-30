@@ -75,7 +75,7 @@ void OruzjePickup::Render(unsigned char stil)
 		t=texN;
 	if(stil==GLOW)
 		t=texG;
-	SpriteT(poz+Vec2(dim.x/2-8,0),Vec2(16,32),rotacija,t);
+	SpriteT(pos+Vec2(dim.x/2-8,0),Vec2(16,32),rotacija,t);
 }
 void OruzjePickup::Unisti()
 {

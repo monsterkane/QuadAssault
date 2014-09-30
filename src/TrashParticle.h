@@ -25,7 +25,7 @@
 class SmeceCestica : public Cestica
 {
 public:
-	virtual void Init(Vec2 poz, GameState* stanje);
+	virtual void Init(Vec2 pos, GameState* stanje);
 	virtual void Update(float deltaT);
 	virtual void Render(unsigned char stil);
 };

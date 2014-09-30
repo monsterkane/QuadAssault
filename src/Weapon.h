@@ -18,37 +18,37 @@
  *   along with This program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ORUZJE_H
-#define ORUZJE_H
+#ifndef WEAPON_H
+#define WEAPON_H
 #include "Object.h"
 
 class GameState;
 class Projektil;
 
-class Oruzje : public Objekt
+class Weapon : public Objekt
 {
 protected:
 	GLuint tex, texN, texG;
-	GameState* stanje;
+    GameState* state;
 
-	Vec2 absPoz, smjer;
-	unsigned char** mapa;
-	bool vlasnik;
+    Vec2 absPos, direction;
+    unsigned char** map;
+    bool owner;
 	
-	float punjenje, trenutnoPunjenje;
-	float brzinaPunjenja;
-	float potrebnaEnergija;
+    float charging, currentCharging;
+    float chargingSpeed;
+    float requiredEnergy;
 	
 public:
-	virtual void Init(GameState* stanje);
+    virtual void Init(GameState* state);
 	virtual void Update(float deltaT);	
 	virtual void Render();
 	virtual void RenderNormal();
 	virtual void RenderGlow();
-	virtual void Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik);
-	virtual void IspaliProjektil(Projektil* p);
+    virtual void Fire(Vec2 pos, Vec2 direction, unsigned char** map, bool owner);
+    virtual void FireProjectile(Projektil* p);
 
-	float DajPotrebnuEnergiju();
+    float GetRequiredEnergy();
 };
 
 #endif

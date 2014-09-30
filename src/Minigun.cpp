@@ -24,32 +24,32 @@
 
 void Minigun::Init(GameState* stanje)
 {
-	Oruzje::Init(stanje);
+	Weapon::Init(stanje);
     tex=stanje->GetTM()->DajTexturu("../data/weapon1.tga")->id;
     texN=stanje->GetTM()->DajTexturu("../data/weapon1Normal.tga")->id;
     texG=stanje->GetTM()->DajTexturu("../data/weapon3Glow.tga")->id;
-	brzinaPunjenja=1500;
-	potrebnaEnergija=0.5;
+	chargingSpeed=1500;
+	requiredEnergy=0.5;
 }
 void Minigun::Update(float deltaT)
 {
-	Oruzje::Update(deltaT);
+	Weapon::Update(deltaT);
 }
 void Minigun::Render()
 {
-	Oruzje::Render();
+	Weapon::Render();
 }
-void Minigun::Pucaj(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
+void Minigun::Fire(Vec2 poz, Vec2 smjer, unsigned char** mapa, bool vlasnik)
 {
-	Oruzje::Pucaj(poz,smjer,mapa,vlasnik);
-	if(trenutnoPunjenje==punjenje)
+	Weapon::Fire(poz,smjer,mapa,vlasnik);
+	if(currentCharging==charging)
 	{
 		for(int i=0; i<1; i++)
 		{
-			absPoz.x-=smjer.x*4;
-			absPoz.y-=smjer.y*4;		
-			IspaliProjektil(new MinigunProjektil());				
+			absPos.x-=smjer.x*4;
+			absPos.y-=smjer.y*4;		
+			FireProjectile(new MinigunProjektil());				
 		}
-		trenutnoPunjenje=0;
+		currentCharging=0;
 	}
 }

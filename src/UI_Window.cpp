@@ -33,7 +33,7 @@ UI_Prozor::~UI_Prozor()
 void UI_Prozor::Init(UI_Menager* m, Vec2 poz, Vec2 dim, string naziv)
 {
 	this->manager=manager;
-	this->poz=poz;
+	this->pos=poz;
 	this->dim=dim;
 	this->naziv=naziv;
 }
@@ -41,8 +41,8 @@ void UI_Prozor::Update(float deltaT, Vec2 mis)
 {
 	if(podignut==true)
 	{
-		poz.x+=mis.x-misPrije.x;
-		poz.y+=mis.y-misPrije.y;
+		pos.x+=mis.x-misPrije.x;
+		pos.y+=mis.y-misPrije.y;
 		misPrije=mis;
 	}
 	for(int i=0; i<elementi.size(); i++)
@@ -55,19 +55,19 @@ void UI_Prozor::Render()
 	glBlendFunc(GL_ONE, GL_ONE);
 	glColor3f(0.0, 0.25, 0.0);
 	glBegin(GL_QUADS);
-	glVertex2f(poz.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y);
-	glVertex2f(poz.x+dim.x, poz.y+dim.y);
-	glVertex2f(poz.x, poz.y+dim.y);
+	glVertex2f(pos.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y);
+	glVertex2f(pos.x+dim.x, pos.y+dim.y);
+	glVertex2f(pos.x, pos.y+dim.y);
 	glEnd();
 	glDisable(GL_BLEND);
 
 	//NASLOVNICA (TRAKA)
 	glBegin(GL_QUADS);
-	glColor3f(0.0, 1.0, 0.0); glVertex2f(poz.x, poz.y);
-	glColor3f(0.0, 1.0, 0.0); glVertex2f(poz.x+dim.x, poz.y);
-	glColor3f(0.0, 0.0, 0.0); glVertex2f(poz.x+dim.x, poz.y+16);
-	glColor3f(0.0, 0.0, 0.0); glVertex2f(poz.x, poz.y+16);
+	glColor3f(0.0, 1.0, 0.0); glVertex2f(pos.x, pos.y);
+	glColor3f(0.0, 1.0, 0.0); glVertex2f(pos.x+dim.x, pos.y);
+	glColor3f(0.0, 0.0, 0.0); glVertex2f(pos.x+dim.x, pos.y+16);
+	glColor3f(0.0, 0.0, 0.0); glVertex2f(pos.x, pos.y+16);
 	glEnd();
 	glColor3f(1.0, 1.0, 1.0);
 
@@ -77,8 +77,8 @@ void UI_Prozor::Render()
 
 void UI_Prozor::LijeviKlik(Vec2 mis)
 {
-	if(mis.x>=poz.x && mis.y>=poz.y
-		&& mis.y<poz.y+16 && mis.x<poz.x+dim.x)
+	if(mis.x>=pos.x && mis.y>=pos.y
+		&& mis.y<pos.y+16 && mis.x<pos.x+dim.x)
 	{
 			podignut=true;
 			misPrije=mis;

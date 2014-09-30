@@ -26,7 +26,7 @@
 
 void Mob::Init(Vec2 poz, GameState* stanje, unsigned char** mapa)
 {
-	this->poz=poz;
+	this->pos=poz;
 	this->stanje=stanje;
 	this->mapa=mapa;
 
@@ -49,7 +49,7 @@ void Mob::Update(float deltaT)
 	akceleracija=1;
 
 	Vec2 smjer;
-	smjer=stanje->GetPlayer()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
+	smjer=stanje->GetPlayer()->DajSredinu()-pos-Vec2(dim.x/2, dim.y/2);
 	smjer.Normaliziraj();
 
 	rotacija=atan2(smjer.y,smjer.x)*180/3.14 + 90;
@@ -58,12 +58,12 @@ void Mob::Update(float deltaT)
 	moment.x=cos((rotacija-90)/180.0*3.14)*akceleracija;
 	moment.y=sin((rotacija-90)/180.0*3.14)*akceleracija;	
 
-	poz.y+=moment.y*brzina*deltaT;
+	pos.y+=moment.y*brzina*deltaT;
 	if(ProvjeraSudara())
-		poz.y-=moment.y*brzina*deltaT;
-	poz.x+=moment.x*brzina*deltaT;
+		pos.y-=moment.y*brzina*deltaT;
+	pos.x+=moment.x*brzina*deltaT;
 	if(ProvjeraSudara())
-		poz.x-=moment.x*brzina*deltaT;
+		pos.x-=moment.x*brzina*deltaT;
 
 	SudarProjektila();	
 
@@ -89,14 +89,14 @@ void Mob::Render(unsigned char stil)
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glPushMatrix();		
 		glColor4f(0.0, 0.0, 0.0, 0.6);			
-		SpriteT(poz+Vec2(5,5),dim,rotacija,tex);			
+		SpriteT(pos+Vec2(5,5),dim,rotacija,tex);			
 		glColor4f(1.0, 1.0, 1.0, 1.0);
 		glPopMatrix();
 		glDisable(GL_BLEND);
 	}
 
 	glPushMatrix();	
-	SpriteT(poz,dim,rotacija,tex);	
+	SpriteT(pos,dim,rotacija,tex);	
 	glPopMatrix();	
 }
 void Mob::Unisti()
@@ -134,10 +134,10 @@ void Mob::Rotiraj(float rot)
 bool Mob::ProvjeraSudara()
 {
 	Box k1;
-	k1.v1=poz+Vec2(4,4);
-	k1.v2=poz+dim-Vec2(4,4);
-	for(int x=(poz.x/BLOCK_SIZE)-2; x<(poz.x/BLOCK_SIZE)+2; x++)
-	for(int y=(poz.y/BLOCK_SIZE)-2; y<(poz.y/BLOCK_SIZE)+2; y++)
+	k1.v1=pos+Vec2(4,4);
+	k1.v2=pos+dim-Vec2(4,4);
+	for(int x=(pos.x/BLOCK_SIZE)-2; x<(pos.x/BLOCK_SIZE)+2; x++)
+	for(int y=(pos.y/BLOCK_SIZE)-2; y<(pos.y/BLOCK_SIZE)+2; y++)
 	{
 		if(x>=0 && x<MX && y>=0 && y<MY)
 		if(mapa[x][y]!=FLOOR)
@@ -173,8 +173,8 @@ bool Mob::ProvjeraSudara()
 void Mob::SudarProjektila()
 {
 	Box k1;
-	k1.v1=poz+Vec2(4,4);
-	k1.v2=poz+dim-Vec2(4,4);
+	k1.v1=pos+Vec2(4,4);
+	k1.v2=pos+dim-Vec2(4,4);
 	for(int i=0; i<stanje->GetProjectiles()->size(); i++)
 	{
 		if(stanje->GetProjectiles()->at(i)->vlasnik==IGRAC)
@@ -204,7 +204,7 @@ void Mob::Pucanje(Projektil* p, float deltaT)
 			punjenje+=brzinaPunjenja*deltaT;
 		if(punjenje>=100)
 		{
-			Vec2 smjerPucanja=stanje->GetPlayer()->DajSredinu()-poz-Vec2(dim.x/2, dim.y/2);
+			Vec2 smjerPucanja=stanje->GetPlayer()->DajSredinu()-pos-Vec2(dim.x/2, dim.y/2);
 			float l=smjerPucanja.Duljina();
 			if(l<domet)
 			{

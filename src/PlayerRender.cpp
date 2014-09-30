@@ -67,7 +67,7 @@ void Igrac::RenderPodlogu(unsigned char stil)
 		tex=podloga_normal;
 
 	glPushMatrix();	
-	SpriteT(poz,dim,rotacija,tex);	
+	SpriteT(pos,dim,rotacija,tex);	
 	glPopMatrix();
 }
 void Igrac::RenderTorzo(unsigned char stil)
@@ -78,7 +78,7 @@ void Igrac::RenderTorzo(unsigned char stil)
 	if(stil==NORMAL)
 		tex = texturaN;	
 	glPushMatrix();	
-	SpriteT(poz,dim,rotacijaTorza+90,tex);			
+	SpriteT(pos,dim,rotacijaTorza+90,tex);			
 	glPopMatrix();	
 }
 void Igrac::RenderTracnice(unsigned char stil)
@@ -126,7 +126,7 @@ void Igrac::RenderTracnice(unsigned char stil)
 
 	glDisable(GL_TEXTURE_2D);
 }
-void Igrac::RenderOruzje(float x, float y, Oruzje* oruzje, unsigned char stil)
+void Igrac::RenderOruzje(float x, float y, Weapon* oruzje, unsigned char stil)
 {
 	glPushMatrix();
 	glTranslatef(DajSredinu().x,DajSredinu().y,0);

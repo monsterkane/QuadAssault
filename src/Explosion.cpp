@@ -32,7 +32,7 @@ Explosion::~Explosion()
 }
 void Explosion::Init(Vec2 pos, float radius, GameState* state)
 {
-    this->poz=pos;
+    this->pos=pos;
 	this->radius=radius;
     this->state=state;
     dead=false;

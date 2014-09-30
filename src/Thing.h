@@ -31,7 +31,7 @@ protected:
 	GameState* stanje;
 	GLuint tex, texN, texG;
 public:
-	virtual void Init(Vec2 poz, GameState* stanje);
+	virtual void Init(Vec2 pos, GameState* stanje);
 	virtual void Update(float deltaT);
 	virtual void Render(unsigned char stil);
 	virtual void Unisti();

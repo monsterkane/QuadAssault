@@ -24,7 +24,7 @@
 
 void Stvar::Init(Vec2 poz, GameState* stanje)
 {
-	this->poz=poz;
+	this->pos=poz;
 	this->stanje=stanje;
 
 	dim.x=32;
@@ -33,8 +33,8 @@ void Stvar::Init(Vec2 poz, GameState* stanje)
 void Stvar::Update(float deltaT)
 {
 	Box k1;
-	k1.v1=poz;
-	k1.v2=poz+dim;
+	k1.v1=pos;
+	k1.v2=pos+dim;
 	Box k2; 
 	k2.v1=stanje->GetPlayer()->DajPoz();
 	k2.v2=stanje->GetPlayer()->DajPoz()+stanje->GetPlayer()->DajDim();
